@@ -1,6 +1,6 @@
-const CAMALOT_PATTERN = /[Cc]am(\-?a\-?lot)?s?/gi;
-const GEAR_SIZE_PATTERN = /#[0-9](\.5|\.75)?/gi; // matches e.g. #0.75
-const CRACK_SIZE_PATTERN = /(([0-9](\.5)?)\-)?[0-9](\.5)?("|cm|mm)/gi; // matches e.g. 3.5", 3-4"
+const CAMALOT_PATTERN = /[Cc]am(\-?a\-?lot)?s?\s/gi;
+const GEAR_SIZE_PATTERN = /#[0-9](\.5|\.75)?\s/gi; // matches e.g. #0.75
+const CRACK_SIZE_PATTERN = /(([0-9](\.5)?)\-)?[0-9](\.5)?("|cm|mm)\s/gi; // matches e.g. 3.5", 3-4"
 
 const GEAR_COLOR = "#FF0000";
 const GEAR_SIZE_COLOR = "#00FF00";

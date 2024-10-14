@@ -24,13 +24,20 @@ Currently this is only available to be installed from source. More to come in th
 
 ## Usage
 
-Load a route page on Mountain Project (e.g. Epinephernie)
+Load a route page on Mountain Project (e.g.
+[Epinepherine](https://www.mountainproject.com/route/105732422/epinephrine)).
+This extension should change the page's content.
+
+Right now, it just highlights the mentions of gear and crack size different colors:
+![Climbing Size Matters Example](img/climbing-size-matters-example.png)
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+### Setup
 
 This repository uses:
 - pnpm: [Installation](https://pnpm.io/installation)

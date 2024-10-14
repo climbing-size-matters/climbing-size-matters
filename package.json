@@ -1,0 +1,22 @@
+{
+  "name": "climbing-size-matters",
+  "version": "0.1.0",
+  "description": "mountain project enhancements",
+  "main": "content-script.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louis-brann/climbing-size-matters.git"
+  },
+  "keywords": [
+    "browser", "extension", "climbing", "gear", "mountainproject"
+  ],
+  "author": "Louis Brann, Eric Warren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/louis-brann/climbing-size-matters/issues"
+  },
+  "homepage": "https://github.com/louis-brann/climbing-size-matters#readme"
+}

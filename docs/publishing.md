@@ -6,11 +6,8 @@ Currently we are only planning on publishing as a Chrome* web extension.
 
 ### Generating a Zip File
 
-TODO: Create package.json scripts to automate this.
-
-For now, just create a zip file manually:
-1. Right-click on the `src` folder
-2. Click `Compress`
+We have a script for this: `pnpm zip-chrome`. This uses `zip` to create a zip archive
+in `dist/chrome`.
 
 ### Publishing the Extension
 

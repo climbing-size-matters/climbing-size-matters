@@ -20,7 +20,7 @@ Currently this is only available to be installed from source. More to come in th
 2. Open your Chromium browser
 3. Enable Developer Mode
 4. Click "Load unpacked"
-5. Select this whole directory
+5. Select the whole `src` directory
 
 ## Usage
 
@@ -29,7 +29,7 @@ Load a route page on Mountain Project (e.g.
 This extension should change the page's content.
 
 Right now, it just highlights the mentions of gear and crack size different colors:
-![Climbing Size Matters Example](img/climbing-size-matters-example.png)
+![Climbing Size Matters Example](docs/img/climbing-size-matters-example.png)
 
 ## Contributing
 

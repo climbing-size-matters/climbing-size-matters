@@ -22,7 +22,7 @@
   "main": "content-script.js",
   "scripts": {
     "test": "test",
-    "zip-chrome": "zip -r dist/chrome/climbing-size-matters.zip src/ -x '.DS_Store'"
+    "zip-chrome": "zip -r dist/chrome/climbing-size-matters.zip src/ -x '*/.DS_Store'"
   },
   "dependencies": {
     "sort-package-json": "^2.10.1"

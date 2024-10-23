@@ -1,0 +1,30 @@
+name: Publish Chrome (Test)
+
+on:
+  push:
+    branches:
+    - 'main'
+    - 'publish-workflow' # TODO: remove after testing
+
+jobs:
+  build-and-upload:
+    name: Publish Chrome extension
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: pnpm/action-setup@v4
+    - name: Build
+      run: |
+        pnpm zip-chrome 
+    - name: Upload & release
+      uses: mnao305/chrome-extension-upload@v5.0.0
+      with:
+        # TODO: can we variablize this file-path so that it matches the Build command?
+        file-path: dist/chrome/climbing-size-matters.zip
+        extension-id: ${{ vars.EXTENSION_ID }}
+        client-id: ${{ secrets.CLIENT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
+        # TODO: this may need to be fetched by a previous step?
+        refresh-token: ${{ secrets.REFRESH_TOKEN }}
+        publish: false

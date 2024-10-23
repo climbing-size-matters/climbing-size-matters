@@ -20,8 +20,8 @@
   "license": "MIT",
   "author": "Louis Brann, Eric Warren",
   "main": "content-script.js",
+  "packageManager": "pnpm@9.12.1",
   "scripts": {
-    "test": "test",
     "zip-chrome": "zip -r dist/chrome/climbing-size-matters.zip src/ -x '*/.DS_Store'"
   },
   "dependencies": {

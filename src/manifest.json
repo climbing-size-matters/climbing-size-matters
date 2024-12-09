@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "manifest_version": 3,
   "description": "To help people display MP sizes",
-  "permissions": [],
+  "permissions": ["scripting", "tabs", "activeTab"],
   "host_permissions": [
     "https://www.mountainproject.com/*",
     "https://www.mountainproject.com/*"
@@ -15,12 +15,6 @@
     "128": "/images/cams128.png"
   },
   "action": {
-    "default_popup": "index.html"
-  },
-  "content_scripts": [
-   {
-     "matches": ["https://www.mountainproject.com/*"],
-     "js": ["content-script.js"]
-   }
-  ]
+    "default_popup": "popup.html"
+  }
 }

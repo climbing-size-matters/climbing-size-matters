@@ -22,5 +22,5 @@
       "matches": ["https://www.mountainproject.com/*"],
       "js": ["highlight-gear.js"]
     }
-   ]
+  ]
 }

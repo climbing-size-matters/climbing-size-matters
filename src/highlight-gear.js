@@ -37,5 +37,8 @@ function highlightCamWords(element) {
   }
 }
 
-// Execute the highlight function on the document body
-highlightCamWords(document.body);
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === "highlight-gear") {
+    highlightCamWords(document.body);
+  }
+});

@@ -39,6 +39,7 @@ function highlightCamWords(element) {
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === "highlight-gear") {
+    // TODO: this will infinitely nest spans
     highlightCamWords(document.body);
   }
 });

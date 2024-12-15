@@ -1,27 +1,15 @@
-## Build artifacts
-dist/**/src
-dist/**/*.zip
-!**/.gitkeep
-
 # Logs
 logs
 *.log
 pnpm-debug.log*
 
+## Build artifacts
 node_modules
-.output
-stats.html
-stats-*.json
+dist
+!**/.gitkeep
 .wxt
-web-ext.config.ts
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?

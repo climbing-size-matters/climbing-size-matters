@@ -6,8 +6,8 @@ Currently we are only planning on publishing as a Chrome* web extension.
 
 ### Generating a Zip File
 
-We have a script for this: `pnpm zip-chrome`. This uses `zip` to create a zip archive
-in `dist/chrome`.
+We have a script for this: `pnpm zip`. This uses `wxt` to generate a zip file in our
+output folder (`dist`).
 
 ### Publishing the Extension
 
@@ -35,3 +35,10 @@ This currently isn't set up yet, but we have set up the pre-requisites.
 We have a GCP project with the [Chrome Web Store API enabled](https://console.cloud.google.com/apis/api/chromewebstore.googleapis.com/metrics?project=climbing-size-matters).
 Eventually we will want to automate the publication in a CD pipeline using the
 [Chrome Web Store Publish API](https://developer.chrome.com/docs/webstore/using-api).
+
+### Accessing the published extension in the Chrome Web Store
+
+Currently this is only enabled for testing users, so we can't search for it.
+
+We have to go directly using the URL built from our org (`climbing-size-matters`) and
+the item ID. Currently this is https://chromewebstore.google.com/detail/climbing-size-matters/igeaonjjikppbfcchekinmlhfehfcepp

@@ -12,15 +12,39 @@ to highlight gear and translate to your gear.
 > This is still very early stage and under active development. Features and documentation
 > may change rapidly.
 
+## Setup
+
+This repository uses:
+- pnpm: [Installation](https://pnpm.io/installation)
+- wxt: [WXT](https://wxt.dev/)
+
+We use WXT for hot-reloading while developing. So if you're actively developing,
+just use `pnpm dev` and WXT will build and automatically open the browser with the
+extension loaded.
+
+1. Clone this repo
+2. `pnpm install`
+3. `pnpm dev`
+
 ## Installation
 
-Currently this is only available to be installed from source. More to come in the future.
+### From the Web Store
 
-1. Check out this repo
+Currently this is only enabled for testing users, so we can't search for it.
+
+We have to go directly using the URL built from our org (`climbing-size-matters`) and
+the item ID. Currently this is https://chromewebstore.google.com/detail/climbing-size-matters/igeaonjjikppbfcchekinmlhfehfcepp
+
+### From Source
+
+1. Follow the Setup above, then run `pnpm build`
 2. Open your Chromium browser
 3. Enable Developer Mode
 4. Click "Load unpacked"
-5. Select the whole `src` directory
+5. Select the built folder (e.g. `dist/chrome-mv3`)
+
+Parallel steps are available for Firefox thanks to WXT! Just use `pnpm build:firefox`
+and the unpacked directory will be built to `dist/firefox-mv2`.
 
 ## Usage
 
@@ -36,11 +60,6 @@ Right now, it just highlights the mentions of gear and crack size different colo
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
-
-### Setup
-
-This repository uses:
-- pnpm: [Installation](https://pnpm.io/installation)
 
 ## License
 

@@ -27,8 +27,12 @@ export default defineConfig({
     content_scripts: [
      {
        matches: ["https://www.mountainproject.com/*"],
-       js: ["content.js"]
+       js: ["content-scripts/content.js"]
      }
     ]
+  },
+  runner: {
+    // https://wxt.dev/guide/essentials/config/browser-startup.html#persist-data
+    chromiumArgs: ['--user-data-dir=./.wxt/chrome-data'],
   }
 });

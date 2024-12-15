@@ -1,6 +1,7 @@
 {
   "name": "climbing-size-matters",
   "version": "0.1.0",
+  "private": true,
   "description": "mountain project enhancements",
   "keywords": [
     "browser",
@@ -29,10 +30,10 @@
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare",
-    "test": "test",
-    "zip-chrome": "zip -r dist/chrome/climbing-size-matters.zip src/ -x '*/.DS_Store'"
+    "test": "test"
   },
   "devDependencies": {
+    "typescript": "^5.6.3",
     "sort-package-json": "^2.10.1",
     "wxt": "^0.19.22"
   }

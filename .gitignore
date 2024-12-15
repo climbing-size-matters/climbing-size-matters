@@ -6,8 +6,10 @@ pnpm-debug.log*
 ## Build artifacts
 node_modules
 dist
-!**/.gitkeep
 .wxt
+stats.html
+stats-*.json
+web-ext.config.ts
 
 # Editor directories and files
 .vscode/*

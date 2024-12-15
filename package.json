@@ -21,6 +21,14 @@
   "author": "Louis Brann, Eric Warren",
   "main": "content-script.js",
   "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare",
     "test": "test",
     "zip-chrome": "zip -r dist/chrome/climbing-size-matters.zip src/ -x '*/.DS_Store'"
   },

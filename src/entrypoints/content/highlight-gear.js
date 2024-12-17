@@ -1,6 +1,6 @@
-const CAMALOT_PATTERN = /(?<!\w)[Cc]am(\-?a\-?lot)?s?(?!\w)/gi; // # matches e.g. cam, Cam-a-lot
-const GEAR_SIZE_PATTERN = /(?<!\w)(#(0(0|\.([12345]|(75)))?)|#[1-8])(?![\w\.])/gi; // matches #00, #0, #0.1-0.75, #1-#8
-const CRACK_SIZE_PATTERN = /(?<!\w)(([0-9](\.5)?)\-)?[0-9](\.5)?("|cm|mm)(?!\w)/gi; // matches e.g. 3.5", 3-4"
+const CAMALOT_PATTERN = /(?<!\w)[Cc]am(-?a-?lot)?s?(?!\w)/gi; // # matches e.g. cam, Cam-a-lot
+const GEAR_SIZE_PATTERN = /(?<!\w)(#(0(0|\.([12345]|(75)))?)|#[1-8])(?![\w.])/gi; // matches #00, #0, #0.1-0.75, #1-#8
+const CRACK_SIZE_PATTERN = /(?<!\w)(([0-9](\.5)?)-)?[0-9](\.5)?("|cm|mm)(?!\w)/gi; // matches e.g. 3.5", 3-4"
 
 const GEAR_COLOR = "#FF0000";
 const GEAR_SIZE_COLOR = "#00FF00";

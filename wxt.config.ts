@@ -30,5 +30,10 @@ export default defineConfig({
        js: ["content-scripts/esm-loader.js"]
      }
     ]
-  }
+  },
+  imports: {
+    eslintrc: {
+      enabled: 9,
+    },
+  },
 });

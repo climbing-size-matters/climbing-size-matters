@@ -38,7 +38,7 @@ function highlightCamWords(element) {
 }
 
 export default defineContentScript({
-  matches: ['*://*.google.com/*'],
+  matches: ["*://www.mountainproject.com/*"],
   main() {
     // Execute the highlight function on the document body
     highlightCamWords(document.body);

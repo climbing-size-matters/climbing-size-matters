@@ -12,8 +12,7 @@ export default defineConfig({
     description: "To help people display MP sizes",
     permissions: [],
     host_permissions: [
-      "https://www.mountainproject.com/*",
-      "https://www.mountainproject.com/*"
+      "*://www.mountainproject.com/*",
     ],
     icons: {
       16: "/icon/cams16.png",
@@ -26,13 +25,10 @@ export default defineConfig({
     },
     content_scripts: [
      {
-       matches: ["https://www.mountainproject.com/*"],
-       js: ["content-scripts/content.js"]
+       matches: ["*://www.mountainproject.com/*"],
+       // to enable HMR, we have a loader that dynamically imports our script
+       js: ["content-scripts/esm-loader.js"]
      }
     ]
-  },
-  runner: {
-    // https://wxt.dev/guide/essentials/config/browser-startup.html#persist-data
-    chromiumArgs: ['--user-data-dir=./.wxt/chrome-data'],
   }
 });

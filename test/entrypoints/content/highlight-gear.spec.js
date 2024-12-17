@@ -90,4 +90,29 @@ describe('higlightCrackAndGearMentions', () => {
       });
     });
   });
+
+  describe('crack sizes', () => {
+    describe('finds', () => {
+      it('units', () => {
+        expect(highlightCrackAndGearMentions('1"')).toBeHighlightedWith('#0000FF');
+        expect(highlightCrackAndGearMentions('3cm')).toBeHighlightedWith('#0000FF');
+        expect(highlightCrackAndGearMentions('5mm')).toBeHighlightedWith('#0000FF');
+      });
+
+      it('decimal sizes', () => {
+        expect(highlightCrackAndGearMentions('1.5"')).toBeHighlightedWith('#0000FF');
+      });
+
+      it('size ranges', () => {
+        expect(highlightCrackAndGearMentions('1-3"')).toBeHighlightedWith('#0000FF');
+      });
+    });
+
+    describe('doesnt find', () => {
+      it('numbers without units', () => {
+        expect(highlightCrackAndGearMentions('1-3')).not.toBeHighlightedWith('#0000FF');
+        expect(highlightCrackAndGearMentions('1.5')).not.toBeHighlightedWith('#0000FF');
+      });
+    });
+  });
 });

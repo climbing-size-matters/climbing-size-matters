@@ -7,6 +7,8 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  // global ignores
+  { ignores: ["dist/**", 'node_modules/**', ".wxt/**", ".husky/**", ".vscode/**", "docs/**", "coverage/**" ] },
   wxtAutoImports,
   {files: ["**/*.{js,mjs,cjs,ts}"]},
   {languageOptions: { globals: globals.browser }},

@@ -2,3 +2,8 @@
 .wxt
 dist
 coverage
+
+.husky
+.vscode
+docs
+node_modules

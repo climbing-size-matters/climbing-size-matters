@@ -1,0 +1,14 @@
+# build artifacts
+.wxt
+dist
+coverage
+node_modules
+pnpm-lock.yaml
+
+# config
+.husky
+.vscode
+
+# non-code
+docs
+README.md

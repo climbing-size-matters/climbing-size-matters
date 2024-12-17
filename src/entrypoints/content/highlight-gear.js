@@ -1,4 +1,4 @@
-const CAMALOT_PATTERN = /[Cc]am(\-?a\-?lot)?s?[^\w]?/gi;
+const CAMALOT_PATTERN = /(?<!\w)[Cc]am(\-?a\-?lot)?s?(?!\w)/gi;
 const GEAR_SIZE_PATTERN = /#[0-9](\.5|\.75)?\s/gi; // matches e.g. #0.75
 const CRACK_SIZE_PATTERN = /(([0-9](\.5)?)\-)?[0-9](\.5)?("|cm|mm)\s/gi; // matches e.g. 3.5", 3-4"
 

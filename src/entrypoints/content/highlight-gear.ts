@@ -8,37 +8,40 @@ const GEAR_COLOR = "#FF0000";
 const GEAR_SIZE_COLOR = "#00FF00";
 const CRACK_SIZE_COLOR = "#0000FF";
 
-const replacements = [
+type Replacement = {
+    pattern: RegExp;
+    color: string;
+  };
+
+const replacements: Replacement[] = [
   { pattern: CAMALOT_PATTERN, color: GEAR_COLOR },
   { pattern: GEAR_SIZE_PATTERN, color: GEAR_SIZE_COLOR },
   { pattern: CRACK_SIZE_PATTERN, color: CRACK_SIZE_COLOR },
 ];
 
 // returns a string of text with HTML color spans around highlighted words
-function highlightCrackAndGearMentions(text) {
+function highlightCrackAndGearMentions(text: string): string {
   let textWithHTMLHighlights = text;
   for (const { pattern, color } of replacements) {
-    if (pattern.test(textWithHTMLHighlights)) {
-      textWithHTMLHighlights = textWithHTMLHighlights.replace(
-        pattern,
-        `<span style='color:${color};'>$&</span>`,
-      );
-    }
+    textWithHTMLHighlights = textWithHTMLHighlights.replace(
+    pattern,
+    `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,
+    );
   }
   return textWithHTMLHighlights;
 }
 
 // Function to recursively search and highlight the word "cam"
-function highlightCamWords(element) {
+function highlightCamWords(element: Node): void {
   if (element.hasChildNodes()) {
     element.childNodes.forEach(highlightCamWords);
-  } else if (element.nodeType === Text.TEXT_NODE) {
-    const highlightedHTML = highlightCrackAndGearMentions(element.textContent);
+  } else if (element.nodeType === Node.TEXT_NODE) {
+    const highlightedHTML = highlightCrackAndGearMentions(element.textContent ?? "");
 
     const highlightedNode = document.createElement("span");
     highlightedNode.innerHTML = highlightedHTML;
 
-    element.replaceWith(highlightedNode);
+    (element as ChildNode).replaceWith(highlightedNode);
   }
 }
 

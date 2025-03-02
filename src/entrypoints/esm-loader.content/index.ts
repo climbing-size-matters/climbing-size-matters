@@ -3,7 +3,9 @@
 export default defineContentScript({
   matches: ["*://www.mountainproject.com/*"],
   async main(ctx): Promise<void> {
-    const contentScript = await import(browser.runtime.getURL("/content-scripts/content.js"));
+    const contentScript = await import(
+      browser.runtime.getURL("/content-scripts/content.js")
+    );
     return await contentScript.default(ctx);
   },
 });

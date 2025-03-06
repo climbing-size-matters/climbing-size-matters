@@ -4,9 +4,10 @@ import { WxtVitest } from "wxt/testing";
 export default defineConfig({
   plugins: [WxtVitest()],
   test: {
-    include: ["test/**/*.spec.ts", "test/**/*.spec.js"],
+    include: ["test/**/*.spec.ts", "test/**/*.spec.js", "test/**/*.d.ts"],
     coverage: {
       include: ["src"],
     },
+    setupFiles: ["test/setup-tests.ts"],
   },
 });

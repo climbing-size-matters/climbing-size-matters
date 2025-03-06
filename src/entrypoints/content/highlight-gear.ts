@@ -9,9 +9,9 @@ const GEAR_SIZE_COLOR = "#00FF00";
 const CRACK_SIZE_COLOR = "#0000FF";
 
 type Replacement = {
-    pattern: RegExp;
-    color: string;
-  };
+  pattern: RegExp;
+  color: string;
+};
 
 const replacements: Replacement[] = [
   { pattern: CAMALOT_PATTERN, color: GEAR_COLOR },
@@ -24,8 +24,8 @@ function highlightCrackAndGearMentions(text: string): string {
   let textWithHTMLHighlights = text;
   for (const { pattern, color } of replacements) {
     textWithHTMLHighlights = textWithHTMLHighlights.replace(
-    pattern,
-    `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,
+      pattern,
+      `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,
     );
   }
   return textWithHTMLHighlights;
@@ -36,7 +36,9 @@ function highlightCamWords(element: Node): void {
   if (element.hasChildNodes()) {
     element.childNodes.forEach(highlightCamWords);
   } else if (element.nodeType === Node.TEXT_NODE) {
-    const highlightedHTML = highlightCrackAndGearMentions(element.textContent ?? "");
+    const highlightedHTML = highlightCrackAndGearMentions(
+      element.textContent ?? "",
+    );
 
     const highlightedNode = document.createElement("span");
     highlightedNode.innerHTML = highlightedHTML;

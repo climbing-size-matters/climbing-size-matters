@@ -2,23 +2,26 @@
 
 const GREEN_COLOR = "#009e3a";
 // Add 0, .0, WC
-const GREEN_000_PATTERN =
-  /#?0\.0|(0\.(29|3|3[0-9])(?=\s?in|"))|((7\.[5-9])|(8|9)\.[0-9]|10\.[0-2])(?=\s?mm)|([Cc]3\s?)?000(\s?[Cc]3)?|([Gr]een\s([Zz]4|[Dd]ragonfly(?:\s2)?)|[Dd]ragonfly\s1)/;
+const GREEN_000 =
+  /#?0\.0|(0\.(29|3|3[0-9])(?=\s?in|"))|((7\.[5-9])|(8|9)\.[0-9]|10\.[0-2])(?=\s?mm)|([Cc]3)?[\s(,-]000[\s),-]([Cc]3)?|([Gg]reen\s([Zz]4|[Dd]ragonfly(?:\s2)?)|[Dd]ragonfly\s1)/;
 // Add WC
-const GREEN_075_PATTERN =
+const GREEN_075 =
   /#?0.75|(0\.9[4-9]|1\.(?:[0-9]|[0-3][0-9])|1\.(?:4|40))(?=\s?in|")|(23\.[9]|2[4-9]\.[0-9]|3[0-9]\.[0-9]|40\.[0-9]|41\.[0-2])(?=\s?mm|")|([Dd]ragon)(\s2)|([Mm]astercam)(\s5)|([Bb]lack)(\s[Mm]etolius)/;
 // Add WC
-const GREEN_600_PATTERN = /#6/;
+const GREEN_600 = /#6/;
 
 const RED_COLOR = "#CB1B31";
-// .1, WC
-const RED_010_PATTERN =
-  /#?0\.1|(0\.(4|4[0-9]|5[0-4])(?=\s?in|"))|((10\.[3-9])|11\.[0-9]|(11\.[0-8]))(?=\s?mm)|([Cc]3\s?)?00(\s?[Cc]3)?|([Rr]ed\s([Zz]4|[Dd]ragonfly(?:\s2)?)|[Dd]ragonfly\s2)|([Gr][ae]y)(\s[Mm]etolius)|([Bb]lack)(\s[Aa]lien)/;
-const RED_100_PATTERN =
-  /#?0.75|(0\.9[4-9]|1\.(?:[0-9]|[0-3][0-9])|1\.(?:4|40))(?=\s?in|")|(23\.[9]|2[4-9]\.[0-9]|3[0-9]\.[0-9]|40\.[0-9]|41\.[0-2])(?=\s?mm|")|([Dd]ragon)(\s2)|([Mm]astercam)(\s5)|([Bb]lack)(\s[Mm]etolius)/;
-// const RED_700_PATTERN = /#7/;
+// Add .1, WC
+const RED_010 =
+  /#?0\.1|(0\.(4|4[0-7])(?=\s?in|"))|((10\.[3-9])|11|11\.[0-9]|12|12\.0)(?=\s?mm)|([Cc]3)?[\s(,-]00[\s),-]([Cc]3)?|([Rr]ed\s([Zz]4|[Dd]ragonfly(?:\s2)?)|[Dd]ragonfly\s2)|([Gr][ae]y)(\s[Mm]etolius)|([Bb]lack)(\s[Aa]lien)/;
+const RED_100 =
+  /#1(\.0)?|(0\.9[4-9]|1\.(?:[0-9]|[0-3][0-9])|1\.(?:4|40))(?=\s?in|")|(23\.[9]|2[4-9]\.[0-9]|3[0-9]\.[0-9]|40\.[0-9]|41\.[0-2])(?=\s?mm|")|([Dd]ragon)(\s2)|([Mm]astercam)(\s5)|([Bb]lack)(\s[Mm]etolius)/;
+const RED_700 = /#7/;
 
-// const YELLOW_COLOR = "#c9af19";
+const YELLOW_COLOR = "#c9af19";
+const YELLOW_020 = /#?0\.2|(0\.(4[8-9]|5|5[0-9]|6|6[0-4])(?=\s?in|"))|((12\.[1-9])|(13(\.[0-9])?)|(14(\.[0-9])?)|(15(\.[0-9])?)|(16(\.[0-9])?))(?=\s?mm)|([Gg]reen\s)([Cc]3)|([Yy]ellow\s([Zz]4|[Dd]ragonfly(?:\s3)?)|[Dd]ragonfly\s3)|([Pp]urple)(\s[Mm]etolius)|([Bb]lue)(\s[Aa]lien)/;
+const YELLOW_200 =/#2(\.0)?/
+const YELLOW_800 = /#8/;
 
 // const BLUE_COLOR = "#1177cc";
 
@@ -30,11 +33,15 @@ type Replacement = {
 };
 
 const replacements: Replacement[] = [
-  { pattern: GREEN_000_PATTERN, color: GREEN_COLOR },
-  { pattern: GREEN_075_PATTERN, color: GREEN_COLOR },
-  { pattern: GREEN_600_PATTERN, color: GREEN_COLOR },
-  { pattern: RED_010_PATTERN, color: RED_COLOR },
-  { pattern: RED_100_PATTERN, color: RED_COLOR },
+  { pattern: GREEN_000, color: GREEN_COLOR },
+  { pattern: GREEN_075, color: GREEN_COLOR },
+  { pattern: GREEN_600, color: GREEN_COLOR },
+  { pattern: RED_010, color: RED_COLOR },
+  { pattern: RED_100, color: RED_COLOR },
+  { pattern: RED_700, color: RED_COLOR },
+  { pattern: YELLOW_020, color: YELLOW_COLOR },
+  { pattern: YELLOW_200, color: YELLOW_COLOR },
+  { pattern: YELLOW_800, color: YELLOW_COLOR },
 ];
 
 export { replacements };

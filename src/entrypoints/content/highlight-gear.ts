@@ -6,7 +6,7 @@ function highlightCrackAndGearMentions(text: string): string {
   for (const { pattern, color } of replacements) {
     textWithHTMLHighlights = textWithHTMLHighlights.replace(
       pattern,
-      `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,
+      `<span style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`,
     );
   }
   return textWithHTMLHighlights;

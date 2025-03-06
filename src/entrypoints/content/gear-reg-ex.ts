@@ -19,8 +19,9 @@ const RED_100 =
 const RED_700 = /#7/;
 
 const YELLOW_COLOR = "#c9af19";
-const YELLOW_020 = /#?0\.2|(0\.(4[8-9]|5|5[0-9]|6|6[0-4])(?=\s?in|"))|((12\.[1-9])|(13(\.[0-9])?)|(14(\.[0-9])?)|(15(\.[0-9])?)|(16(\.[0-9])?))(?=\s?mm)|([Gg]reen\s)([Cc]3)|([Yy]ellow\s([Zz]4|[Dd]ragonfly(?:\s3)?)|[Dd]ragonfly\s3)|([Pp]urple)(\s[Mm]etolius)|([Bb]lue)(\s[Aa]lien)/;
-const YELLOW_200 =/#2(\.0)?/
+const YELLOW_020 =
+  /#?0\.2|(0\.(4[8-9]|5|5[0-9]|6|6[0-4])(?=\s?in|"))|((12\.[1-9])|(13(\.[0-9])?)|(14(\.[0-9])?)|(15(\.[0-9])?)|(16(\.[0-9])?))(?=\s?mm)|([Gg]reen\s)([Cc]3)|([Yy]ellow\s([Zz]4|[Dd]ragonfly(?:\s3)?)|[Dd]ragonfly\s3)|([Pp]urple)(\s[Mm]etolius)|([Bb]lue)(\s[Aa]lien)/;
+const YELLOW_200 = /#2(\.0)?/;
 const YELLOW_800 = /#8/;
 
 // const BLUE_COLOR = "#1177cc";

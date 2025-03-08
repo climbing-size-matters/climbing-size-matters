@@ -12,10 +12,10 @@ function highlightCrackAndGearMentions(text: string): string {
   return textWithHTMLHighlights;
 }
 
-// Function to recursively search and highlight the word "cam"
-function highlightCamWords(element: Node): void {
+// Function to recursively search and highlight the cam instances
+function highlightCams(element: Node): void {
   if (element.hasChildNodes()) {
-    element.childNodes.forEach(highlightCamWords);
+    element.childNodes.forEach(highlightCams);
   } else if (element.nodeType === Node.TEXT_NODE) {
     const highlightedHTML = highlightCrackAndGearMentions(
       element.textContent ?? "",
@@ -28,4 +28,4 @@ function highlightCamWords(element: Node): void {
   }
 }
 
-export { highlightCrackAndGearMentions, highlightCamWords };
+export { highlightCrackAndGearMentions, highlightCams };

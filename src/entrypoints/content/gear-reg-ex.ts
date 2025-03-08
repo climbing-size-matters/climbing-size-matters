@@ -27,8 +27,10 @@ const BLUE_300 =
   /#3(\.0)?|(2\.(2[8-9]|[3-9][0-9])|3\.(0[0-2]))(?=\s?in|")|([Bb]lue)(\s[Dd]ragon)(\s5)?|([Bb]lue)(\s[Ff]riend)(\s3)?|([Bb]lue)(\sC4)|([Bb]lue)\s([Ff]riend|[Ww][Cc])(\s3)?/;
 
 const GRAY_COLOR = "#9BA1B7";
-const GRAY_040 = /#?0\.4|(0\.(7[7-9]|8|9[0-1])|0\.[78])(?=\s?in|")|([Gg]r[ae]y)(\s[Aa]lien)(\s7\/8)?|([Yy]ellow)(\s[Tt]otem)|(#?3|[Oo]range)\s(([Mm]etolius)|([Mm][Cc]))|([Gg]r[ae]y)\s([Dd]ragon)(\s0)?|([Gg]r[ae]y)(\sC4)|([Gg]r[ae]y)\s([Ff]riend|[Ww][Cc])(\s0?\.4)?/;
-const GRAY_400 = /#4(\.0)?|3\.(0[3-9]|[1-8][0-9]|9[0-3])(?=\s?in|")|([Gg]r[ae]y)\s([Dd]ragon)(\s6)?|([Gg]r[ae]y)(\sC4)|([Gg]r[ae]y)\s([Ff]riend|[Ww][Cc])(\s4)?/;
+const GRAY_040 =
+  /#?0\.4|(0\.(7[7-9]|8|9[0-1])|0\.[78])(?=\s?in|")|([Gg]r[ae]y)(\s[Aa]lien)(\s7\/8)?|([Yy]ellow)(\s[Tt]otem)|(#?3|[Oo]range)\s(([Mm]etolius)|([Mm][Cc]))|([Gg]r[ae]y)\s([Dd]ragon)(\s0)?|([Gg]r[ae]y)(\sC4)|([Gg]r[ae]y)\s([Ff]riend|[Ww][Cc])(\s0?\.4)?/;
+const GRAY_400 =
+  /#4(\.0)?|3\.(0[3-9]|[1-8][0-9]|9[0-3])(?=\s?in|")|([Gg]r[ae]y)\s([Dd]ragon)(\s6)?|([Gg]r[ae]y)(\sC4)|([Gg]r[ae]y)\s([Ff]riend|[Ww][Cc])(\s4)?/;
 
 const PURPLE_COLOR = "#614FC8";
 const PURPLE_050 =

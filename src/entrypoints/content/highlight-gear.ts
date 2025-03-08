@@ -6,7 +6,7 @@ function highlightCrackAndGearMentions(text: string): string {
   for (const { pattern, color } of replacements) {
     textWithHTMLHighlights = textWithHTMLHighlights.replace(
       pattern,
-      `<span style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`,
+      `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`,
     );
   }
   return textWithHTMLHighlights;
@@ -15,6 +15,7 @@ function highlightCrackAndGearMentions(text: string): string {
 // Function to recursively search and highlight the cam instances
 function highlightCams(element: Node): void {
   if (element.hasChildNodes()) {
+    if ((element as HTMLElement).id === "highlight") return;
     element.childNodes.forEach(highlightCams);
   } else if (element.nodeType === Node.TEXT_NODE) {
     const highlightedHTML = highlightCrackAndGearMentions(
@@ -28,4 +29,28 @@ function highlightCams(element: Node): void {
   }
 }
 
-export { highlightCrackAndGearMentions, highlightCams };
+// Recursively search and highlight cam instances once comments load on a page
+function observeAdditionalContent(): void {
+  const commentList = document.querySelector(".comment-list");
+  if (commentList) {
+    const config = { childList: true };
+
+    const observer = new MutationObserver((mutationsList) => {
+      // Loop through all mutations
+      mutationsList.forEach((mutation) => {
+        if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+          // Run your function when new children are added
+          highlightCams(commentList);
+        }
+      });
+    });
+
+    observer.observe(commentList, config);
+  }
+}
+
+export {
+  highlightCrackAndGearMentions,
+  highlightCams,
+  observeAdditionalContent,
+};

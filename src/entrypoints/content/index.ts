@@ -1,4 +1,4 @@
-import { highlightCams } from "./highlight-gear";
+import { highlightCams, observeAdditionalContent } from "./highlight-gear";
 
 export default defineContentScript({
   matches: [
@@ -9,5 +9,6 @@ export default defineContentScript({
   main(): void {
     // Execute the highlight function on the document body
     highlightCams(document.body);
+    observeAdditionalContent();
   },
 });

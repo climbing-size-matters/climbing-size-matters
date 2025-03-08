@@ -1,7 +1,10 @@
 import { highlightCams } from "./highlight-gear";
 
 export default defineContentScript({
-  matches: ["*://www.mountainproject.com/*"],
+  matches: [
+    "*://www.mountainproject.com/route/*",
+    "*://www.mountainproject.com/forum/*",
+    "*://www.mountainproject.com/area/*",],
   main(): void {
     // Execute the highlight function on the document body
     highlightCams(document.body);

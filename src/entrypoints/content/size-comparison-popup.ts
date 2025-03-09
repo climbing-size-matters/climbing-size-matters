@@ -1,9 +1,11 @@
-function createPopupContent(): string {
+import {bdCams, Cam} from "./gear-reg-ex";
+
+function createPopupContent(bdCams: Cam[]): string {
   return `
         <h1 style="margin: 0; font-size: 16px;">Size Comparison</h1>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 5px;">
-            <div>Camalot C4 - #1 (Red)</div>
-            <div>Camalot C4 - #2 (Yellow)</div>
+            <div>Model: ${bdCams[0].model}, Size: ${bdCams[0].size.inches[0]} - ${bdCams[0].size.inches[1]} in</div>
+            <div>Model: ${bdCams[1].model}, Size: ${bdCams[1].size.inches[0]} - ${bdCams[1].size.inches[1]} in</div>
         </div>
     `;
 }
@@ -14,7 +16,7 @@ function createSizeComparisonPopups() {
   if (h1Element) {
     // Create a popup div
     const popup = document.createElement("div");
-    popup.innerHTML = createPopupContent();
+    popup.innerHTML = createPopupContent(bdCams);
     popup.style.position = "absolute";
     popup.style.backgroundColor = "white";
     popup.style.color = "black";

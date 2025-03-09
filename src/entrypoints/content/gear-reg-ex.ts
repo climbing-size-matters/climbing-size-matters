@@ -61,4 +61,39 @@ const replacements: Replacement[] = [
   { pattern: PURPLE_500, color: PURPLE_COLOR },
 ];
 
-export { replacements };
+type Cam = {
+    name: string;
+    brand: string;
+    model: string;
+    size: {inches: [number, number], mm: [number, number]};
+    color: string;
+}
+
+const bdCams: Cam[] = [
+    {
+        name: "1",
+        brand: "Black Diamond",
+        model: "Camalot C4 (2019)",
+        size: {inches: [1.19, 2.05], mm: [30.2, 52.1]},
+        color: "#CB1B31", // Red
+    },
+    {
+        name: "2",
+        brand: "Black Diamond",
+        model: "Camalot C4 (2019)",
+        size: {inches: [1.46, 2.55], mm: [37.2, 64.9]},
+        color: "#C9AF19", // Yellow
+    },
+];
+
+const metoliusCams: Cam[] = [
+    {
+        name: "6",
+        brand: "Metolius",
+        model: "UL Master Cam",
+        size: {inches: [1.28, 1.89], mm: [32.5, 48.0]},
+        color: "#009E3A", // Green
+    },
+];
+
+export { replacements, bdCams, metoliusCams, Cam };

@@ -1,5 +1,5 @@
 function createPopupContent(): string {
-    return `
+  return `
         <h1 style="margin: 0; font-size: 16px;">Size Comparison</h1>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 5px;">
             <div>Camalot C4 - #1 (Red)</div>
@@ -9,9 +9,9 @@ function createPopupContent(): string {
 }
 
 function createSizeComparisonPopups() {
-    const h1Element = document.querySelector("h1");
+  const h1Element = document.querySelector("h1");
 
-    if (h1Element) {
+  if (h1Element) {
     // Create a popup div
     const popup = document.createElement("div");
     popup.innerHTML = createPopupContent();
@@ -30,22 +30,22 @@ function createSizeComparisonPopups() {
 
     // Show the popup on hover
     h1Element.addEventListener("mouseenter", (event) => {
-        popup.style.display = "block";
-        popup.style.left = `${event.pageX + 10}px`;
-        popup.style.top = `${event.pageY + 10}px`;
+      popup.style.display = "block";
+      popup.style.left = `${event.pageX + 10}px`;
+      popup.style.top = `${event.pageY + 10}px`;
     });
 
     // Move the popup as the cursor moves
     h1Element.addEventListener("mousemove", (event) => {
-        popup.style.left = `${event.pageX + 10}px`;
-        popup.style.top = `${event.pageY + 10}px`;
+      popup.style.left = `${event.pageX + 10}px`;
+      popup.style.top = `${event.pageY + 10}px`;
     });
 
     // Hide the popup when no longer hovering
     h1Element.addEventListener("mouseleave", () => {
-        popup.style.display = "none";
+      popup.style.display = "none";
     });
-    }
+  }
 }
 
 export { createSizeComparisonPopups };

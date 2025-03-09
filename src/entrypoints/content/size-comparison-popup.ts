@@ -1,4 +1,4 @@
-import {bdCams, Cam} from "./gear-reg-ex";
+import { bdCams, Cam } from "./gear-reg-ex";
 
 function createPopupContent(bdCams: Cam[]): string {
   return `

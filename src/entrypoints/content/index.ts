@@ -1,4 +1,5 @@
 import { highlightCams, observeAdditionalContent } from "./highlight-gear";
+import { createSizeComparisonPopups } from "./size-comparison-popup";
 
 export default defineContentScript({
   matches: [
@@ -10,5 +11,6 @@ export default defineContentScript({
     // Execute the highlight function on the document body
     highlightCams(document.body);
     observeAdditionalContent();
+    createSizeComparisonPopups();
   },
 });

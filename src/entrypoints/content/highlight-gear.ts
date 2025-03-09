@@ -36,10 +36,8 @@ function observeAdditionalContent(): void {
     const config = { childList: true };
 
     const observer = new MutationObserver((mutationsList) => {
-      // Loop through all mutations
       mutationsList.forEach((mutation) => {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
-          // Run your function when new children are added
           highlightCams(commentList);
         }
       });

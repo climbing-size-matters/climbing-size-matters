@@ -35,10 +35,11 @@ function highlightCrackAndGearMentions(text: string): string {
 function highlightCamWords(element: Node): void {
   if (element.hasChildNodes()) {
     element.childNodes.forEach(highlightCamWords);
-  } else if (element.nodeType === Node.TEXT_NODE && element.textContent !== null) {
-    const highlightedHTML = highlightCrackAndGearMentions(
-      element.textContent
-    );
+  } else if (
+    element.nodeType === Node.TEXT_NODE &&
+    element.textContent !== null
+  ) {
+    const highlightedHTML = highlightCrackAndGearMentions(element.textContent);
 
     const highlightedNode = document.createElement("span");
     highlightedNode.innerHTML = highlightedHTML;

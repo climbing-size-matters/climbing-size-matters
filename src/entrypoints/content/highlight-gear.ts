@@ -8,10 +8,10 @@ const GEAR_COLOR = "#FF0000";
 const GEAR_SIZE_COLOR = "#00FF00";
 const CRACK_SIZE_COLOR = "#0000FF";
 
-type Replacement = {
+interface Replacement {
   pattern: RegExp;
   color: string;
-};
+}
 
 const replacements: Replacement[] = [
   { pattern: CAMALOT_PATTERN, color: GEAR_COLOR },

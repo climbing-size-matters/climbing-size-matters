@@ -8,12 +8,12 @@ const GEAR_COLOR = "#FF0000";
 const GEAR_SIZE_COLOR = "#00FF00";
 const CRACK_SIZE_COLOR = "#0000FF";
 
-interface Replacement {
+interface GearHighlight {
   pattern: RegExp;
   color: string;
 }
 
-const replacements: Replacement[] = [
+const gearToHighlight: GearHighlight[] = [
   { pattern: CAMALOT_PATTERN, color: GEAR_COLOR },
   { pattern: GEAR_SIZE_PATTERN, color: GEAR_SIZE_COLOR },
   { pattern: CRACK_SIZE_PATTERN, color: CRACK_SIZE_COLOR },
@@ -22,7 +22,7 @@ const replacements: Replacement[] = [
 // returns a string of text with HTML color spans around highlighted words
 function highlightCrackAndGearMentions(text: string): string {
   let textWithHTMLHighlights = text;
-  for (const { pattern, color } of replacements) {
+  for (const { pattern, color } of gearToHighlight) {
     textWithHTMLHighlights = textWithHTMLHighlights.replace(
       pattern,
       `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,

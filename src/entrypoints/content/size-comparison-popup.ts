@@ -10,7 +10,7 @@ function createPopupContent(bdCams: Cam[]): string {
     `;
 }
 
-function createSizeComparisonPopups() {
+function createSizeComparisonPopup() {
     const h1Element = document.querySelector('h1');
 
     if (h1Element) {
@@ -50,4 +50,4 @@ function createSizeComparisonPopups() {
     }
 }
 
-export { createSizeComparisonPopups };
+export { createSizeComparisonPopup };

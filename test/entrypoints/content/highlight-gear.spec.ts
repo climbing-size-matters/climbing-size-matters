@@ -17,6 +17,12 @@ expect.extend({
     },
 });
 
+declare module 'vitest' {
+    interface Assertion<T> {
+        toBeHighlightedWith: (color: string) => T;
+    }
+}
+
 describe('higlightCrackAndGearMentions', () => {
     describe('cams', () => {
         describe('finds', () => {

@@ -1,4 +1,7 @@
-import { highlightCams, observeAdditionalContent } from './highlight-cam-object';
+import {
+    highlightCams,
+    observeAdditionalContent,
+} from './highlight-cam-object';
 // import { highlightCams, observeAdditionalContent } from './highlight-cam-regex';
 // import { createSizeComparisonPopup } from './size-comparison-popup';
 

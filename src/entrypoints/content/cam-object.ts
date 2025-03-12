@@ -50,7 +50,7 @@ const metoliusMC: Cam[] = [
         brand: Brand.Metolius,
         model: 'Ultralight Master Cam',
         size: { inches: [0.93, 1.32], mm: [23.5, 33.5] },
-        color:'#7566c9', // Purple
+        color: '#7566c9', // Purple
         regex: /(red|4)\s(metolius|mc|mastercam)/gi,
     },
 ];

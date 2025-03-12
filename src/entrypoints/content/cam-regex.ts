@@ -32,7 +32,7 @@ const GRAY_040 =
 const GRAY_400 =
     /3(\.[0-9])?\s?(in|")|(gr[ae]y)\s(dragon)(\s6)?|(#4(\.0)?|gr[ae]y)\s(c4|friend|wc)(\s4)?|#4(\.0)?/gi;
 
-const PURPLE_COLOR = '#614FC8';
+const PURPLE_COLOR = '#7566c9';
 const PURPLE_050 =
     /#?0\.5|(0\.(9[2-9]|10|11[0-2])|0\.[9]|1\.(0|1[0-2]))\s?(in|")|(red)(\salien)(\s1)?|(#?4|red)\s((metolius)|(mc))|purple\s(dragon|totem)(\s1)?|purple\sC4|purple\s(friend|wc)(\s0?\.5)?/gi;
 const PURPLE_500 =
@@ -61,41 +61,4 @@ const replacements: Replacement[] = [
     { pattern: PURPLE_500, color: PURPLE_COLOR },
 ];
 
-type Cam = {
-    name: string;
-    brand: string;
-    model: string;
-    size: { inches: [number, number]; mm: [number, number] };
-    color: string;
-    id: RegExp;
-};
-
-// const bdCams: Cam[] = [
-//     {
-//         name: '1',
-//         brand: 'Black Diamond',
-//         model: 'Camalot C4 (2019)',
-//         size: { inches: [1.19, 2.05], mm: [30.2, 52.1] },
-//         color: '#CB1B31', // Red
-//         id: /#1(\.0)?|(purple)(\sC4)/gi
-//     },
-//     {
-//         name: '2',
-//         brand: 'Black Diamond',
-//         model: 'Camalot C4 (2019)',
-//         size: { inches: [1.46, 2.55], mm: [37.2, 64.9] },
-//         color: '#C9AF19', // Yellow
-//     },
-// ];
-
-// const metoliusCams: Cam[] = [
-//     {
-//         name: '6',
-//         brand: 'Metolius',
-//         model: 'UL Master Cam',
-//         size: { inches: [1.28, 1.89], mm: [32.5, 48.0] },
-//         color: '#009E3A', // Green
-//     },
-// ];
-
-export { replacements, bdCams, metoliusCams, Cam };
+export { replacements };

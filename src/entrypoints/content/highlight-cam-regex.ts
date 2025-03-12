@@ -1,4 +1,4 @@
-import { replacements } from './gear-reg-ex';
+import { replacements } from './cam-regex';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCrackAndGearMentions(text: string): string {

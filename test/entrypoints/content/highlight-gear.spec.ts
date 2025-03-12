@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { highlightCrackAndGearMentions } from '../../../src/entrypoints/content/highlight-gear';
+import { highlightCrackAndGearMentions } from '../../../src/entrypoints/content/highlight-cam-regex';
 
 // this creates a custom matcher so when we update what "highlighting" translates
 // to we can update the logic in one place rather than in each test case

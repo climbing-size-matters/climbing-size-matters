@@ -1,7 +1,7 @@
 import { gearToHighlight } from './gear-reg-ex';
 
 // Returns a string of text with HTML color spans around highlighted words
-function highlightCrackAndGearMentions(text: string): string {
+function highlightCams(text: string): string {
     let textWithHTMLHighlights = text;
     for (const { pattern, color } of gearToHighlight) {
         textWithHTMLHighlights = textWithHTMLHighlights.replace(
@@ -13,17 +13,15 @@ function highlightCrackAndGearMentions(text: string): string {
 }
 
 // Function to recursively search and highlight the cam instances
-function highlightCams(element: Node): void {
+function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
         if ((element as HTMLElement).dataset.cam === 'cam') return;
-        element.childNodes.forEach(highlightCams);
+        element.childNodes.forEach(searchForCams);
     } else if (
         element.nodeType === Node.TEXT_NODE &&
         element.textContent !== null
     ) {
-        const highlightedHTML = highlightCrackAndGearMentions(
-            element.textContent
-        );
+        const highlightedHTML = highlightCams(element.textContent);
 
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
@@ -46,7 +44,7 @@ function observeAdditionalContent(): void {
                     mutation.addedNodes.length > 0
                 ) {
                     // Run your function when new children are added
-                    highlightCams(commentList);
+                    searchForCams(commentList);
                 }
             });
         });
@@ -55,8 +53,4 @@ function observeAdditionalContent(): void {
     }
 }
 
-export {
-    highlightCrackAndGearMentions,
-    highlightCams,
-    observeAdditionalContent,
-};
+export { highlightCams, observeAdditionalContent };

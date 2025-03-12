@@ -6,7 +6,7 @@ function highlightCrackAndGearMentions(text: string): string {
     for (const { pattern, color } of gearToHighlight) {
         textWithHTMLHighlights = textWithHTMLHighlights.replace(
             pattern,
-            `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+            `<span data-cam='cam' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
         );
     }
     return textWithHTMLHighlights;
@@ -15,7 +15,7 @@ function highlightCrackAndGearMentions(text: string): string {
 // Function to recursively search and highlight the cam instances
 function highlightCams(element: Node): void {
     if (element.hasChildNodes()) {
-        if ((element as HTMLElement).id === 'highlight') return;
+        if ((element as HTMLElement).dataset.cam === 'cam') return;
         element.childNodes.forEach(highlightCams);
     } else if (
         element.nodeType === Node.TEXT_NODE &&

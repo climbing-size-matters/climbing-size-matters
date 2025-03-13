@@ -53,4 +53,4 @@ function observeAdditionalContent(): void {
     }
 }
 
-export { highlightCams, observeAdditionalContent };
+export { highlightCams, searchForCams, observeAdditionalContent };

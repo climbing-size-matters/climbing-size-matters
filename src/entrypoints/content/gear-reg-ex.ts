@@ -22,13 +22,13 @@ const YELLOW_800 = /#8(\.0)?/gi;
 
 const BLUE_COLOR = '#1177CC';
 const BLUE_030 =
-    /#?0\.3|(0\.(6[0-4]|5|6|7([0-4]|6))|0\.[67])\s?(in|")|(green)(\salien)|(blue)(\stotem)|(yellow\s)(c3)|(#?2|yellow)\s((metolius)|(mc))|(blue)(\sdragon)(\s00)?|(blue)(\sC4)/gi;
+    /#?0\.3|(0\.(6[0-4]|5|6|7([0-4]|6))|0\.[67])\s?(in|")|(green)(\salien)|(blue)(\stotem)|(yellow\s)(c3)|(#?2|yellow)\s((metolius)|(mc))|(#?1|blue)\s((metolius)|(mc))|(blue)(\sdragon)(\s00)?|(blue)(\sC4)/gi;
 const BLUE_300 =
     /2\.[3-9]\s?(in|")|(blue)(\sdragon)(\s5)?|(blue)(\sfriend)(\s3)?|(blue)(\sC4)|(#3(\.0)?|blue)\s(c4|friend|wc)(\s3)?|#3(\.0)?/gi;
 
 const GRAY_COLOR = '#9BA1B7';
 const GRAY_040 =
-    /#?0\.4|(0\.(7[7-9]|8|9[0-1])|0\.[78])\s?(in|")|(gr[ae]y)(\salien)(\s7\/8)?|(yellow)(\stotem)|(#?3|orange)\s((metolius)|(mc))|(gr[ae]y)\s(dragon)(\s0)?|(gr[ae]y)(\sC4)|(gr[ae]y)\s(friend|wc)(\s0?\.4)?/gi;
+    /#?0\.4|0\.(7|8)(\s?in|")|(gr[ae]y)(\salien)(\s7\/8)?|(yellow)(\stotem)|(#?3|orange)\s((metolius)|(mc))|(gr[ae]y)\s(dragon)(\s0)?|(gr[ae]y)(\sC4)|(gr[ae]y)\s(friend|wc)(\s0?\.4)?/gi;
 const GRAY_400 =
     /3(\.[0-9])?\s?(in|")|(gr[ae]y)\s(dragon)(\s6)?|(#4(\.0)?|gr[ae]y)\s(c4|friend|wc)(\s4)?|#4(\.0)?/gi;
 

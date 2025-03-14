@@ -36,7 +36,7 @@ const bdC4: Cam[] = [
         brand: Brand.BlackDiamond,
         model: 'Camalot C4 (2019)',
         size: { inches: [0.77, 1.32], mm: [19.6, 33.5] },
-        color:'rgb(117, 102, 201)', // Purple
+        color: 'rgb(117, 102, 201)', // Purple
         regex: /purple\s(c4|cam(alots?)?)|(#?0\.5)(\s(c4|cam(alots?)?))?/gi,
     },
     {

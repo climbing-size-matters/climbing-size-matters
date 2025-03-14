@@ -170,10 +170,18 @@ describe('higlightCams', () => {
                 expect(highlightCams('1.5')).not.toBeHighlightedWith('#0000FF');
             });
             it('size ranges', () => {
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#614FC8');
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#009E3A');
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#CB1B31');
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#C9AF19');
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    '#614FC8'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    '#009E3A'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    '#CB1B31'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    '#C9AF19'
+                );
             });
         });
     });

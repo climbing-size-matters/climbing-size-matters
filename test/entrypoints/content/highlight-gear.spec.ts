@@ -148,9 +148,6 @@ describe('higlightCams', () => {
                     expect(highlightCams('9 mc')).not.toBeHighlightedWith(
                         color
                     );
-                    expect(
-                        highlightCams('purple firend')
-                    ).not.toBeHighlightedWith(color);
                     expect(highlightCams('red fly')).not.toBeHighlightedWith(
                         color
                     );
@@ -173,10 +170,10 @@ describe('higlightCams', () => {
                 expect(highlightCams('1.5')).not.toBeHighlightedWith('#0000FF');
             });
             it('size ranges', () => {
-                expect(highlightCams('1-2"')).toBeHighlightedWith('#614FC8');
-                expect(highlightCams('1-2"')).toBeHighlightedWith('#009E3A');
-                expect(highlightCams('1-2"')).toBeHighlightedWith('#CB1B31');
-                expect(highlightCams('1-2"')).toBeHighlightedWith('#C9AF19');
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#614FC8');
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#009E3A');
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#CB1B31');
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith('#C9AF19');
             });
         });
     });

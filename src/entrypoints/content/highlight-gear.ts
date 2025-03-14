@@ -15,7 +15,7 @@ function highlightCams(text: string): string {
 // Function to recursively search and highlight the cam instances
 function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
-        // if ((element as HTMLElement).dataset.cam === 'highlighted') return;
+        if ((element as HTMLElement).dataset.cam === 'highlighted') return;
         element.childNodes.forEach(searchForCams);
     } else if (
         element.nodeType === Node.TEXT_NODE &&

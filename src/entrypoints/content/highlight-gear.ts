@@ -1,51 +1,56 @@
-const CAMALOT_PATTERN = /(?<!\w)[Cc]am(-?a-?lot)?s?(?!\w)/gi; // # matches e.g. cam, Cam-a-lot
-const GEAR_SIZE_PATTERN =
-  /(?<!\w)(#(0(0|\.([12345]|(75)))?)|#[1-8])(?![\w.])/gi; // matches #00, #0, #0.1-0.75, #1-#8
-const CRACK_SIZE_PATTERN =
-  /(?<!\w)(([0-9](\.5)?)-)?[0-9](\.5)?("|cm|mm)(?!\w)/gi; // matches e.g. 3.5", 3-4"
+import { gearToHighlight } from './gear-reg-ex';
 
-const GEAR_COLOR = "#FF0000";
-const GEAR_SIZE_COLOR = "#00FF00";
-const CRACK_SIZE_COLOR = "#0000FF";
-
-interface GearHighlight {
-  pattern: RegExp;
-  color: string;
+// Returns a string of text with HTML color spans around highlighted words
+function highlightCams(text: string): string {
+    let textWithHTMLHighlights = text;
+    for (const { pattern, color } of gearToHighlight) {
+        textWithHTMLHighlights = textWithHTMLHighlights.replace(
+            pattern,
+            `<span data-cam='highlighted' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+        );
+    }
+    return textWithHTMLHighlights;
 }
 
-const gearToHighlight: GearHighlight[] = [
-  { pattern: CAMALOT_PATTERN, color: GEAR_COLOR },
-  { pattern: GEAR_SIZE_PATTERN, color: GEAR_SIZE_COLOR },
-  { pattern: CRACK_SIZE_PATTERN, color: CRACK_SIZE_COLOR },
-];
+// Function to recursively search and highlight the cam instances
+function searchForCams(element: Node): void {
+    if (element.hasChildNodes()) {
+        if ((element as HTMLElement).dataset.cam === 'highlighted') return;
+        element.childNodes.forEach(searchForCams);
+    } else if (
+        element.nodeType === Node.TEXT_NODE &&
+        element.textContent !== null
+    ) {
+        const highlightedHTML = highlightCams(element.textContent);
 
-// returns a string of text with HTML color spans around highlighted words
-function highlightCrackAndGearMentions(text: string): string {
-  let textWithHTMLHighlights = text;
-  for (const { pattern, color } of gearToHighlight) {
-    textWithHTMLHighlights = textWithHTMLHighlights.replace(
-      pattern,
-      `<span style='background-color:${color}; border-radius: 30% 10%; padding: 2px;'>$&</span>`,
-    );
-  }
-  return textWithHTMLHighlights;
+        const highlightedNode = document.createElement('span');
+        highlightedNode.innerHTML = highlightedHTML;
+
+        (element as Text).replaceWith(highlightedNode);
+    }
 }
 
-// Function to recursively search and highlight the word "cam"
-function highlightCamWords(element: Node): void {
-  if (element.hasChildNodes()) {
-    element.childNodes.forEach(highlightCamWords);
-  } else if (
-    element.nodeType === Node.TEXT_NODE &&
-    element.textContent !== null
-  ) {
-    const highlightedHTML = highlightCrackAndGearMentions(element.textContent);
+// Search and highlight cam instances within the comments once they load
+function observeAdditionalContent(): void {
+    const commentList = document.querySelector('.comment-list');
+    if (commentList) {
+        const config = { childList: true };
 
-    const highlightedNode = document.createElement("span");
-    highlightedNode.innerHTML = highlightedHTML;
+        const observer = new MutationObserver((mutationsList) => {
+            // Loop through all mutations
+            mutationsList.forEach((mutation) => {
+                if (
+                    mutation.type === 'childList' &&
+                    mutation.addedNodes.length > 0
+                ) {
+                    // Run your function when new children are added
+                    searchForCams(commentList);
+                }
+            });
+        });
 
-    (element as Text).replaceWith(highlightedNode);
-  }
+        observer.observe(commentList, config);
+    }
 }
 
-export { highlightCrackAndGearMentions, highlightCamWords };
+export { highlightCams, searchForCams, observeAdditionalContent };

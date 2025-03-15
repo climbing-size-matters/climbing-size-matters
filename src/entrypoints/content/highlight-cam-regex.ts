@@ -1,3 +1,5 @@
+//TODO: delete this file and use highlight-cam-object.ts instead
+
 import { replacements } from './cam-regex';
 
 // Returns a string of text with HTML color spans around highlighted words

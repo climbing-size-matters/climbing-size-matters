@@ -1,3 +1,5 @@
+//TODO: delete this file and use cam-object.ts
+
 // Cam colors and patterns for Black Diamond
 const GREEN_COLOR = '#009E3A';
 const GREEN_000 =

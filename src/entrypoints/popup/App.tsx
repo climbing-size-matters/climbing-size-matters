@@ -1,9 +1,11 @@
-// import { useState } from 'react';
+import { useState } from 'react';
+
+import Inventory from './Inventory';
+import AddGear from './AddGear';
 
 const App: React.FC = () => {
+    const [isInventoryTab, setIsInventoryTab] = useState<boolean>(true);
     // const [cam, setCam] = useState<string>('');
-
-    // const fetchCams = async () => {
 
     return (
         <div className="p-2 bg-gray-50 h-96 w-64">
@@ -12,27 +14,21 @@ const App: React.FC = () => {
                 <p className="text-lg font-bold">CSM</p>
             </div>
             <div className="border-b-2 border-black mx-auto my-2"></div>
-            <div className="flex justify-center">
-                <div className="text-lg">Inventory content here</div>
+            <div className="flex justify-evenly">
+                <button
+                    className="bg-cyan-900 hover:bg-cyan-700 text-cyan-100 px-4 py-2 rounded-lg transition duration-200"
+                    onClick={() => setIsInventoryTab(true)}
+                >
+                    Inventory
+                </button>
+                <button
+                    className="bg-cyan-900 hover:bg-cyan-700 text-cyan-100 px-4 py-2 rounded-lg transition duration-200"
+                    onClick={() => setIsInventoryTab(false)}
+                >
+                    Add Gear
+                </button>
             </div>
-            {/* Dropdowns */}
-            {/* <div className='w-full'>
-                <select
-                    className="form-select"
-                    id="salesperson"
-                    value={salespersonState}
-                    onChange={handleSalespersonChange}>
-                    <option value="">Select a Salesperson</option>
-                    {salespeopleState.map((salesperson) => {
-                        return (
-                            <option key={salesperson.id} value={salesperson.id}>
-                                {`${salesperson.first_name} ${salesperson.last_name}`}
-                            </option>
-                        )
-                    })}
-                </select>
-                <label htmlFor="salesperson">Salesperson</label>
-            </div> */}
+            {isInventoryTab ? <Inventory /> : <AddGear />}
         </div>
     );
 };

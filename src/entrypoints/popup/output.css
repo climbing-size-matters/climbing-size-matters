@@ -361,6 +361,9 @@ video {
 .w-8 {
     width: 2rem;
 }
+.w-full {
+    width: 100%;
+}
 .items-center {
     align-items: center;
 }

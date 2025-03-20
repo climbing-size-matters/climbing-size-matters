@@ -1,12 +1,14 @@
-import { database } from '../../cam-database/database';
+import { cams } from '../cam-database/cam-types';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCams(text: string): string {
-    for (const cam of database.cams) {
+    let textWithHTMLHighlights = text;
+
+    for (const cam of cams) {
         const { regex, color } = cam;
-        text = text.replace(
+        textWithHTMLHighlights = textWithHTMLHighlights.replace(
             regex,
-            `<span data-cam='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+            `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
         );
     }
     return text;

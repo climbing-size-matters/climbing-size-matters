@@ -50,8 +50,9 @@ const ulmc: Model = {
 };
 
 // Database
-// const brands: Brand[] = [blackDiamond, metolius];
-// const models: Model[] = [c4, ulmc];
+const brands: Brand[] = [blackDiamond, metolius];
+
+const models: Model[] = [c4, c3, ulmc];
 
 const cams: Cam[] = [
     {
@@ -168,4 +169,4 @@ const cams: Cam[] = [
     },
 ];
 
-export { Cam, cams };
+export { Cam, brands, models, cams };

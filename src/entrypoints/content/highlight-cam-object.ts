@@ -1,13 +1,14 @@
-import { cams } from './cams/cam-types';
+import { cams } from '../cam-database/cam-types';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCrackAndGearMentions(text: string): string {
     let textWithHTMLHighlights = text;
 
     for (const cam of cams) {
+        const { regex, color } = cam;
         textWithHTMLHighlights = textWithHTMLHighlights.replace(
-            cam.regex,
-            `<span id='highlight' style='background-color:${cam.color}; border-radius: 10%; padding: 2px;'>$&</span>`
+            regex,
+            `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
         );
     }
 

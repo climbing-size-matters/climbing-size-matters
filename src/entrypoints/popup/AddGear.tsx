@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { brands, models, cams } from '../cam-database/cam-types';
+import { brands, models, cams } from '../../cam-database/cam-types';
 
 export default function AddGear() {
     const [formState, setFormState] = useState({

@@ -10,7 +10,7 @@ export default defineConfig({
         version: '0.1.0',
         manifest_version: 3,
         description: 'To help people display MP sizes',
-        permissions: [],
+        permissions: ['storage'],
         host_permissions: ['*://www.mountainproject.com/*'],
         icons: {
             16: '/icon/cams16.png',

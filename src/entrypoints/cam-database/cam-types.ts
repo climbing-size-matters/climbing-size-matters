@@ -3,13 +3,11 @@ type Brand = {
     id: string;
     name: string;
 };
-
 type Model = {
     id: string;
     name: string;
     brand: Brand;
 };
-
 type Cam = {
     id: string;
     name: string;
@@ -162,9 +160,7 @@ const four_mc: Cam = {
 
 // Database
 const brands: Brand[] = [bd, mt];
-
 const models: Model[] = [c4, c3, mc];
-
 const cams: Cam[] = [
     zero_three_c4,
     zero_four_c4,

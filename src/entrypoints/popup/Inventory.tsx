@@ -16,10 +16,10 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
 
     return (
         <div className="flex flex-col justify-center pt-2">
-            <div className="flex flex-row justify-between">
+            <div className="flex justify-between align-center">
                 <div className="text-lg">User's Inventory</div>
                 <button
-                    className="bg-cyan-900 hover:bg-cyan-700 text-cyan-100 px-2 py-1 rounded-lg transition duration-200"
+                    className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
                     onClick={navigateToAddGear}
                 >
                     Add Gear

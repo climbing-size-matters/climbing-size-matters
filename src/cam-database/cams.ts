@@ -1,50 +1,6 @@
-// Type Definitions
-type Brand = {
-    id: string;
-    name: string;
-};
-type Model = {
-    id: string;
-    name: string;
-    brand: Brand;
-};
-type Cam = {
-    id: string;
-    name: string;
-    size: { inches: [number, number]; mm: [number, number] };
-    color: string;
-    regex: RegExp;
-    model: Model;
-};
+import { Cam } from './types';
+import { c4, c3, mc } from './models';
 
-// Brand Instances
-const bd: Brand = {
-    id: 'bd',
-    name: 'Black Diamond',
-};
-const mt: Brand = {
-    id: 'mt',
-    name: 'Metolius',
-};
-
-// Model Instances
-const c4: Model = {
-    id: 'c4',
-    name: 'Camalot C4 (2019)',
-    brand: bd,
-};
-const c3: Model = {
-    id: 'c3',
-    name: 'Camalot C3',
-    brand: bd,
-};
-const mc: Model = {
-    id: 'mc',
-    name: 'Ultralight Master Cam',
-    brand: mt,
-};
-
-// Cam Instances
 const zero_three_c4: Cam = {
     id: 'zero_three_c4',
     name: '#0.3',
@@ -158,10 +114,7 @@ const four_mc: Cam = {
     model: mc,
 };
 
-// Database
-const brands: Brand[] = [bd, mt];
-const models: Model[] = [c4, c3, mc];
-const cams: Cam[] = [
+export {
     zero_three_c4,
     zero_four_c4,
     zero_five_c4,
@@ -176,6 +129,4 @@ const cams: Cam[] = [
     eight_c4,
     two_c3,
     four_mc,
-];
-
-export { Cam, brands, models, cams };
+};

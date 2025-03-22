@@ -1,4 +1,4 @@
-import { cams } from '../../cam-database/cam-types';
+import { cams } from '../../cam-database/queries';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCrackAndGearMentions(text: string): string {

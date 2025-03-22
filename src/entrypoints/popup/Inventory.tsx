@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Cam } from '../../cam-database/cam-types';
+import { Cam } from '../../cam-database/types';
 
 type InventoryProps = {
     navigateToAddGear: () => void;

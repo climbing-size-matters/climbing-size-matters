@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { brands, models, cams } from '../../cam-database/cam-types';
+import { Cam, brands, models, cams } from '../../cam-database/cam-types';
 
 export default function AddGear() {
     const [formState, setFormState] = useState({
@@ -32,26 +32,36 @@ export default function AddGear() {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        chrome.storage.local.set(formState);
-        chrome.storage.local.get(['brand', 'model', 'cam']).then((result) => {
-            console.log(
-                'Value is ' +
-                    result.brand +
-                    ' ' +
-                    result.model +
-                    ' ' +
-                    result.cam
+
+        // Find the Cam object based on the selected ID
+        const selectedCam = cams.find((cam) => cam.id === formState.cam);
+
+        if (!selectedCam) {
+            throw new Error(`Cam with ID ${formState.cam} not found`);
+        }
+
+        // Get the current inventory from chrome.storage.local
+        chrome.storage.local.get(['inventory'], (result) => {
+            const inventory: Cam[] = result.inventory; // Ensure inventory is an array
+
+            // Check if the cam is already in the inventory
+            const isCamInInventory = inventory.some(
+                (cam) => cam.id === selectedCam.id
             );
+            if (isCamInInventory) {
+                console.log(
+                    `Cam with ID ${selectedCam.id} is already in the inventory.`
+                );
+                return; // Exit the function early
+            }
+
+            // Add the Cam to the inventory
+            inventory.push(selectedCam);
+
+            // Save the updated inventory back to chrome.storage.local
+            chrome.storage.local.set({ inventory });
         });
     };
-
-    // chrome.storage.local.set({ name: 'Eric' }).then(() => {
-    //     console.log('Value is set');
-    // });
-
-    // chrome.storage.local.get(['name']).then((result) => {
-    //     console.log('Value is ' + result.name);
-    // });
 
     return (
         <div className="flex flex-col justify-center pt-2">

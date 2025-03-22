@@ -1,20 +1,22 @@
-// Type Definitions
-type Brand = {
-    id: string;
-    name: string;
-};
-type Model = {
-    id: string;
-    name: string;
-    brand: Brand;
-};
 type Cam = {
     id: string;
     name: string;
     size: { inches: [number, number]; mm: [number, number] };
     color: string;
     regex: RegExp;
-    model: Model;
+};
+type Model = {
+    id: string;
+    name: string;
+    cams: Cam[];
+};
+type Brand = {
+    id: string;
+    name: string;
+    models: Model[];
+};
+type Database = {
+    brands: Brand[];
 };
 
-export { Brand, Model, Cam };
+export { Cam, Model, Brand, Database };

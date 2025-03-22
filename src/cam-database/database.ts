@@ -1,12 +1,8 @@
 import { Database } from './types';
-import { brands } from './brands';
-import { models } from './models';
-import { cams } from './cams';
+import { bd, mt } from './brands';
 
 const database: Database = {
-    brands: brands,
-    models: models,
-    cams: cams,
+    brands: [bd, mt],
 };
 
 export { database };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Cam } from '../../cam-database/types';
-import { brands, models, cams } from '../../cam-database/queries';
+import { Database } from '@/cam-database/types';
+import { database } from '@/cam-database/database';
+import { addCamToInventory } from '../../cam-database/add-cam-to-inventory';
 
 type AddGearProps = {
     navigateToInventory: () => void;
@@ -39,7 +40,10 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
         event.preventDefault();
 
         // Find the Cam object based on the selected ID
-        const selectedCam = cams.find((cam) => cam.id === formState.cam);
+        const selectedCam = database.brands
+            .find((brand) => brand.id === formState.brand)
+            ?.models.find((model) => model.id === formState.model)
+            ?.cams.find((cam) => cam.id === formState.cam);
 
         if (!selectedCam) {
             throw new Error(`Cam with ID ${formState.cam} not found`);
@@ -47,28 +51,23 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
 
         // Get the current inventory from chrome.storage.local
         chrome.storage.local.get(['inventory'], (result) => {
-            const inventory: Cam[] = result.inventory; // Ensure inventory is an array
+            const currentInventory: Database = result.inventory || {};
 
-            // Check if the cam is already in the inventory
-            const isCamInInventory = inventory.some(
-                (cam) => cam.id === selectedCam.id
+            // Add the selected cam to the inventory
+            const updatedInventory = addCamToInventory(
+                currentInventory,
+                selectedCam,
+                formState.brand,
+                formState.model
             );
-            if (isCamInInventory) {
-                console.log(
-                    `Cam with ID ${selectedCam.id} is already in the inventory.`
-                );
-                return; // Exit the function early
-            }
-
-            // Add the Cam to the inventory
-            inventory.push(selectedCam);
 
             // Save the updated inventory back to chrome.storage.local
-            chrome.storage.local.set({ inventory });
-
-            // Navigate to the inventory page
-            navigateToInventory();
+            chrome.storage.local.set({ inventory: updatedInventory }, () => {
+                console.log('Cam added to inventory:', selectedCam);
+            });
         });
+
+        navigateToInventory();
     };
 
     return (
@@ -89,7 +88,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                     className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                 >
                     <option value="">--</option>
-                    {brands.map((brand) => (
+                    {database.brands.map((brand) => (
                         <option key={brand.id} value={brand.id}>
                             {brand.name}
                         </option>
@@ -112,19 +111,19 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                         className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
                         <option value="">--</option>
-                        {models
-                            .filter(
-                                (model) => model.brand.id === formState.brand
-                            )
-                            .map((model) => (
-                                <option key={model.id} value={model.id}>
-                                    {model.name}
-                                </option>
-                            ))}
+                        {(
+                            database.brands.find(
+                                (brand) => brand.id === formState.brand
+                            )?.models ?? []
+                        ).map((model) => (
+                            <option key={model.id} value={model.id}>
+                                {model.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
             )}
-            {/* Model Dropdown */}
+            {/* Cam Dropdown */}
             {formState.model && (
                 <div className="py-2">
                     <label
@@ -140,13 +139,17 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                         className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
                         <option value="">--</option>
-                        {cams
-                            .filter((cam) => cam.model.id === formState.model)
-                            .map((cam) => (
-                                <option key={cam.id} value={cam.id}>
-                                    {cam.name}
-                                </option>
-                            ))}
+                        {(
+                            database.brands
+                                .find((brand) => brand.id === formState.brand)
+                                ?.models.find(
+                                    (model) => model.id === formState.model
+                                )?.cams ?? []
+                        ).map((cam) => (
+                            <option key={cam.id} value={cam.id}>
+                                {cam.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
             )}

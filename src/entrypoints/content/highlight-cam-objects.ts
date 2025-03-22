@@ -1,53 +1,60 @@
-import { cams } from '../../cam-database/queries';
+// import { database } from '../../cam-database/database';
 
-// Returns a string of text with HTML color spans around highlighted words
-function highlightCams(text: string): string {
-    let textWithHTMLHighlights = text;
+// // Returns a string of text with HTML color spans around highlighted words
+// function highlightCrackAndGearMentions(text: string): string {
+//     let textWithHTMLHighlights = text;
 
-    for (const cam of cams) {
-        const { regex, color } = cam;
-        textWithHTMLHighlights = textWithHTMLHighlights.replace(
-            regex,
-            `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
-        );
-    }
-    return text;
-}
+//     for (const cam of cams) {
+//         const { regex, color } = cam;
+//         textWithHTMLHighlights = textWithHTMLHighlights.replace(
+//             regex,
+//             `<span id='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+//         );
+//     }
 
-// Function to recursively search and highlight the cam instances
-function searchForCams(element: Node): void {
-    if (element.hasChildNodes()) {
-        if ((element as HTMLElement).dataset.cam === 'highlight') return;
-        element.childNodes.forEach(searchForCams);
-    } else if (element.nodeType === Node.TEXT_NODE) {
-        const highlightedHTML = highlightCams(element.textContent ?? '');
+//     return textWithHTMLHighlights;
+// }
 
-        const highlightedNode = document.createElement('span');
-        highlightedNode.innerHTML = highlightedHTML;
+// // Function to recursively search and highlight the cam instances
+// function highlightCams(element: Node): void {
+//     if (element.hasChildNodes()) {
+//         if ((element as HTMLElement).id === 'highlight') return;
+//         element.childNodes.forEach(highlightCams);
+//     } else if (element.nodeType === Node.TEXT_NODE) {
+//         const highlightedHTML = highlightCrackAndGearMentions(
+//             element.textContent ?? ''
+//         );
 
-        (element as Text).replaceWith(highlightedNode);
-    }
-}
+//         const highlightedNode = document.createElement('span');
+//         highlightedNode.innerHTML = highlightedHTML;
 
-// Recursively search and highlight cam instances once comments load on a page
-function observeAdditionalContent(): void {
-    const commentList = document.querySelector('.comment-list');
-    if (commentList) {
-        const config = { childList: true };
+//         (element as ChildNode).replaceWith(highlightedNode);
+//     }
+// }
 
-        const observer = new MutationObserver((mutationsList) => {
-            mutationsList.forEach((mutation) => {
-                if (
-                    mutation.type === 'childList' &&
-                    mutation.addedNodes.length > 0
-                ) {
-                    searchForCams(commentList);
-                }
-            });
-        });
+// // Recursively search and highlight cam instances once comments load on a page
+// function observeAdditionalContent(): void {
+//     const commentList = document.querySelector('.comment-list');
+//     if (commentList) {
+//         const config = { childList: true };
 
-        observer.observe(commentList, config);
-    }
-}
+//         const observer = new MutationObserver((mutationsList) => {
+//             mutationsList.forEach((mutation) => {
+//                 if (
+//                     mutation.type === 'childList' &&
+//                     mutation.addedNodes.length > 0
+//                 ) {
+//                     highlightCams(commentList);
+//                 }
+//             });
+//         });
 
-export { highlightCams, searchForCams, observeAdditionalContent };
+//         observer.observe(commentList, config);
+//     }
+// }
+
+// export {
+//     highlightCrackAndGearMentions,
+//     highlightCams,
+//     observeAdditionalContent,
+// };

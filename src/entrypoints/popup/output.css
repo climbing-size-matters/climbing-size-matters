@@ -367,6 +367,9 @@ video {
 .w-full {
     width: 100%;
 }
+.flex-row {
+    flex-direction: row;
+}
 .flex-col {
     flex-direction: column;
 }
@@ -379,8 +382,8 @@ video {
 .justify-center {
     justify-content: center;
 }
-.justify-evenly {
-    justify-content: space-evenly;
+.justify-between {
+    justify-content: space-between;
 }
 .rounded {
     border-radius: 0.25rem;

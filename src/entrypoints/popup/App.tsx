@@ -4,8 +4,9 @@ import Inventory from './Inventory';
 import AddGear from './AddGear';
 
 export default function App() {
-    const [isInventoryTab, setIsInventoryTab] = useState<boolean>(true);
-    // const [cam, setCam] = useState<string>('');
+    const [currentPage, setCurrentPage] = useState<'inventory' | 'add-gear'>(
+        'inventory'
+    );
 
     return (
         <div className="p-2 bg-white h-96 w-64">
@@ -14,21 +15,16 @@ export default function App() {
                 <p className="text-lg font-bold">Climbing Size Matters</p>
             </div>
             <div className="border-b-2 border-gray-200 mx-auto my-2"></div>
-            <div className="flex justify-evenly">
-                <button
-                    className="bg-cyan-900 hover:bg-cyan-700 text-cyan-100 px-2 py-1 rounded-lg transition duration-200"
-                    onClick={() => setIsInventoryTab(true)}
-                >
-                    Inventory
-                </button>
-                <button
-                    className="bg-cyan-900 hover:bg-cyan-700 text-cyan-100 px-2 py-1 rounded-lg transition duration-200"
-                    onClick={() => setIsInventoryTab(false)}
-                >
-                    Add Gear
-                </button>
-            </div>
-            {isInventoryTab ? <Inventory /> : <AddGear />}
+            {currentPage === 'inventory' && (
+                <Inventory
+                    navigateToAddGear={() => setCurrentPage('add-gear')}
+                />
+            )}
+            {currentPage === 'add-gear' && (
+                <AddGear
+                    navigateToInventory={() => setCurrentPage('inventory')}
+                />
+            )}
         </div>
     );
 }

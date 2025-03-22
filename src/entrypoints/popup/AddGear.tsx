@@ -72,7 +72,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
 
     return (
         <div className="flex flex-col justify-center pt-2">
-            <div className="text-lg">Add gear to your inventory!</div>
+            <div className="text-lg">Add gear to your rack!</div>
             {/* Brand Dropdown */}
             <div className="py-2">
                 <label
@@ -149,12 +149,20 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                     </select>
                 </div>
             )}
-            <button
-                className="bg-white text-black font-bold p-2 rounded border border-black"
-                onClick={handleSubmit}
-            >
-                Add to Inventory
-            </button>
+            <div className="flex justify-around">
+                <button
+                    className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
+                    onClick={handleSubmit}
+                >
+                    Add to Rack
+                </button>
+                <button
+                    className="bg-white border border-cyan-900 text-cyan-900 px-2 py-1 rounded-lg"
+                    onClick={navigateToInventory}
+                >
+                    Back to Inventory
+                </button>
+            </div>
         </div>
     );
 }

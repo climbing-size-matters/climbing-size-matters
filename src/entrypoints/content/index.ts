@@ -1,7 +1,9 @@
-import {
-    searchForCams,
-    observeAdditionalContent,
-} from './highlight-cam-objects';
+// import {
+//     highlightCams,
+//     observeAdditionalContent,
+// } from './highlight-cam-object';
+// import { highlightCams, observeAdditionalContent } from './highlight-cam-regex';
+// import { createSizeComparisonPopup } from './size-comparison-popup';
 
 export default defineContentScript({
     // Only matches paths where user will discuss climbing gear
@@ -12,7 +14,8 @@ export default defineContentScript({
     ],
     main(): void {
         // Execute the highlight function on the document body
-        searchForCams(document.body);
-        observeAdditionalContent();
+        // highlightCams(document.body);
+        // observeAdditionalContent();
+        // createSizeComparisonPopup();
     },
 });

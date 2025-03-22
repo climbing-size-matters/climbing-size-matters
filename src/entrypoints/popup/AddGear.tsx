@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { Cam, brands, models, cams } from '../../cam-database/cam-types';
 
-export default function AddGear() {
+type AddGearProps = {
+    navigateToInventory: () => void;
+};
+
+export default function AddGear({ navigateToInventory }: AddGearProps) {
     const [formState, setFormState] = useState({
         brand: '',
         model: '',
@@ -60,6 +64,9 @@ export default function AddGear() {
 
             // Save the updated inventory back to chrome.storage.local
             chrome.storage.local.set({ inventory });
+
+            // Navigate to the inventory page
+            navigateToInventory();
         });
     };
 

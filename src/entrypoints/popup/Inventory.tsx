@@ -38,18 +38,21 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                 </button>
             </div>
             {inventory.map((cam, index) => (
-                <div className="flex justify-start">
+                <div className="flex justify-start group">
                     <div className="pr-2" key={index}>
                         {cam.name} {cam.model.name}
                     </div>
-                    <button onClick={() => handleDelete(cam.id)}>
+                    <button
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        onClick={() => handleDelete(cam.id)}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="size-4"
+                            className="size-4 text-red-500"
                         >
                             <path
                                 stroke-linecap="round"

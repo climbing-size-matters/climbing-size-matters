@@ -14,7 +14,7 @@ export default function App() {
                 <img src="/icon/logo.svg" alt="logo" className="w-8 h-8 mr-2" />
                 <p className="text-lg font-bold">Climbing Size Matters</p>
             </div>
-            <div className="border-b-2 border-gray-200 mx-auto my-2"></div>
+            <div className="border-b-2 border-gray-200 mx-auto mt-2"></div>
             {currentPage === 'inventory' && (
                 <Inventory
                     navigateToAddGear={() => setCurrentPage('add-gear')}

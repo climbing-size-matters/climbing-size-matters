@@ -1,7 +1,7 @@
-import {
-    highlightCams,
-    observeAdditionalContent,
-} from './highlight-cam-object';
+// import {
+//     highlightCams,
+//     observeAdditionalContent,
+// } from './highlight-cam-object';
 // import { highlightCams, observeAdditionalContent } from './highlight-cam-regex';
 // import { createSizeComparisonPopup } from './size-comparison-popup';
 
@@ -13,8 +13,8 @@ export default defineContentScript({
     ],
     main(): void {
         // Execute the highlight function on the document body
-        highlightCams(document.body);
-        observeAdditionalContent();
+        // highlightCams(document.body);
+        // observeAdditionalContent();
         // createSizeComparisonPopup();
     },
 });

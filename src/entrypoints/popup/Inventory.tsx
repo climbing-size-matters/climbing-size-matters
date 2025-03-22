@@ -52,7 +52,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="size-4 text-red-500"
+                            className="size-4 text-gray-400"
                         >
                             <path
                                 stroke-linecap="round"

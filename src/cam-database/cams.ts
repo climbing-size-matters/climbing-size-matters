@@ -95,7 +95,7 @@ const four_mc: Cam = {
     id: 'four_mc',
     name: '#4',
     size: { inches: [0.93, 1.32], mm: [23.5, 33.5] },
-    color: 'rgb(117, 102, 201)', // Purple
+    color: '#CB1B31', // Red
     regex: /(red|4)\s(metolius|mc|mastercam)/gi,
 };
 

@@ -9,12 +9,11 @@ export default function App() {
     );
 
     return (
-        <div className="p-2 bg-white h-96 w-64">
-            <div className="flex justify-start items-center">
+        <div className="flex flex-col p-2 bg-white w-64">
+            <div className="flex justify-start items-center pb-2 border-b-2 border-gray-200">
                 <img src="/icon/logo.svg" alt="logo" className="w-8 h-8 mr-2" />
                 <p className="text-lg font-bold">Climbing Size Matters</p>
             </div>
-            <div className="border-b-2 border-gray-200 mx-auto mt-2"></div>
             {currentPage === 'inventory' && (
                 <Inventory
                     navigateToAddGear={() => setCurrentPage('add-gear')}

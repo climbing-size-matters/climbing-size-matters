@@ -46,7 +46,6 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
             .find((brand) => brand.id === formState.brand)
             ?.models.find((model) => model.id === formState.model)
             ?.cams.find((cam) => cam.id === formState.cam);
-
         if (!selectedCam) {
             throw new Error(`Cam with ID ${formState.cam} not found`);
         }

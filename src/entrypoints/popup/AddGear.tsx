@@ -11,23 +11,24 @@ type AddGearProps = {
 
 export default function AddGear({ navigateToInventory }: AddGearProps) {
     const [formState, setFormState] = useState({
-        brand: '',
-        model: '',
+        brand: [],
+        model: [],
         cam: '',
     });
 
     const handleFormChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
+
         setFormState((prevState) => ({
             ...prevState,
-            [id]: value,
+            [id]: id === 'cam' ? value : value ? value.split('|') : [], // Only split for brand and model
         }));
 
         // Reset dependent fields when a higher-level field changes
         if (id === 'brand') {
             setFormState((prevState) => ({
                 ...prevState,
-                model: '',
+                model: [],
                 cam: '',
             }));
         } else if (id === 'model') {
@@ -41,10 +42,12 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
+        console.log('Database:', database);
+        console.log('Form State:', formState);
         // Find the Cam object based on the selected ID
         const selectedCam = database.brands
-            .find((brand) => brand.id === formState.brand)
-            ?.models.find((model) => model.id === formState.model)
+            .find((brand) => brand.id === formState.brand[0])
+            ?.models.find((model) => model.id === formState.model[0])
             ?.cams.find((cam) => cam.id === formState.cam);
         if (!selectedCam) {
             throw new Error(`Cam with ID ${formState.cam} not found`);
@@ -58,8 +61,10 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
             const updatedInventory = addCamToInventory(
                 currentInventory,
                 selectedCam,
-                formState.brand,
-                formState.model
+                formState.brand[0],
+                formState.brand[1],
+                formState.model[0],
+                formState.model[1]
             );
 
             // Save the updated inventory back to chrome.storage.local
@@ -81,20 +86,23 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                 </label>
                 <select
                     id="brand"
-                    value={formState.brand}
+                    value={formState.brand.join('|')}
                     onChange={handleFormChange}
                     className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                 >
                     <option value="">--</option>
                     {database.brands.map((brand) => (
-                        <option key={brand.id} value={brand.id}>
+                        <option
+                            key={brand.id}
+                            value={`${brand.id}|${brand.name}`}
+                        >
                             {brand.name}
                         </option>
                     ))}
                 </select>
             </div>
             {/* Model Dropdown */}
-            {formState.brand && (
+            {formState.brand[0] && (
                 <div className="py-2">
                     <label
                         htmlFor="model"
@@ -104,17 +112,20 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                     </label>
                     <select
                         id="model"
-                        value={formState.model}
+                        value={formState.model.join('|')} // Convert the array to a string
                         onChange={handleFormChange}
                         className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
                         <option value="">--</option>
                         {(
                             database.brands.find(
-                                (brand) => brand.id === formState.brand
+                                (brand) => brand.id === formState.brand[0]
                             )?.models ?? []
                         ).map((model) => (
-                            <option key={model.id} value={model.id}>
+                            <option
+                                key={model.id}
+                                value={`${model.id}|${model.name}`}
+                            >
                                 {model.name}
                             </option>
                         ))}
@@ -122,7 +133,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                 </div>
             )}
             {/* Cam Dropdown */}
-            {formState.model && (
+            {formState.model[0] && (
                 <div className="py-2">
                     <label
                         htmlFor="cam"
@@ -139,9 +150,11 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                         <option value="">--</option>
                         {(
                             database.brands
-                                .find((brand) => brand.id === formState.brand)
+                                .find(
+                                    (brand) => brand.id === formState.brand[0]
+                                )
                                 ?.models.find(
-                                    (model) => model.id === formState.model
+                                    (model) => model.id === formState.model[0]
                                 )?.cams ?? []
                         ).map((cam) => (
                             <option key={cam.id} value={cam.id}>

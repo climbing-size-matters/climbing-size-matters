@@ -42,8 +42,6 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        console.log('Database:', database);
-        console.log('Form State:', formState);
         // Find the Cam object based on the selected ID
         const selectedCam = database.brands
             .find((brand) => brand.id === formState.brand[0])

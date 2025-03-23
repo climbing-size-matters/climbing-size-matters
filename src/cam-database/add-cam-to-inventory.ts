@@ -3,14 +3,6 @@
 
 import { Database, Cam } from './types';
 
-/**
- * Adds a new Cam to the inventory, organizing it by brand and model.
- * @param inventory - The current inventory object.
- * @param selectedCam - The Cam object to add.
- * @param brandId - The name of the brand associated with the Cam.
- * @param modelId - The name of the model associated with the Cam.
- * @returns The updated inventory object.
- */
 export function addCamToInventory(
     inventory: Database,
     selectedCam: Cam,

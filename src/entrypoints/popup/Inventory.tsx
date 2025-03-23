@@ -56,7 +56,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
     }, []);
 
     return (
-        <div className="justify-center h-80 pt-2 overflow-y-auto scrollbar-hidden">
+        <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
             <div className="flex justify-between align-center">
                 <div className="text-lg">Inventory</div>
                 <button

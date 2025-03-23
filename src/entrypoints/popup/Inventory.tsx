@@ -57,7 +57,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
 
     return (
         <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
-            <div className="flex justify-between align-center">
+            <div className="flex justify-between align-center mb-2">
                 <div className="text-lg">Inventory</div>
                 <button
                     className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
@@ -70,10 +70,10 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                 <div className="text-2xl" key={brand.id}>
                     {brand.name}
                     {brand.models?.map((model) => (
-                        <div className="text-lg" key={model.id}>
+                        <div className="text-lg ml-2" key={model.id}>
                             {model.name}
                             {model.cams?.map((cam) => (
-                                <div className="flex items-center group">
+                                <div className="flex items-center group ml-4">
                                     <div
                                         className="h-3 w-3 mr-1 rounded-sm border border-black"
                                         style={{ backgroundColor: cam.color }}

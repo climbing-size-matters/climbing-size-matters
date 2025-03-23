@@ -1,6 +1,3 @@
-// TODO
-// - revise function so it doesn't mutate the original inventory object
-
 import { Database, Cam } from './types';
 
 export function addCamToInventory(
@@ -37,8 +34,18 @@ export function addCamToInventory(
     const camExists = model.cams.some((cam) => cam.id === selectedCam.id);
 
     if (!camExists) {
-        // Add the new cam to the model's cams array
-        model.cams.push(selectedCam);
+        // Find the correct position to insert the cam based on size.inches[0]
+        const insertIndex = model.cams.findIndex(
+            (cam) => cam.size.inches[0] > selectedCam.size.inches[0]
+        );
+
+        if (insertIndex === -1) {
+            // If no larger cam is found, push the cam to the end
+            model.cams.push(selectedCam);
+        } else {
+            // Insert the cam at the correct position
+            model.cams.splice(insertIndex, 0, selectedCam);
+        }
     }
 
     return inventory; // Return the updated inventory

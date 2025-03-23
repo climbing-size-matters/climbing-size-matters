@@ -11,7 +11,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
     const handleDelete = (id: string) => {
         chrome.storage.local.get(['inventory'], (result) => {
             if (result.inventory) {
-                const updatedInventory: Database = { ...result.inventory }; // Create a copy of the inventory
+                const updatedInventory: Database = { ...result.inventory };
 
                 // Iterate through brands and models, removing the cam and cleaning up empty models and brands
                 updatedInventory.brands = updatedInventory.brands
@@ -73,8 +73,12 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                         <div className="text-lg" key={model.id}>
                             {model.name}
                             {model.cams?.map((cam) => (
-                                <div className="flex items-start group">
-                                    <div className="text-sm pr-1" key={cam.id}>
+                                <div className="flex items-center group">
+                                    <div
+                                        className="h-3 w-3 mr-1 rounded-sm border border-black"
+                                        style={{ backgroundColor: cam.color }}
+                                    ></div>
+                                    <div className="text-sm mr-2" key={cam.id}>
                                         {cam.name}
                                     </div>
                                     <button

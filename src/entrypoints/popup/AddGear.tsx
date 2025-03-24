@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Database } from '@/cam-database/types';
 import { database } from '@/cam-database/database';
-import { addCamToInventory } from '../../cam-database/add-cam-to-inventory';
 
 type AddGearProps = {
     navigateToInventory: () => void;
@@ -49,20 +48,63 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
             throw new Error(`Cam with ID ${formState.cam} not found`);
         }
 
-        // Get the current inventory from chrome.storage.local and set it to the updated inventory
+        // Add cam to chrome.storage.local
         chrome.storage.local.get(['inventory'], (result) => {
             const currentInventory: Database = result.inventory || {};
 
-            const updatedInventory = addCamToInventory(
-                currentInventory,
-                selectedCam,
-                formState.brand[0],
-                formState.brand[1],
-                formState.model[0],
-                formState.model[1]
+            // If the inventory is empty, initialize it
+            if (!currentInventory.brands) {
+                currentInventory.brands = [];
+            }
+
+            // Find the brand in the inventory
+            let brand = currentInventory.brands.find(
+                (b) => b.id === formState.brand[0]
             );
 
-            chrome.storage.local.set({ inventory: updatedInventory }, () => {
+            // If the brand doesn't exist, create it and add it to the inventory
+            if (!brand) {
+                brand = {
+                    id: formState.brand[0],
+                    name: formState.brand[1],
+                    models: [],
+                }; // Use brandName here
+                currentInventory.brands.push(brand);
+            }
+
+            // Find the model within the brand
+            let model = brand.models.find((m) => m.id === formState.model[0]);
+
+            // If the model doesn't exist, create it and add it to the brand
+            if (!model) {
+                model = {
+                    id: formState.model[0],
+                    name: formState.model[1],
+                    cams: [],
+                }; // Use modelName here
+                brand.models.push(model);
+            }
+
+            // Check if the cam already exists in the model's cams array
+            const camExists = model.cams.some(
+                (cam) => cam.id === selectedCam.id
+            );
+
+            if (!camExists) {
+                // Find the correct position to insert the cam based on size.inches[0]
+                const insertIndex = model.cams.findIndex(
+                    (cam) => cam.size.inches[0] > selectedCam.size.inches[0]
+                );
+                // If no larger cam is found, push the cam to the end
+                if (insertIndex === -1) {
+                    model.cams.push(selectedCam);
+                    // Insert the cam at the correct position
+                } else {
+                    model.cams.splice(insertIndex, 0, selectedCam);
+                }
+            }
+
+            chrome.storage.local.set({ inventory: currentInventory }, () => {
                 navigateToInventory();
             });
         });

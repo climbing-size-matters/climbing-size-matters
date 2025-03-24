@@ -67,7 +67,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                 </button>
             </div>
             {inventory?.brands?.map((brand) => (
-                <div className="text-2xl" key={brand.id}>
+                <div className="text-xl" key={brand.id}>
                     {brand.name}
                     {brand.models?.map((model) => (
                         <div className="text-lg ml-2" key={model.id}>

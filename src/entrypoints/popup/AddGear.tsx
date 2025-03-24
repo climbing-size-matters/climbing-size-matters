@@ -1,5 +1,3 @@
-// To-do: The inventory component does not refresh after adding a cam to the inventory.
-
 import { useState } from 'react';
 import { Database } from '@/cam-database/types';
 import { database } from '@/cam-database/database';
@@ -51,11 +49,10 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
             throw new Error(`Cam with ID ${formState.cam} not found`);
         }
 
-        // Get the current inventory from chrome.storage.local
+        // Get the current inventory from chrome.storage.local and set it to the updated inventory
         chrome.storage.local.get(['inventory'], (result) => {
             const currentInventory: Database = result.inventory || {};
 
-            // Add the selected cam to the inventory
             const updatedInventory = addCamToInventory(
                 currentInventory,
                 selectedCam,
@@ -65,10 +62,10 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                 formState.model[1]
             );
 
-            // Save the updated inventory back to chrome.storage.local
-            chrome.storage.local.set({ inventory: updatedInventory });
+            chrome.storage.local.set({ inventory: updatedInventory }, () => {
+                navigateToInventory();
+            });
         });
-        navigateToInventory();
     };
 
     return (

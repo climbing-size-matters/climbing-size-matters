@@ -8,6 +8,7 @@ export function addCamToInventory(
     modelId: string,
     modelName: string
 ): Database {
+    // If the inventory is empty, initialize it
     if (!inventory.brands) {
         inventory.brands = [];
     }

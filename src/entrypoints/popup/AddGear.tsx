@@ -75,7 +75,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
             <div className="py-2">
                 <label
                     htmlFor="brand"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-black"
                 >
                     Brand
                 </label>
@@ -83,7 +83,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                     id="brand"
                     value={formState.brand.join('|')}
                     onChange={handleFormChange}
-                    className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                    className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                 >
                     <option value="">--</option>
                     {database.brands.map((brand) => (
@@ -101,7 +101,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                 <div className="py-2">
                     <label
                         htmlFor="model"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-black"
                     >
                         Model
                     </label>
@@ -109,7 +109,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                         id="model"
                         value={formState.model.join('|')} // Convert the array to a string
                         onChange={handleFormChange}
-                        className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
                         <option value="">--</option>
                         {(
@@ -132,7 +132,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                 <div className="py-2">
                     <label
                         htmlFor="cam"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-black"
                     >
                         Cam
                     </label>
@@ -140,7 +140,7 @@ export default function AddGear({ navigateToInventory }: AddGearProps) {
                         id="cam"
                         value={formState.cam}
                         onChange={handleFormChange}
-                        className="mt-1 p-1 w-full rounded-sm border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
                         <option value="">--</option>
                         {(

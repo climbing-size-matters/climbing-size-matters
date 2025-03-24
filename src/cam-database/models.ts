@@ -12,14 +12,27 @@ import {
     six_c4,
     seven_c4,
     eight_c4,
+    triple_zero_c3,
+    double_zero_c3,
+    zero_c3,
+    one_c3,
     two_c3,
+    double_zero_mc,
+    zero_mc,
+    one_mc,
+    two_mc,
+    three_mc,
     four_mc,
+    five_mc,
+    six_mc,
+    seven_mc,
+    eight_mc,
 } from './cams';
 
 const c3: Model = {
     id: 'c3',
     name: 'Camalot C3',
-    cams: [two_c3],
+    cams: [triple_zero_c3, double_zero_c3, zero_c3, one_c3, two_c3],
 };
 const c4: Model = {
     id: 'c4',
@@ -42,7 +55,18 @@ const c4: Model = {
 const mc: Model = {
     id: 'mc',
     name: 'Ultralight Master Cam',
-    cams: [four_mc],
+    cams: [
+        double_zero_mc,
+        zero_mc,
+        one_mc,
+        two_mc,
+        three_mc,
+        four_mc,
+        five_mc,
+        six_mc,
+        seven_mc,
+        eight_mc,
+    ],
 };
 
 export { c4, c3, mc };

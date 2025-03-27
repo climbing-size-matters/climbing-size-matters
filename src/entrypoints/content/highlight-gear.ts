@@ -1,53 +1,49 @@
-import { database } from '../../cam-database/database';
+import { gearToHighlight } from './gear-reg-ex';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCams(text: string): string {
     let textWithHTMLHighlights = text;
-
-    for (const brand of database.brands) {
-        for (const model of brand.models) {
-            for (const cam of model.cams) {
-                const { regex, color } = cam;
-                textWithHTMLHighlights = textWithHTMLHighlights.replace(
-                    regex,
-                    `<span id='highlight' style='background-color:${color}; color:${color === '#000000' ? 'white' : 'inherit'}; border-radius: 10%; padding: 2px;'>$&</span>`
-                );
-            }
-        }
+    for (const { pattern, color } of gearToHighlight) {
+        textWithHTMLHighlights = textWithHTMLHighlights.replace(
+            pattern,
+            `<span data-cam='highlighted' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+        );
     }
-
     return textWithHTMLHighlights;
 }
 
 // Function to recursively search and highlight the cam instances
 function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
-        if ((element as HTMLElement).id === 'highlight') return;
+        if ((element as HTMLElement).dataset.cam === 'highlighted') return;
         element.childNodes.forEach(searchForCams);
-    } else if (element.nodeType === Node.TEXT_NODE) {
-        const highlightedHTML = highlightCams(
-            element.textContent ?? ''
-        );
+    } else if (
+        element.nodeType === Node.TEXT_NODE &&
+        element.textContent !== null
+    ) {
+        const highlightedHTML = highlightCams(element.textContent);
 
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
 
-        (element as ChildNode).replaceWith(highlightedNode);
+        (element as Text).replaceWith(highlightedNode);
     }
 }
 
-// Recursively search and highlight cam instances once comments load on a page
+// Search and highlight cam instances within the comments once they load
 function observeAdditionalContent(): void {
     const commentList = document.querySelector('.comment-list');
     if (commentList) {
         const config = { childList: true };
 
         const observer = new MutationObserver((mutationsList) => {
+            // Loop through all mutations
             mutationsList.forEach((mutation) => {
                 if (
                     mutation.type === 'childList' &&
                     mutation.addedNodes.length > 0
                 ) {
+                    // Run your function when new children are added
                     searchForCams(commentList);
                 }
             });
@@ -57,8 +53,4 @@ function observeAdditionalContent(): void {
     }
 }
 
-export {
-    highlightCams,
-    searchForCams,
-    observeAdditionalContent,
-};
+export { highlightCams, searchForCams, observeAdditionalContent };

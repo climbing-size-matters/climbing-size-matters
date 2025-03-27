@@ -1,10 +1,7 @@
-import {
-    highlightCams,
-    observeAdditionalContent,
-} from './highlight-cam-object';
-// import { createSizeComparisonPopup } from './size-comparison-popup';
+import { searchForCams, observeAdditionalContent } from './highlight-gear';
 
 export default defineContentScript({
+    // Only matches paths where user will discuss climbing gear
     matches: [
         '*://www.mountainproject.com/route/*',
         '*://www.mountainproject.com/forum/*',
@@ -12,8 +9,7 @@ export default defineContentScript({
     ],
     main(): void {
         // Execute the highlight function on the document body
-        highlightCams(document.body);
+        searchForCams(document.body);
         observeAdditionalContent();
-        // createSizeComparisonPopup();
     },
 });

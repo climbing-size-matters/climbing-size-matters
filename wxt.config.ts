@@ -24,8 +24,13 @@ export default defineConfig({
         content_scripts: [
             {
                 matches: ['*://www.mountainproject.com/*'],
-                // to enable HMR, we have a loader that dynamically imports our script
                 js: ['content-scripts/esm-loader.js'],
+            },
+        ],
+        web_accessible_resources: [
+            {
+                resources: ['styles.css'], // Path to the CSS file in the `dist` directory
+                matches: ['*://www.mountainproject.com/*'], // URLs where the CSS can be accessed
             },
         ],
     },

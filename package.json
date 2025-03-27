@@ -25,7 +25,7 @@
     "scripts": {
         "dev": "wxt",
         "dev:firefox": "wxt -b firefox",
-        "build:css": "tailwindcss -i ./src/entrypoints/popup/styles.css -o ./src/entrypoints/popup/output.css --minify",
+        "build:css": "tailwindcss -i ./src/entrypoints/popup/styles.css -o ./dist/styles.css --minify",
         "prebuild": "pnpm run build:css",
         "build": "wxt build",
         "build:firefox": "wxt build -b firefox",
@@ -52,6 +52,7 @@
         "husky": "9.1.7",
         "lint-staged": "15.2.11",
         "prettier": "3.4.2",
+        "rollup-plugin-postcss": "4.0.2",
         "tailwindcss": "3.4.17",
         "typescript": "5.7.2",
         "typescript-eslint": "8.18.1",

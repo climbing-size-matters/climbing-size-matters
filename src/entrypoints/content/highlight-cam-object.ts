@@ -15,7 +15,6 @@ function highlightCams(text: string): string {
                     regex,
                     `<span data-cam='highlight' style='background-color:${color}; color:${color === '#000000' ? 'white' : 'inherit'}; border-radius: 10%; padding: 2px;'>$&</span>`
                 );
-                console.log('inside highlight cams');
             }
         }
     }
@@ -26,7 +25,7 @@ function highlightCams(text: string): string {
 // Function to recursively search and highlight the cam instances
 function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
-        if ((element as HTMLElement).id === 'highlight') return;
+        if ((element as HTMLElement).dataset.cam === 'highlight') return;
         element.childNodes.forEach(searchForCams);
     } else if (element.nodeType === Node.TEXT_NODE) {
         const highlightedHTML = highlightCams(element.textContent ?? '');
@@ -46,9 +45,7 @@ function searchForCams(element: Node): void {
 
 // Create a popup component and inject React into it
 function showComparisonPopup(targetElement: HTMLElement): void {
-    console.log('inside showComparisonPopup');
     // Get the position of the target element
-    console.log(targetElement);
     const rect = targetElement.getBoundingClientRect();
 
     // Create a container for the React popup

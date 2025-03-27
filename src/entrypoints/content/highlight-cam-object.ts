@@ -25,9 +25,7 @@ function searchForCams(element: Node): void {
         if ((element as HTMLElement).id === 'highlight') return;
         element.childNodes.forEach(searchForCams);
     } else if (element.nodeType === Node.TEXT_NODE) {
-        const highlightedHTML = highlightCams(
-            element.textContent ?? ''
-        );
+        const highlightedHTML = highlightCams(element.textContent ?? '');
 
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
@@ -57,8 +55,4 @@ function observeAdditionalContent(): void {
     }
 }
 
-export {
-    highlightCams,
-    searchForCams,
-    observeAdditionalContent,
-};
+export { highlightCams, searchForCams, observeAdditionalContent };

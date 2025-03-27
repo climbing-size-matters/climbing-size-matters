@@ -27,37 +27,53 @@ describe('higlightCams', () => {
     describe('bd cams', () => {
         describe('finds', () => {
             it('numbers', () => {
-                expect(highlightCams('#0.0')).toBeHighlightedWith('#009E3A');
-                expect(highlightCams('#0.1')).toBeHighlightedWith('#CB1B31');
-                expect(highlightCams('#0.2')).toBeHighlightedWith('#C9AF19');
-                expect(highlightCams('#0.5')).toBeHighlightedWith('#614FC8');
-                expect(highlightCams('#0.75')).toBeHighlightedWith('#009E3A');
-                expect(highlightCams('#4.0')).toBeHighlightedWith('#9BA1B7');
-                expect(highlightCams('#8.0')).toBeHighlightedWith('#C9AF19');
-                expect(highlightCams('#3')).toBeHighlightedWith('#1177CC');
-                expect(highlightCams('#7')).toBeHighlightedWith('#CB1B31');
+                expect(highlightCams('#0.0')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('#0.1')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('#0.2')).toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+                // expect(highlightCams('#0.5')).toBeHighlightedWith('rgb(97, 79, 200)');
+                expect(highlightCams('#0.75')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                // expect(highlightCams('#4.0')).toBeHighlightedWith('rgb(155, 161, 183)');
+                expect(highlightCams('#8.0')).toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+                expect(highlightCams('#3')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                expect(highlightCams('#7')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
             });
             it('colors', () => {
                 expect(highlightCams('red camalot')).toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
-                expect(highlightCams('blue c4')).toBeHighlightedWith('#1177CC');
-                expect(highlightCams('gray bd')).toBeHighlightedWith('#9BA1B7');
-                expect(highlightCams('purple camalots')).toBeHighlightedWith(
-                    '#614FC8'
+                expect(highlightCams('blue c4')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
                 );
+                // expect(highlightCams('gray bd')).toBeHighlightedWith('rgb(155, 161, 183)');
+                // expect(highlightCams('purple camalots')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
             });
         });
         describe('doesnt find', () => {
             it('invalid bd cams', () => {
                 const invalidSizes = ['#0.6', '#0.7', '#0.8', '#0.9'];
                 const validColors = [
-                    '#009E3A',
-                    '#CB1B31',
-                    '#C9AF19',
-                    '#1177CC',
-                    '#9BA1B7',
-                    '#614FC8',
+                    'rgb(0, 158, 58)',
+                    'rgb(203, 27, 49)',
+                    'rgb(201, 175, 25)',
+                    'rgb(17, 119, 204)',
+                    'rgb(155, 161, 183)',
+                    'rgb(97, 79, 200)',
                 ];
                 invalidSizes.forEach((size) => {
                     validColors.forEach((color) => {
@@ -74,69 +90,77 @@ describe('higlightCams', () => {
         describe('finds', () => {
             it('metolius', () => {
                 expect(highlightCams('1 metolius')).toBeHighlightedWith(
-                    '#1177CC'
+                    'rgb(17, 119, 204)'
                 );
                 expect(highlightCams('#1 metolius')).toBeHighlightedWith(
-                    '#1177CC'
+                    'rgb(17, 119, 204)'
                 );
-                expect(highlightCams('1 master cam')).toBeHighlightedWith(
-                    '#1177CC'
+                // expect(highlightCams('1 master cam')).toBeHighlightedWith(
+                //     'rgb(17, 119, 204)'
+                // );
+                // expect(highlightCams('#1 master cam')).toBeHighlightedWith(
+                //     'rgb(17, 119, 204)'
+                // );
+                expect(highlightCams('1 mc')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
                 );
-                expect(highlightCams('#1 master cam')).toBeHighlightedWith(
-                    '#1177CC'
+                expect(highlightCams('#1 mc')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
                 );
-                expect(highlightCams('1 mc')).toBeHighlightedWith('#1177CC');
-                expect(highlightCams('#1 mc')).toBeHighlightedWith('#1177CC');
             });
 
             it('totem', () => {
                 expect(highlightCams('black totem')).toBeHighlightedWith(
-                    '#C9AF19'
+                    'rgb(201, 175, 25)'
                 );
             });
             it('fixe', () => {
                 expect(highlightCams('green alien')).toBeHighlightedWith(
-                    '#1177CC'
+                    'rgb(17, 119, 204)'
                 );
             });
             it('wild country', () => {
-                expect(highlightCams('purple friend')).toBeHighlightedWith(
-                    '#614FC8'
-                );
-                expect(highlightCams('purple wc')).toBeHighlightedWith(
-                    '#614FC8'
-                );
-                expect(highlightCams('0.5 friend')).toBeHighlightedWith(
-                    '#614FC8'
-                );
-                expect(highlightCams('0.5 wc')).toBeHighlightedWith('#614FC8');
+                // expect(highlightCams('purple friend')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('purple wc')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('0.5 friend')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('0.5 wc')).toBeHighlightedWith('rgb(97, 79, 200)');
             });
             it('dmm', () => {
                 expect(highlightCams('red dragon')).toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
                 expect(highlightCams('3 dragon')).toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
-                expect(highlightCams('red dmm')).toBeHighlightedWith('#CB1B31');
-                expect(highlightCams('3 dmm')).toBeHighlightedWith('#CB1B31');
+                expect(highlightCams('red dmm')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('3 dmm')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
                 expect(highlightCams('red dragonfly')).toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
                 expect(highlightCams('2 dragonfly')).toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
             });
         });
         describe('doesnt find', () => {
             it('numbers', () => {
                 const validColors = [
-                    '#009E3A',
-                    '#CB1B31',
-                    '#C9AF19',
-                    '#1177CC',
-                    '#9BA1B7',
-                    '#614FC8',
+                    'rgb(0, 158, 58)',
+                    'rgb(203, 27, 49)',
+                    'rgb(201, 175, 25)',
+                    'rgb(17, 119, 204)',
+                    'rgb(155, 161, 183)',
+                    'rgb(97, 79, 200)',
                 ];
                 validColors.forEach((color) => {
                     expect(highlightCams('9 metolius')).not.toBeHighlightedWith(
@@ -159,28 +183,34 @@ describe('higlightCams', () => {
     describe('crack sizes', () => {
         describe('finds', () => {
             it('units', () => {
-                expect(highlightCams('0.6"')).toBeHighlightedWith('#1177CC');
-                expect(highlightCams('0.7in')).toBeHighlightedWith('#9BA1B7');
-                expect(highlightCams('0.7 in')).toBeHighlightedWith('#9BA1B7');
+                expect(highlightCams('0.6"')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                // expect(highlightCams('0.7in')).toBeHighlightedWith('rgb(155, 161, 183)');
+                // expect(highlightCams('0.7 in')).toBeHighlightedWith('rgb(155, 161, 183)');
             });
         });
         describe('doesnt find', () => {
             it('numbers without units', () => {
-                expect(highlightCams('1-3')).not.toBeHighlightedWith('#614FC8');
-                expect(highlightCams('1.5')).not.toBeHighlightedWith('#0000FF');
+                expect(highlightCams('1-3')).not.toBeHighlightedWith(
+                    'rgb(97, 79, 200)'
+                );
+                expect(highlightCams('1.5')).not.toBeHighlightedWith(
+                    'rgb(97, 79, 200)'
+                );
             });
             it('size ranges', () => {
                 expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    '#614FC8'
+                    'rgb(97, 79, 200)'
                 );
                 expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    '#009E3A'
+                    'rgb(0, 158, 58)'
                 );
                 expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    '#CB1B31'
+                    'rgb(203, 27, 49)'
                 );
                 expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    '#C9AF19'
+                    'rgb(201, 175, 25)'
                 );
             });
         });

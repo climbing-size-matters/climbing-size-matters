@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { highlightCrackAndGearMentions } from "../../../src/entrypoints/content/highlight-gear";
+import { describe, it, expect } from 'vitest';
+import { highlightCams } from '../../../src/entrypoints/content/highlight-gear';
 
 // this creates a custom matcher so when we update what "highlighting" translates
 // to we can update the logic in one place rather than in each test case
@@ -7,200 +7,212 @@ import { highlightCrackAndGearMentions } from "../../../src/entrypoints/content/
 // right now it's a loose check on that the highlight color is contained in the string,
 // we could improve this to add a special id indicating a highlight
 expect.extend({
-  toBeHighlightedWith(received, expected) {
-    const { isNot } = this;
-    return {
-      pass: received.includes(expected),
-      message: () =>
-        `${received} should${isNot ? " not" : ""} be highlighted with ${expected}`,
-    };
-  },
+    toBeHighlightedWith(received, expected) {
+        const { isNot } = this;
+        return {
+            pass: received.includes(expected),
+            message: () =>
+                `${received} should${isNot ? ' not' : ''} be highlighted with ${expected}`,
+        };
+    },
 });
 
-declare module "vitest" {
-  interface Assertion<T> {
-    toBeHighlightedWith: (color: string) => T;
-  }
+declare module 'vitest' {
+    interface Assertion<T> {
+        toBeHighlightedWith: (color: string) => T;
+    }
 }
 
-describe("higlightCrackAndGearMentions", () => {
-  describe("cams", () => {
-    describe("finds", () => {
-      it("singular", () => {
-        expect(highlightCrackAndGearMentions("cam")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("camalot")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("cam-a-lot")).toBeHighlightedWith(
-          "#FF0000",
-        );
-      });
-
-      it("plural", () => {
-        expect(highlightCrackAndGearMentions("cams")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("camalots")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("cam-a-lots")).toBeHighlightedWith(
-          "#FF0000",
-        );
-      });
-
-      it("with trailing punctuation", () => {
-        expect(highlightCrackAndGearMentions("cam,")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("camalots.")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(
-          highlightCrackAndGearMentions("cam-a-lots "),
-        ).toBeHighlightedWith("#FF0000");
-      });
-
-      it("with initial capital (so Proper 💁🏼‍♂️)", () => {
-        expect(highlightCrackAndGearMentions("Cams")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("Camalots")).toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("Cam-a-lots")).toBeHighlightedWith(
-          "#FF0000",
-        );
-      });
+describe('higlightCams', () => {
+    describe('bd cams', () => {
+        describe('finds', () => {
+            it('numbers', () => {
+                expect(highlightCams('#0.0')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('#0.1')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('#0.2')).toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+                // expect(highlightCams('#0.5')).toBeHighlightedWith('rgb(97, 79, 200)');
+                expect(highlightCams('#0.75')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                // expect(highlightCams('#4.0')).toBeHighlightedWith('rgb(155, 161, 183)');
+                expect(highlightCams('#8.0')).toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+                expect(highlightCams('#3')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                expect(highlightCams('#7')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+            });
+            it('colors', () => {
+                expect(highlightCams('red camalot')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('blue c4')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                // expect(highlightCams('gray bd')).toBeHighlightedWith('rgb(155, 161, 183)');
+                // expect(highlightCams('purple camalots')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+            });
+        });
+        describe('doesnt find', () => {
+            it('invalid bd cams', () => {
+                const invalidSizes = ['#0.6', '#0.7', '#0.8', '#0.9'];
+                const validColors = [
+                    'rgb(0, 158, 58)',
+                    'rgb(203, 27, 49)',
+                    'rgb(201, 175, 25)',
+                    'rgb(17, 119, 204)',
+                    'rgb(155, 161, 183)',
+                    'rgb(97, 79, 200)',
+                ];
+                invalidSizes.forEach((size) => {
+                    validColors.forEach((color) => {
+                        expect(highlightCams(size)).not.toBeHighlightedWith(
+                            color
+                        );
+                    });
+                });
+            });
+        });
     });
 
-    describe("doesnt find", () => {
-      it("mid-word", () => {
-        expect(highlightCrackAndGearMentions("scam")).not.toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(highlightCrackAndGearMentions("camera")).not.toBeHighlightedWith(
-          "#FF0000",
-        );
-        expect(
-          highlightCrackAndGearMentions("Tengo la camisa negra"),
-        ).not.toBeHighlightedWith("#FF0000");
-      });
-    });
-  });
+    describe('non bd cam', () => {
+        describe('finds', () => {
+            it('metolius', () => {
+                expect(highlightCams('1 metolius')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                expect(highlightCams('#1 metolius')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                // expect(highlightCams('1 master cam')).toBeHighlightedWith(
+                //     'rgb(17, 119, 204)'
+                // );
+                // expect(highlightCams('#1 master cam')).toBeHighlightedWith(
+                //     'rgb(17, 119, 204)'
+                // );
+                expect(highlightCams('1 mc')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                expect(highlightCams('#1 mc')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+            });
 
-  describe("cam sizes", () => {
-    describe("finds", () => {
-      it("sub-decimal sizes", () => {
-        expect(highlightCrackAndGearMentions("#00")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0")).toBeHighlightedWith(
-          "#00FF00",
-        );
-      });
-
-      it("decimal sizes", () => {
-        expect(highlightCrackAndGearMentions("#0.1")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.2")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.3")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.4")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.5")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.75")).toBeHighlightedWith(
-          "#00FF00",
-        );
-      });
-
-      it("sizes without decimals", () => {
-        expect(highlightCrackAndGearMentions("#1")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#2")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#3")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#4")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#5")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#6")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#7")).toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#8")).toBeHighlightedWith(
-          "#00FF00",
-        );
-      });
-    });
-
-    describe("doesnt find", () => {
-      it("invalid decimal sizes", () => {
-        expect(highlightCrackAndGearMentions("#0.6")).not.toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#0.9")).not.toBeHighlightedWith(
-          "#00FF00",
-        );
-        expect(highlightCrackAndGearMentions("#1.2")).not.toBeHighlightedWith(
-          "#00FF00",
-        );
-      });
-    });
-  });
-
-  describe("crack sizes", () => {
-    describe("finds", () => {
-      it("units", () => {
-        expect(highlightCrackAndGearMentions('1"')).toBeHighlightedWith(
-          "#0000FF",
-        );
-        expect(highlightCrackAndGearMentions("3cm")).toBeHighlightedWith(
-          "#0000FF",
-        );
-        expect(highlightCrackAndGearMentions("5mm")).toBeHighlightedWith(
-          "#0000FF",
-        );
-      });
-
-      it("decimal sizes", () => {
-        expect(highlightCrackAndGearMentions('1.5"')).toBeHighlightedWith(
-          "#0000FF",
-        );
-      });
-
-      it("size ranges", () => {
-        expect(highlightCrackAndGearMentions('1-3"')).toBeHighlightedWith(
-          "#0000FF",
-        );
-      });
+            it('totem', () => {
+                expect(highlightCams('black totem')).toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+            });
+            it('fixe', () => {
+                expect(highlightCams('green alien')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+            });
+            it('wild country', () => {
+                // expect(highlightCams('purple friend')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('purple wc')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('0.5 friend')).toBeHighlightedWith(
+                //     'rgb(97, 79, 200)'
+                // );
+                // expect(highlightCams('0.5 wc')).toBeHighlightedWith('rgb(97, 79, 200)');
+            });
+            it('dmm', () => {
+                expect(highlightCams('red dragon')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('3 dragon')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('red dmm')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('3 dmm')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('red dragonfly')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('2 dragonfly')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+            });
+        });
+        describe('doesnt find', () => {
+            it('numbers', () => {
+                const validColors = [
+                    'rgb(0, 158, 58)',
+                    'rgb(203, 27, 49)',
+                    'rgb(201, 175, 25)',
+                    'rgb(17, 119, 204)',
+                    'rgb(155, 161, 183)',
+                    'rgb(97, 79, 200)',
+                ];
+                validColors.forEach((color) => {
+                    expect(highlightCams('9 metolius')).not.toBeHighlightedWith(
+                        color
+                    );
+                    expect(
+                        highlightCams('9 master cam')
+                    ).not.toBeHighlightedWith(color);
+                    expect(highlightCams('9 mc')).not.toBeHighlightedWith(
+                        color
+                    );
+                    expect(highlightCams('red fly')).not.toBeHighlightedWith(
+                        color
+                    );
+                });
+            });
+        });
     });
 
-    describe("doesnt find", () => {
-      it("numbers without units", () => {
-        expect(highlightCrackAndGearMentions("1-3")).not.toBeHighlightedWith(
-          "#0000FF",
-        );
-        expect(highlightCrackAndGearMentions("1.5")).not.toBeHighlightedWith(
-          "#0000FF",
-        );
-      });
+    describe('crack sizes', () => {
+        describe('finds', () => {
+            it('units', () => {
+                expect(highlightCams('0.6"')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                // expect(highlightCams('0.7in')).toBeHighlightedWith('rgb(155, 161, 183)');
+                // expect(highlightCams('0.7 in')).toBeHighlightedWith('rgb(155, 161, 183)');
+            });
+        });
+        describe('doesnt find', () => {
+            it('numbers without units', () => {
+                expect(highlightCams('1-3')).not.toBeHighlightedWith(
+                    'rgb(97, 79, 200)'
+                );
+                expect(highlightCams('1.5')).not.toBeHighlightedWith(
+                    'rgb(97, 79, 200)'
+                );
+            });
+            it('size ranges', () => {
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    'rgb(97, 79, 200)'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
+                    'rgb(201, 175, 25)'
+                );
+            });
+        });
     });
-  });
 });

@@ -10,7 +10,7 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 
     // Get the position and dimensions of the target element
     const rect = targetElement.getBoundingClientRect();
-    console.log(rect);
+
     // Create a container for the React popup
     popupContainer = document.createElement('div');
     popupContainer.style.position = 'absolute';

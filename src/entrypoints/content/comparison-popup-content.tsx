@@ -1,4 +1,8 @@
+// import { Database } from '../../cam-database/types';
+
 export default function ComparisonPopup() {
+    // const fetchCamData = () => {
+
     return (
         <div
             style={{
@@ -13,7 +17,8 @@ export default function ComparisonPopup() {
                 width: '100%',
             }}
         >
-            <h3>Cam: </h3>
+            <h3>Cam = </h3>
+            <h3>My Cams = </h3>
         </div>
     );
 }

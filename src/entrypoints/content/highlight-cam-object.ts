@@ -11,10 +11,10 @@ function highlightCams(text: string): string {
     for (const brand of database.brands) {
         for (const model of brand.models) {
             for (const cam of model.cams) {
-                const { regex, color } = cam;
+                const { regex } = cam;
                 textWithHTMLHighlights = textWithHTMLHighlights.replace(
                     regex,
-                    `<span data-cam='highlight' style='background-color:${color}; color:${color === '#000000' ? 'white' : 'inherit'}; border-radius: 10%; padding: 2px;'>$&</span>`
+                    `<span data-cam='highlight' style='border: 1px solid #ff6e6e; border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
                 );
             }
         }

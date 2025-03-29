@@ -1,7 +1,19 @@
 export default function ComparisonPopup() {
     return (
-        <div className="text-red-700 fixed bg-white p-4 rounded-lg shadow-lg z-50 border border-gray-300 opacity-0 hover:opacity-100 transition-opacity">
-            <h1>Comparison Popup</h1>
+        <div
+            style={{
+                position: 'absolute',
+                backgroundColor: 'white',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                zIndex: 50,
+                border: '1px solid #d1d5db',
+                height: '100%',
+                width: '100%',
+            }}
+        >
+            <h3>Cam: </h3>
         </div>
     );
 }

@@ -34,31 +34,63 @@ function searchForCams(element: Node): void {
         highlightedNode.innerHTML = highlightedHTML;
 
         (element as ChildNode).replaceWith(highlightedNode);
-        // Call the popup function for each highlighted node
+
+        // Add/remove comparison popups on hover
         highlightedNode
             .querySelectorAll('[data-cam="highlight"]')
             .forEach((node) => {
-                showComparisonPopup(node as HTMLElement);
+                const element = node as HTMLElement;
+
+                element.addEventListener('mouseenter', () => {
+                    showComparisonPopup(element);
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    hideComparisonPopup();
+                });
             });
     }
 }
 
-// Create a popup component and inject React into it
-function showComparisonPopup(targetElement: HTMLElement): void {
-    // Get the position of the target element
-    const rect = targetElement.getBoundingClientRect();
+let popupContainer: HTMLElement | null = null;
 
+function showComparisonPopup(targetElement: HTMLElement): void {
+    // Remove any existing popup
+    hideComparisonPopup();
+
+    // Get the position and dimensions of the target element
+    const rect = targetElement.getBoundingClientRect();
+    console.log(rect);
     // Create a container for the React popup
-    const popupContainer = document.createElement('div');
+    popupContainer = document.createElement('div');
     popupContainer.style.position = 'absolute';
-    popupContainer.style.top = `${window.scrollY + rect.top - 50}px`; // Adjust position above the element
-    popupContainer.style.left = `${window.scrollX + rect.left}px`; // Align with the element
-    popupContainer.style.zIndex = '1000'; // Ensure it appears above other elements
+    popupContainer.style.zIndex = '1000';
     document.body.appendChild(popupContainer);
 
-    // Render the React popup dynamically
+    // Render React popup component
     const root = createRoot(popupContainer);
     root.render(React.createElement(ComparisonPopup));
+
+    // Calculate the position for the popup
+    const popupWidth = 300; // Approximate width of the popup (adjust as needed)
+    const popupHeight = 100; // Approximate height of the popup (adjust as needed)
+
+    // Position the popup so its bottom center is just above the center of the highlightedNode
+    const top = window.scrollY + rect.top - popupHeight - 10; // 10px gap above the node
+    const left = window.scrollX + rect.left + rect.width / 2 - popupWidth / 2; // Center horizontally
+
+    // Apply the calculated position
+    popupContainer.style.top = `${top}px`;
+    popupContainer.style.left = `${left}px`;
+    popupContainer.style.height = `${popupHeight}px`;
+    popupContainer.style.width = `${popupWidth}px`; // Optional: Set a fixed width for consistency
+}
+
+function hideComparisonPopup(): void {
+    if (popupContainer) {
+        popupContainer.remove(); // Remove the popup from the DOM
+        popupContainer = null; // Reset the reference
+    }
 }
 
 // Recursively search and highlight cam instances once comments load on a page

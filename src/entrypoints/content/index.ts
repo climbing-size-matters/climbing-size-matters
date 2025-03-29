@@ -6,7 +6,7 @@ import {
 function injectCSS() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = chrome.runtime.getURL('styles.css'); // Path to the CSS file in the `dist` directory
+    link.href = chrome.runtime.getURL('styles.css');
     document.head.appendChild(link);
 }
 

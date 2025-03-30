@@ -45,4 +45,6 @@ const mc: Model = {
     cams: [four_mc],
 };
 
-export { c4, c3, mc };
+const models: Model[] = [c3, c4, mc];
+
+export { c4, c3, mc, models };

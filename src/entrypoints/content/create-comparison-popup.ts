@@ -2,12 +2,9 @@ import ComparisonPopup from './comparison-popup-content';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-let popupContainer: HTMLElement | null = null;
+let popupContainer: HTMLElement;
 
 function showComparisonPopup(targetElement: HTMLElement): void {
-    // Remove any existing popup
-    hideComparisonPopup();
-
     // Get the position and dimensions of the target element
     const rect = targetElement.getBoundingClientRect();
 
@@ -39,7 +36,6 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 function hideComparisonPopup(): void {
     if (popupContainer) {
         popupContainer.remove(); // Remove the popup from the DOM
-        popupContainer = null; // Reset the reference
     }
 }
 

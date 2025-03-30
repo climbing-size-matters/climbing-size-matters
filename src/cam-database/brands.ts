@@ -12,4 +12,6 @@ const mt: Brand = {
     models: [mc],
 };
 
-export { bd, mt };
+const brands = [bd, mt];
+
+export { bd, mt, brands };

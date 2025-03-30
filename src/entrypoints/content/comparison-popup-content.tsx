@@ -1,19 +1,24 @@
+import { useEffect, useState } from 'react';
 import { cams } from '../../cam-database/cams';
+import { Cam } from '../../cam-database/types';
 
 type ComparisonPopupProps = {
     id: string;
 };
 
 export default function ComparisonPopup({ id }: ComparisonPopupProps) {
+    const [cam, setCam] = useState<Cam | null>(null);
+
     const fetchData = (id: string) => {
         const cam = cams.find((cam) => cam.id === id);
         if (cam) {
-            return cam;
+            setCam(cam);
         }
-        return null;
     };
 
-    const cam = fetchData(id);
+    useEffect(() => {
+        fetchData(id);
+    });
 
     return (
         <div
@@ -33,23 +38,24 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                 <div
                     style={{
                         display: 'flex',
+                        flexWrap: 'wrap',
                         alignItems: 'center',
+                        gap: '4px',
                     }}
                 >
-                    Cam:
-                    <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>
-                        {cam.name}
-                    </span>
+                    <div style={{ fontWeight: 'bold' }}>Displayed:</div>
                     <div
                         style={{
                             height: '12px',
                             width: '12px',
-                            marginLeft: '4px',
                             borderRadius: '2px',
                             border: '1px solid black',
                             backgroundColor: cam.color,
                         }}
                     ></div>
+                    <div>{cam.name}</div>
+                    <div>{cam.brand}</div>
+                    <div>{cam.model}</div>
                 </div>
             )}
             <div>My Cams: </div>

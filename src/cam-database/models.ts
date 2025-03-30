@@ -69,4 +69,6 @@ const mc: Model = {
     ],
 };
 
-export { c4, c3, mc };
+const models: Model[] = [c3, c4, mc];
+
+export { c4, c3, mc, models };

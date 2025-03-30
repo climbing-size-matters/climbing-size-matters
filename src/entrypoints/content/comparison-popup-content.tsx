@@ -93,43 +93,51 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                     <div
                         style={{
                             display: 'flex',
+                            flexDirection: 'column',
                             flexWrap: 'wrap',
-                            alignItems: 'center',
-                            gap: '4px',
                         }}
                     >
-                        <div style={{ fontWeight: 'bold' }}>Displayed:</div>
                         <div
                             style={{
-                                height: '12px',
-                                width: '12px',
-                                borderRadius: '2px',
-                                border: '1px solid black',
-                                backgroundColor: displayCam.color,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
                             }}
-                        ></div>
-                        <div>{displayCam.name}</div>
-                        <div>{displayCam.brand}</div>
-                        <div>{displayCam.model}</div>
-                        {ownsCam && "(You've got this one!)"}
-                    </div>
-                    {/* User Cam Info */}
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            alignItems: 'center',
-                            gap: '4px',
-                        }}
-                    >
+                        >
+                            <div style={{ fontWeight: 'bold' }}>Displayed:</div>
+                            {ownsCam && '(Got it!)'}
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                alignItems: 'center',
+                                gap: '4px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '12px',
+                                    width: '12px',
+                                    borderRadius: '2px',
+                                    border: '1px solid black',
+                                    backgroundColor: displayCam.color,
+                                }}
+                            ></div>
+                            <div>{displayCam.name}</div>
+                            <div>{displayCam.brand}</div>
+                            <div>{displayCam.model}</div>
+                        </div>
+
+                        {/* User Cam Info */}
                         <div style={{ fontWeight: 'bold' }}>
                             My comparable gear:
                         </div>
                         {camsInRange.map((cam) => (
                             <div
-                                key={cam.id}
                                 style={{
                                     display: 'flex',
+                                    flexWrap: 'wrap',
                                     alignItems: 'center',
                                     gap: '4px',
                                 }}

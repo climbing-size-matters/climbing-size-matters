@@ -4,17 +4,16 @@ import { createRoot } from 'react-dom/client';
 import { cams } from '../../cam-database/cams';
 
 let popupContainer: HTMLElement;
+let id: string = '';
 
 function showComparisonPopup(targetElement: HTMLElement): void {
     // Get the cam ID corresponding to the HTML element
-    let id = '';
     for (const cam of cams) {
         if (cam.regex.test(targetElement.innerText)) {
             id = cam.id;
             break;
         }
     }
-
     // Get the position and dimensions of the target element
     const rect = targetElement.getBoundingClientRect();
 

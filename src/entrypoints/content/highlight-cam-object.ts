@@ -33,7 +33,7 @@ function searchForCams(element: Node): void {
 
         (element as ChildNode).replaceWith(highlightedNode);
 
-        // Add/remove comparison popups on hover
+        // Add event listeners to highlighted nodes for hover events
         highlightedNode
             .querySelectorAll('[data-cam="highlight"]')
             .forEach((node) => {

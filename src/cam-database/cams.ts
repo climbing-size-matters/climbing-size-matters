@@ -190,6 +190,36 @@ const eight_mc: Cam = {
     regex: /(purple|8)\s(metolius|mc|mastercam)/gi,
 };
 
+const cams: Cam[] = [
+    zero_three_c4,
+    zero_four_c4,
+    zero_five_c4,
+    zero_seven_five_c4,
+    one_c4,
+    two_c4,
+    three_c4,
+    four_c4,
+    five_c4,
+    six_c4,
+    seven_c4,
+    eight_c4,
+    triple_zero_c3,
+    double_zero_c3,
+    zero_c3,
+    one_c3,
+    two_c3,
+    double_zero_mc,
+    zero_mc,
+    one_mc,
+    two_mc,
+    three_mc,
+    four_mc,
+    five_mc,
+    six_mc,
+    seven_mc,
+    eight_mc,
+];
+
 export {
     zero_three_c4,
     zero_four_c4,
@@ -218,4 +248,5 @@ export {
     six_mc,
     seven_mc,
     eight_mc,
+    cams,
 };

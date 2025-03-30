@@ -1,7 +1,19 @@
-// import { Database } from '../../cam-database/types';
+import { cams } from '../../cam-database/cams';
 
-export default function ComparisonPopup() {
-    // const fetchCamData = () => {
+type ComparisonPopupProps = {
+    id: string;
+};
+
+export default function ComparisonPopup({ id }: ComparisonPopupProps) {
+    const fetchData = (id: string) => {
+        const cam = cams.find((cam) => cam.id === id);
+        if (cam) {
+            return cam;
+        }
+        return null;
+    };
+
+    const cam = fetchData(id);
 
     return (
         <div
@@ -17,8 +29,30 @@ export default function ComparisonPopup() {
                 width: '100%',
             }}
         >
-            <h3>Cam = </h3>
-            <h3>My Cams = </h3>
+            {cam && (
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    Cam:
+                    <span style={{ fontWeight: 'bold', marginLeft: '4px' }}>
+                        {cam.name}
+                    </span>
+                    <div
+                        style={{
+                            height: '12px',
+                            width: '12px',
+                            marginLeft: '4px',
+                            borderRadius: '2px',
+                            border: '1px solid black',
+                            backgroundColor: cam.color,
+                        }}
+                    ></div>
+                </div>
+            )}
+            <div>My Cams: </div>
         </div>
     );
 }

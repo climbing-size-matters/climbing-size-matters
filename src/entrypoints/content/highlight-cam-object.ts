@@ -6,16 +6,12 @@ import {
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCams(text: string): string {
-    for (const brand of database.brands) {
-        for (const model of brand.models) {
-            for (const cam of model.cams) {
-                const { regex } = cam;
-                text = text.replace(
-                    regex,
-                    `<span data-cam='highlight' style='border: 1px solid #ff6e6e; border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
-                );
-            }
-        }
+    for (const cam of database.cams) {
+        const { regex } = cam;
+        text = text.replace(
+            regex,
+            `<span data-cam='highlight' style='border: 1px solid #ff6e6e; border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
+        );
     }
     return text;
 }

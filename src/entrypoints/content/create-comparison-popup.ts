@@ -1,19 +1,20 @@
 import ComparisonPopup from './comparison-popup-content';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { cams } from '../../cam-database/cams';
+import { database } from '../../cam-database/database';
 
 let popupContainer: HTMLElement;
 let id: string = '';
 
 function showComparisonPopup(targetElement: HTMLElement): void {
     // Get the cam ID corresponding to the HTML element
-    for (const cam of cams) {
+    for (const cam of database.cams) {
         if (cam.regex.test(targetElement.innerText)) {
             id = cam.id;
             break;
         }
     }
+
     // Get the position and dimensions of the target element
     const rect = targetElement.getBoundingClientRect();
 
@@ -32,19 +33,19 @@ function showComparisonPopup(targetElement: HTMLElement): void {
     const popupHeight = 200; // Approximate height of the popup (adjust as needed)
 
     // Position the popup so its bottom center is just above the center of the highlightedNode
-    const top = window.scrollY + rect.top - popupHeight - 10; // 10px gap above the node
-    const left = window.scrollX + rect.left + rect.width / 2 - popupWidth / 2; // Center horizontally
+    const top = window.scrollY + rect.top - popupHeight - 10;
+    const left = window.scrollX + rect.left + rect.width / 2 - popupWidth / 2;
 
     // Apply the calculated position
     popupContainer.style.top = `${top}px`;
     popupContainer.style.left = `${left}px`;
     popupContainer.style.height = `${popupHeight}px`;
-    popupContainer.style.width = `${popupWidth}px`; // Optional: Set a fixed width for consistency
+    popupContainer.style.width = `${popupWidth}px`;
 }
 
 function hideComparisonPopup(): void {
     if (popupContainer) {
-        popupContainer.remove(); // Remove the popup from the DOM
+        popupContainer.remove();
     }
 }
 

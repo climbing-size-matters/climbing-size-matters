@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { cams } from '../../cam-database/cams';
+import { database } from '../../cam-database/database';
 import { Cam, Database } from '../../cam-database/types';
 
 type ComparisonPopupProps = {
@@ -12,13 +12,13 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
     const [ownsCam, setOwnsCam] = useState<boolean>(false);
 
     const fetchData = async (id: string): Promise<void> => {
-        const cam = cams.find((cam) => cam.id === id);
+        const cam = database.cams.find((cam) => cam.id === id);
         if (cam) {
             setDisplayCam(cam);
         }
     };
 
-    const fetchInventory = async () => {
+    const fetchCamsOfSimilarSize = async () => {
         setOwnsCam(false);
 
         chrome.storage.local.get(['inventory'], (result) => {
@@ -69,7 +69,7 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
 
     useEffect(() => {
         if (displayCam) {
-            fetchInventory(); // Fetch inventory only when `displayCam` is updated
+            fetchCamsOfSimilarSize(); // Fetch inventory only when `displayCam` is updated
         }
     }, [displayCam]);
 

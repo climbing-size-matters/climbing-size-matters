@@ -1,6 +1,8 @@
 type Cam = {
     id: string;
     name: string;
+    brand_id: string;
+    model_id: string;
     size: { inches: [number, number]; mm: [number, number] };
     color: string;
     regex: RegExp;

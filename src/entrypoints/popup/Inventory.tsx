@@ -1,59 +1,72 @@
-import { useEffect, useState } from 'react';
-import { Database } from '../../cam-database/types';
+// import { useEffect, useState } from 'react';
+// import { Cam } from '../../cam-database/types';
+// import { database } from '../../cam-database/database';
 
 type InventoryProps = {
-    navigateToAddGear: () => void;
+    navigateToUpdateGear: () => void;
 };
 
-export default function Inventory({ navigateToAddGear }: InventoryProps) {
-    const [inventory, setInventory] = useState<Database>();
+export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
+    // const [inventory, setInventory] = useState<Cam[]>([]);
 
-    const handleDelete = (id: string) => {
-        chrome.storage.local.get(['inventory'], (result) => {
-            if (result.inventory) {
-                const updatedInventory: Database = { ...result.inventory };
+    // const handleDelete = (id: string) => {
+    //     chrome.storage.local.get(['inventory'], (result) => {
+    //         if (result.inventory) {
+    //             const updatedInventory: Database = { ...result.inventory };
 
-                // Iterate through brands and models, removing the cam and cleaning up empty models and brands
-                updatedInventory.brands = updatedInventory.brands
-                    .map((brand) => {
-                        const updatedModels = brand.models
-                            .map((model) => {
-                                const updatedCams = model.cams.filter(
-                                    (cam) => cam.id !== id
-                                ); // Remove the cam with the matching id
+    //             // Iterate through brands and models, removing the cam and cleaning up empty models and brands
+    //             updatedInventory.brands = updatedInventory.brands
+    //                 .map((brand) => {
+    //                     const updatedModels = brand.models
+    //                         .map((model) => {
+    //                             const updatedCams = model.cams.filter(
+    //                                 (cam) => cam.id !== id
+    //                             ); // Remove the cam with the matching id
 
-                                // Only keep the model if it has cams left
-                                if (updatedCams.length > 0) {
-                                    return { ...model, cams: updatedCams };
-                                }
-                                return null; // Mark the model for removal
-                            })
-                            .filter(
-                                (model) => model !== null
-                            ) as typeof brand.models; // Remove null models
+    //                             // Only keep the model if it has cams left
+    //                             if (updatedCams.length > 0) {
+    //                                 return { ...model, cams: updatedCams };
+    //                             }
+    //                             return null; // Mark the model for removal
+    //                         })
+    //                         .filter(
+    //                             (model) => model !== null
+    //                         ) as typeof brand.models; // Remove null models
 
-                        // Only keep the brand if it has models left
-                        if (updatedModels.length > 0) {
-                            return { ...brand, models: updatedModels };
-                        }
-                        return null; // Mark the brand for removal
-                    })
-                    .filter(
-                        (brand) => brand !== null
-                    ) as typeof updatedInventory.brands; // Remove null brands
+    //                     // Only keep the brand if it has models left
+    //                     if (updatedModels.length > 0) {
+    //                         return { ...brand, models: updatedModels };
+    //                     }
+    //                     return null; // Mark the brand for removal
+    //                 })
+    //                 .filter(
+    //                     (brand) => brand !== null
+    //                 ) as typeof updatedInventory.brands; // Remove null brands
 
-                // Save the updated inventory back to storage
-                chrome.storage.local.set({ inventory: updatedInventory });
-                setInventory(updatedInventory); // Update the state with the new inventory
-            }
-        });
-    };
+    //             // Save the updated inventory back to storage
+    //             chrome.storage.local.set({ inventory: updatedInventory });
+    //             setInventory(updatedInventory); // Update the state with the new inventory
+    //         }
+    //     });
+    // };
 
-    useEffect(() => {
-        chrome.storage.local.get(['inventory'], (result) => {
-            setInventory(result.inventory || {});
-        });
-    }, []);
+    // const organizeInventoryByBrandAndModel = () => {
+    //     for (const brand of database.brands) {
+    //         for (const cam of inventory) {
+
+    //         }
+    //         if (inventory?.brand.includes()) {
+    //         brand.models.sort((a, b) => a.name.localeCompare(b.name));
+    //         for (const model of brand.models) {
+    //             model.cams.sort((a, b) => a.name.localeCompare(b.name));
+    //         }
+    //     }
+
+    // useEffect(() => {
+    //     chrome.storage.local.get(['inventory'], (result) => {
+    //         setInventory(result.inventory);
+    //     });
+    // }, []);
 
     return (
         <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
@@ -61,12 +74,12 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                 <div className="text-lg">Inventory</div>
                 <button
                     className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
-                    onClick={navigateToAddGear}
+                    onClick={navigateToUpdateGear}
                 >
-                    Add Gear
+                    Update Gear
                 </button>
             </div>
-            {inventory?.brands?.map((brand) => (
+            {/* {inventory?.brands?.map((brand) => (
                 <div className="text-xl" key={brand.id}>
                     {brand.name}
                     {brand.models?.map((model) => (
@@ -105,7 +118,7 @@ export default function Inventory({ navigateToAddGear }: InventoryProps) {
                         </div>
                     ))}
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { database } from '../../cam-database/database';
-import { Cam, Database } from '../../cam-database/types';
+import { Cam } from '../../cam-database/types';
 
 type ComparisonPopupProps = {
     id: string;
@@ -22,41 +22,33 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
         setOwnsCam(false);
 
         chrome.storage.local.get(['inventory'], (result) => {
-            const currentInventory: Database = result.inventory || {};
+            const currentInventory: Cam[] = result.inventory || {};
 
             if (displayCam) {
-                for (const brand of currentInventory.brands) {
-                    for (const model of brand.models) {
-                        for (const cam of model.cams) {
-                            if (
-                                cam.model !== displayCam.model &&
-                                Math.abs(
-                                    cam.size.inches[0] -
-                                        displayCam.size.inches[0]
-                                ) <=
-                                    displayCam.size.inches[0] * 0.25 &&
-                                Math.abs(
-                                    cam.size.inches[1] -
-                                        displayCam.size.inches[1]
-                                ) <=
-                                    displayCam.size.inches[1] * 0.25 &&
-                                Math.abs(
-                                    cam.size.inches[0] -
-                                        displayCam.size.inches[0]
-                                ) <=
-                                    cam.size.inches[0] * 0.25 &&
-                                Math.abs(
-                                    cam.size.inches[1] -
-                                        displayCam.size.inches[1]
-                                ) <=
-                                    cam.size.inches[1] * 0.25
-                            ) {
-                                setCamsInRange((prev) => [...prev, cam]);
-                            }
-                            if (cam.id === displayCam.id) {
-                                setOwnsCam(true);
-                            }
-                        }
+                for (const cam of currentInventory) {
+                    if (
+                        cam.model_id !== displayCam.model_id &&
+                        Math.abs(
+                            cam.size.inches[0] - displayCam.size.inches[0]
+                        ) <=
+                            displayCam.size.inches[0] * 0.25 &&
+                        Math.abs(
+                            cam.size.inches[1] - displayCam.size.inches[1]
+                        ) <=
+                            displayCam.size.inches[1] * 0.25 &&
+                        Math.abs(
+                            cam.size.inches[0] - displayCam.size.inches[0]
+                        ) <=
+                            cam.size.inches[0] * 0.25 &&
+                        Math.abs(
+                            cam.size.inches[1] - displayCam.size.inches[1]
+                        ) <=
+                            cam.size.inches[1] * 0.25
+                    ) {
+                        setCamsInRange((prev) => [...prev, cam]);
+                    }
+                    if (cam.id === displayCam.id) {
+                        setOwnsCam(true);
                     }
                 }
             }
@@ -125,8 +117,22 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                                 }}
                             ></div>
                             <div>{displayCam.name}</div>
-                            <div>{displayCam.brand}</div>
-                            <div>{displayCam.model}</div>
+                            <div>
+                                {
+                                    database.brands.find(
+                                        (brand) =>
+                                            brand.id === displayCam?.brand_id
+                                    )?.name
+                                }
+                            </div>
+                            <div>
+                                {
+                                    database.models.find(
+                                        (model) =>
+                                            model.id === displayCam?.model_id
+                                    )?.name
+                                }
+                            </div>
                         </div>
 
                         {/* User Cam Info */}
@@ -152,8 +158,24 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                                     }}
                                 ></div>
                                 <div>{cam.name}</div>
-                                <div>{cam.brand}</div>
-                                <div>{cam.model}</div>
+                                <div>
+                                    {
+                                        database.brands.find(
+                                            (brand) =>
+                                                brand.id ===
+                                                displayCam?.brand_id
+                                        )?.name
+                                    }
+                                </div>
+                                <div>
+                                    {
+                                        database.models.find(
+                                            (model) =>
+                                                model.id ===
+                                                displayCam?.model_id
+                                        )?.name
+                                    }
+                                </div>
                             </div>
                         ))}
                     </div>

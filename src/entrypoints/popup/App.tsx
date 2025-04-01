@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import Inventory from './Inventory';
-import AddGear from './AddGear';
+import UpdateGear from './UpdateGear';
 
 export default function App() {
-    const [currentPage, setCurrentPage] = useState<'inventory' | 'add-gear'>(
+    const [currentPage, setCurrentPage] = useState<'inventory' | 'update-gear'>(
         'inventory'
     );
 
@@ -16,11 +16,11 @@ export default function App() {
             </div>
             {currentPage === 'inventory' && (
                 <Inventory
-                    navigateToAddGear={() => setCurrentPage('add-gear')}
+                    navigateToUpdateGear={() => setCurrentPage('update-gear')}
                 />
             )}
-            {currentPage === 'add-gear' && (
-                <AddGear
+            {currentPage === 'update-gear' && (
+                <UpdateGear
                     navigateToInventory={() => setCurrentPage('inventory')}
                 />
             )}

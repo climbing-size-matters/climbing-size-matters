@@ -31,12 +31,12 @@ import {
 
 const c3: Model = {
     id: 'c3',
-    name: 'Camalot C3',
+    name: 'C3',
     cams: [triple_zero_c3, double_zero_c3, zero_c3, one_c3, two_c3],
 };
 const c4: Model = {
     id: 'c4',
-    name: 'Camalot C4 (2019)',
+    name: 'C4 (2019)',
     cams: [
         zero_three_c4,
         zero_four_c4,

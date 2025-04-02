@@ -3,18 +3,17 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { database } from '../../cam-database/database';
 
-let popupContainer: HTMLElement;
+let popupContainer: HTMLElement | null = null;
 let id: string = '';
 
 function showComparisonPopup(targetElement: HTMLElement): void {
     // Get the cam ID corresponding to the HTML element
     for (const cam of database.cams) {
-        if (cam.regex.test(targetElement.innerText)) {
+        if (new RegExp(cam.regex).test(targetElement.innerText)) {
             id = cam.id;
             break;
         }
     }
-
     // Get the position and dimensions of the target element
     const rect = targetElement.getBoundingClientRect();
 
@@ -46,6 +45,7 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 function hideComparisonPopup(): void {
     if (popupContainer) {
         popupContainer.remove();
+        popupContainer = null;
     }
 }
 

@@ -7,7 +7,7 @@ type ComparisonPopupProps = {
 };
 
 export default function ComparisonPopup({ id }: ComparisonPopupProps) {
-    const [displayCam, setDisplayCam] = useState<Cam | null>(null);
+    const [displayCam, setDisplayCam] = useState<Cam>();
     const [camsInRange, setCamsInRange] = useState<Cam[]>([]);
     const [ownsCam, setOwnsCam] = useState<boolean>(false);
 
@@ -19,7 +19,7 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
     };
 
     const fetchCamsOfSimilarSize = async () => {
-        setOwnsCam(false);
+        let userOwnsCam = false;
 
         chrome.storage.local.get(['inventory'], (result) => {
             const currentInventory: Cam[] = result.inventory || {};
@@ -48,20 +48,21 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                         setCamsInRange((prev) => [...prev, cam]);
                     }
                     if (cam.id === displayCam.id) {
-                        setOwnsCam(true);
+                        userOwnsCam = true;
                     }
+                    setOwnsCam(userOwnsCam);
                 }
             }
         });
     };
 
     useEffect(() => {
-        fetchData(id); // Fetch the cam data when `id` changes
+        fetchData(id);
     }, [id]);
 
     useEffect(() => {
         if (displayCam) {
-            fetchCamsOfSimilarSize(); // Fetch inventory only when `displayCam` is updated
+            fetchCamsOfSimilarSize();
         }
     }, [displayCam]);
 
@@ -134,13 +135,13 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                                 }
                             </div>
                         </div>
-
                         {/* User Cam Info */}
                         <div style={{ fontWeight: 'bold' }}>
                             My comparable gear:
                         </div>
                         {camsInRange.map((cam) => (
                             <div
+                                key={cam.id}
                                 style={{
                                     display: 'flex',
                                     flexWrap: 'wrap',
@@ -162,8 +163,7 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                                     {
                                         database.brands.find(
                                             (brand) =>
-                                                brand.id ===
-                                                displayCam?.brand_id
+                                                brand.id === cam?.brand_id
                                         )?.name
                                     }
                                 </div>
@@ -171,8 +171,7 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
                                     {
                                         database.models.find(
                                             (model) =>
-                                                model.id ===
-                                                displayCam?.model_id
+                                                model.id === cam?.model_id
                                         )?.name
                                     }
                                 </div>

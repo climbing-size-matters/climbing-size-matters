@@ -1,8 +1,8 @@
 type Cam = {
     id: string;
     name: string;
-    brand: string;
-    model: string;
+    brand_id: string;
+    model_id: string;
     size: { inches: [number, number]; mm: [number, number] };
     color: string;
     regex: RegExp;
@@ -19,6 +19,8 @@ type Brand = {
 };
 type Database = {
     brands: Brand[];
+    models: Model[];
+    cams: Cam[];
 };
 
 export { Cam, Model, Brand, Database };

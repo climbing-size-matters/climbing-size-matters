@@ -160,7 +160,7 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
                         ))}
                 </div>
             )}
-            {/* Submit and Back Buttons */}
+            {/* Save and Back Buttons */}
             <div className="flex justify-around">
                 <button
                     className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"

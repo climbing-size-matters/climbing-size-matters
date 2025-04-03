@@ -1,40 +1,48 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Cam } from '../../cam-database/types';
-// import { organizeInventoryByBrandAndModel } from '../../queries/inventory-by-brand-and-model';
+import { database } from '../../cam-database/database';
 
 type InventoryProps = {
     navigateToUpdateGear: () => void;
 };
 
 export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
-    function organizeInventoryByBrandAndModel(inventory: Cam[]): Cam[] {
-        // TODO: look up advantage/disadvantage to functions vs constants like you have in your other components. (functions vs unnamed functions)
-        console.log('inside function:', inventory);
-        return inventory.sort((a, b) => {
-            // First, compare by brand_id
-            const brandComparison = a.brand_id.localeCompare(b.brand_id);
-            if (brandComparison !== 0) {
-                return brandComparison;
-            }
+    const [organizedInventory, setOrganizedInventory] = useState<Cam[][]>([]);
+    const [accordionState, setAccordionState] = useState<
+        Record<number, boolean>
+    >({});
 
-            // If brand_id is the same, compare by model_id
-            const modelComparison = a.model_id.localeCompare(b.model_id);
-            if (modelComparison !== 0) {
-                return modelComparison;
-            }
+    function organizeInventoryByBrandAndModel(inventory: Cam[]): void {
+        // Group cams by model_id
+        const groupedByModel: Record<string, Cam[]> = inventory.reduce(
+            (acc, cam) => {
+                if (!acc[cam.model_id]) {
+                    acc[cam.model_id] = [];
+                }
+                acc[cam.model_id].push(cam);
+                return acc;
+            },
+            {} as Record<string, Cam[]>
+        );
 
-            // If model_id is the same, compare by size.inches[0] (numerical order)
-            return a.size.inches[0] - b.size.inches[0];
-        });
+        // Sort each group by the smaller end of their size range
+        const sortedGroups = Object.values(groupedByModel).map((group) =>
+            group.sort((a, b) => a.size.inches[0] - b.size.inches[0])
+        );
+
+        setOrganizedInventory(sortedGroups);
     }
+
+    const toggleAccordion = (index: number) => {
+        setAccordionState((prevState) => ({
+            ...prevState,
+            [index]: !prevState[index],
+        }));
+    };
 
     useEffect(() => {
         chrome.storage.local.get(['inventory'], (result) => {
-            console.log(
-                'organized:',
-                organizeInventoryByBrandAndModel(result.inventory)
-            );
-            console.log('result:', result.inventory[0]);
+            organizeInventoryByBrandAndModel(result.inventory);
         });
     }, []);
 
@@ -51,96 +59,65 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
                 </button>
             </div>
             {/* Accordion */}
-            {/* <div
-                className="flex flex-col w-full border-t border-cyan-500 py-4 items-center cursor-pointer"
-                onClick={() => setAccordionOpen(!accordionOpen)}
-            >
-                <div className="flex justify-between w-11/12">
-                    <span className="text-xl">{parseDate()}</span>
-                    {accordionOpen ? <span>-</span> : <span>+</span>}
-                </div>
-            </div>
-            <div
-                className={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
-                    accordionOpen
-                        ? 'grid-rows-[1fr] opacity-100'
-                        : 'grid-rows-[0fr] opacity-0'
-                }`}
-            >
-                <div className="overflow-hidden">
-                    {content.map((activity, index) => (
+            <div>
+                {organizedInventory.map((modelGroup, index) => (
+                    <div
+                        className="flex flex-col w-full py-4 items-startr"
+                        key={index}
+                    >
+                        {/* Accordion Header */}
                         <div
-                            className="flex flex-col items-center my-4"
-                            key={index}
+                            className="flex justify-between align-items text-sm px-2 border rounded-sm border-red-700 cursor-pointer"
+                            onClick={() => toggleAccordion(index)}
                         >
-                            {parseContent(activity)}
+                            <div className="flex items-start">
+                                <span className="mr-1">
+                                    {
+                                        database.brands.find(
+                                            (brand) =>
+                                                brand.id ===
+                                                modelGroup[0].brand_id
+                                        )?.name
+                                    }
+                                </span>
+                                <span>
+                                    {
+                                        database.models.find(
+                                            (model) =>
+                                                model.id ===
+                                                modelGroup[0].model_id
+                                        )?.name
+                                    }
+                                </span>
+                            </div>
+                            {accordionState[index] ? (
+                                <span>-</span>
+                            ) : (
+                                <span>+</span>
+                            )}
                         </div>
-                    ))}
-                </div>
-            </div> */}
+                        {/* Accordion Content */}
+                        {accordionState[index] && (
+                            <div className="overflow-hidden">
+                                {modelGroup.map((cam, camIndex) => (
+                                    <div
+                                        className="flex justify-start items-center ml-2"
+                                        key={camIndex}
+                                    >
+                                        <div
+                                            className="h-3 w-3 rounded-sm border border-black mr-1"
+                                            style={{
+                                                backgroundColor: cam.color,
+                                            }}
+                                        ></div>
+                                        <div>{cam.name}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
-
-{
-    /* <button
-className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-onClick={() => handleDelete(cam.id)}
->
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    className="size-4 text-gray-400"
->
-    <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-    />
-</svg>
-</button> */
-}
-
-// const handleDelete = (id: string) => {
-//     chrome.storage.local.get(['inventory'], (result) => {
-//         if (result.inventory) {
-//             const updatedInventory: Database = { ...result.inventory };
-
-//             // Iterate through brands and models, removing the cam and cleaning up empty models and brands
-//             updatedInventory.brands = updatedInventory.brands
-//                 .map((brand) => {
-//                     const updatedModels = brand.models
-//                         .map((model) => {
-//                             const updatedCams = model.cams.filter(
-//                                 (cam) => cam.id !== id
-//                             ); // Remove the cam with the matching id
-
-//                             // Only keep the model if it has cams left
-//                             if (updatedCams.length > 0) {
-//                                 return { ...model, cams: updatedCams };
-//                             }
-//                             return null; // Mark the model for removal
-//                         })
-//                         .filter(
-//                             (model) => model !== null
-//                         ) as typeof brand.models; // Remove null models
-
-//                     // Only keep the brand if it has models left
-//                     if (updatedModels.length > 0) {
-//                         return { ...brand, models: updatedModels };
-//                     }
-//                     return null; // Mark the brand for removal
-//                 })
-//                 .filter(
-//                     (brand) => brand !== null
-//                 ) as typeof updatedInventory.brands; // Remove null brands
-
-//             // Save the updated inventory back to storage
-//             chrome.storage.local.set({ inventory: updatedInventory });
-//             setInventory(updatedInventory); // Update the state with the new inventory
-//         }
-//     });
-// };

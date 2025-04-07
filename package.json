@@ -22,6 +22,7 @@
     "license": "MIT",
     "author": "Louis Brann, Eric Warren",
     "main": "content-script.js",
+    "packageManager": "pnpm@9.12.1",
     "scripts": {
         "dev": "wxt",
         "dev:firefox": "wxt -b firefox",
@@ -55,11 +56,11 @@
     },
     "lint-staged": {
         "*.{js,ts}": [
-            "prettier --write",
-            "eslint --fix"
+            "prettier",
+            "eslint"
         ],
         "!(*.js|*.ts)": [
-            "prettier --write"
+            "prettier"
         ]
     }
 }

@@ -54,11 +54,11 @@
         "wxt": "0.19.29"
     },
     "lint-staged": {
-        "*.{js,ts}": [
+        "*.{js,ts,jsx,tsx}": [
             "prettier",
             "eslint"
         ],
-        "!(*.js|*.ts)": [
+        "!(*.js|*.ts|*.jsx|*.tsx)": [
             "prettier"
         ]
     }

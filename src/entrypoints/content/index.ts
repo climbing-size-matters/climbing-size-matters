@@ -11,8 +11,6 @@ export default defineContentScript({
         '*://www.mountainproject.com/area/*',
     ],
     main(): void {
-        // Inject Tailwind CSS into the webpage
-        injectCSS();
         // Execute the highlight function on the document body
         searchForCams(document.body);
         observeAdditionalContent();

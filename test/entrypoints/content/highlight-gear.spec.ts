@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { highlightCams } from '../../../src/entrypoints/content/highlight-gear';
+import { highlightCams } from '../../../src/entrypoints/content/highlight-cam-objects';
 
 // this creates a custom matcher so when we update what "highlighting" translates
 // to we can update the logic in one place rather than in each test case
@@ -24,44 +24,65 @@ declare module 'vitest' {
 }
 
 describe('higlightCams', () => {
-    describe('bd cams', () => {
+    describe('bd c4', () => {
         describe('finds', () => {
-            it('numbers', () => {
-                expect(highlightCams('#0.0')).toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
-                );
-                expect(highlightCams('#0.1')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('#0.2')).toBeHighlightedWith(
-                    'rgb(201, 175, 25)'
-                );
-                // expect(highlightCams('#0.5')).toBeHighlightedWith('rgb(97, 79, 200)');
-                expect(highlightCams('#0.75')).toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
-                );
-                // expect(highlightCams('#4.0')).toBeHighlightedWith('rgb(155, 161, 183)');
-                expect(highlightCams('#8.0')).toBeHighlightedWith(
-                    'rgb(201, 175, 25)'
-                );
-                expect(highlightCams('#3')).toBeHighlightedWith(
+            it('colors', () => {
+                expect(highlightCams('blue bd')).toBeHighlightedWith(
                     'rgb(17, 119, 204)'
                 );
-                expect(highlightCams('#7')).toBeHighlightedWith(
+                expect(highlightCams('gray c4')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
+                );
+                expect(highlightCams('purple cam')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('green cam')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('red camolot')).toBeHighlightedWith(
                     'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('yellow cams')).toBeHighlightedWith(
+                    'rgb(232, 199, 14)'
+                );
+                expect(highlightCams('blue camolots')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
                 );
             });
-            it('colors', () => {
-                expect(highlightCams('red camalot')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('blue c4')).toBeHighlightedWith(
+            it('numbers', () => {
+                expect(highlightCams('#0.3')).toBeHighlightedWith(
                     'rgb(17, 119, 204)'
                 );
-                // expect(highlightCams('gray bd')).toBeHighlightedWith('rgb(155, 161, 183)');
-                // expect(highlightCams('purple camalots')).toBeHighlightedWith(
-                //     'rgb(97, 79, 200)'
-                // );
+                expect(highlightCams('#0.5 c4')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('0.75 c4')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('#1.0 cam')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('2.0 cam')).toBeHighlightedWith(
+                    'rgb(232, 199, 14)'
+                );
+                expect(highlightCams('#3.0 cams')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
+                expect(highlightCams('4.0 cams')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
+                );
+                expect(highlightCams('#5.0 camolot')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('6.0 camolot')).toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
+                expect(highlightCams('#7.0 camolots')).toBeHighlightedWith(
+                    'rgb(203, 27, 49)'
+                );
+                expect(highlightCams('8.0 camolots')).toBeHighlightedWith(
+                    'rgb(232, 199, 14)'
+                );
             });
         });
         describe('doesnt find', () => {
@@ -85,132 +106,71 @@ describe('higlightCams', () => {
             });
         });
     });
-
-    describe('non bd cam', () => {
+    describe('bd c3', () => {
         describe('finds', () => {
-            it('metolius', () => {
-                expect(highlightCams('1 metolius')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
-                );
-                expect(highlightCams('#1 metolius')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
-                );
-                // expect(highlightCams('1 master cam')).toBeHighlightedWith(
-                //     'rgb(17, 119, 204)'
-                // );
-                // expect(highlightCams('#1 master cam')).toBeHighlightedWith(
-                //     'rgb(17, 119, 204)'
-                // );
-                expect(highlightCams('1 mc')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
-                );
-                expect(highlightCams('#1 mc')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+            it('colors', () => {
+                expect(highlightCams('gray c3')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
                 );
             });
-
-            it('totem', () => {
-                expect(highlightCams('black totem')).toBeHighlightedWith(
-                    'rgb(201, 175, 25)'
+            it('numbers', () => {
+                expect(highlightCams('000 c3')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
                 );
-            });
-            it('fixe', () => {
-                expect(highlightCams('green alien')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
-                );
-            });
-            it('wild country', () => {
-                // expect(highlightCams('purple friend')).toBeHighlightedWith(
-                //     'rgb(97, 79, 200)'
-                // );
-                // expect(highlightCams('purple wc')).toBeHighlightedWith(
-                //     'rgb(97, 79, 200)'
-                // );
-                // expect(highlightCams('0.5 friend')).toBeHighlightedWith(
-                //     'rgb(97, 79, 200)'
-                // );
-                // expect(highlightCams('0.5 wc')).toBeHighlightedWith('rgb(97, 79, 200)');
-            });
-            it('dmm', () => {
-                expect(highlightCams('red dragon')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('3 dragon')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('red dmm')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('3 dmm')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('red dragonfly')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('2 dragonfly')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
+                expect(highlightCams('#00 c3')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
                 );
             });
         });
         describe('doesnt find', () => {
             it('numbers', () => {
-                const validColors = [
-                    'rgb(0, 158, 58)',
-                    'rgb(203, 27, 49)',
-                    'rgb(201, 175, 25)',
-                    'rgb(17, 119, 204)',
-                    'rgb(155, 161, 183)',
-                    'rgb(97, 79, 200)',
-                ];
-                validColors.forEach((color) => {
-                    expect(highlightCams('9 metolius')).not.toBeHighlightedWith(
-                        color
-                    );
-                    expect(
-                        highlightCams('9 master cam')
-                    ).not.toBeHighlightedWith(color);
-                    expect(highlightCams('9 mc')).not.toBeHighlightedWith(
-                        color
-                    );
-                    expect(highlightCams('red fly')).not.toBeHighlightedWith(
-                        color
-                    );
-                });
+                expect(highlightCams('000')).not.toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
+                );
+                expect(highlightCams('00')).not.toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('0')).not.toBeHighlightedWith(
+                    'rgb(0, 158, 58)'
+                );
             });
         });
     });
-
-    describe('crack sizes', () => {
+    describe('mt mc', () => {
         describe('finds', () => {
-            it('units', () => {
-                expect(highlightCams('0.6"')).toBeHighlightedWith(
+            it('colors', () => {
+                expect(highlightCams('gray metolius')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
+                );
+                expect(highlightCams('purple mc')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('blue mastercam')).toBeHighlightedWith(
                     'rgb(17, 119, 204)'
                 );
-                // expect(highlightCams('0.7in')).toBeHighlightedWith('rgb(155, 161, 183)');
-                // expect(highlightCams('0.7 in')).toBeHighlightedWith('rgb(155, 161, 183)');
+            });
+            it('numbers', () => {
+                expect(highlightCams('00 metolius')).toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
+                );
+                expect(highlightCams('0 mc')).toBeHighlightedWith(
+                    'rgb(117, 102, 201)'
+                );
+                expect(highlightCams('1 mastercam')).toBeHighlightedWith(
+                    'rgb(17, 119, 204)'
+                );
             });
         });
         describe('doesnt find', () => {
-            it('numbers without units', () => {
-                expect(highlightCams('1-3')).not.toBeHighlightedWith(
-                    'rgb(97, 79, 200)'
+            it('numbers', () => {
+                expect(highlightCams('0 metolius')).not.toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
                 );
-                expect(highlightCams('1.5')).not.toBeHighlightedWith(
-                    'rgb(97, 79, 200)'
+                expect(highlightCams('0 mc')).not.toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
                 );
-            });
-            it('size ranges', () => {
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    'rgb(97, 79, 200)'
-                );
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
-                );
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
-                );
-                expect(highlightCams('1-2"')).not.toBeHighlightedWith(
-                    'rgb(201, 175, 25)'
+                expect(highlightCams('0 mastercam')).not.toBeHighlightedWith(
+                    'rgb(155, 161, 183)'
                 );
             });
         });

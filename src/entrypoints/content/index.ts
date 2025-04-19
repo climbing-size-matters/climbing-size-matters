@@ -1,4 +1,7 @@
-import { searchForCams, observeAdditionalContent } from './highlight-cam-object';
+import {
+    searchForCams,
+    observeAdditionalContent,
+} from './highlight-cam-object';
 
 export default defineContentScript({
     // Only matches paths where user will discuss climbing gear
@@ -11,7 +14,7 @@ export default defineContentScript({
         // Inject Tailwind CSS into the webpage
         injectCSS();
         // Execute the highlight function on the document body
-        highlightCams(document.body);
+        searchForCams(document.body);
         observeAdditionalContent();
         // createSizeComparisonPopup();
     },

@@ -1,12 +1,16 @@
 import { database } from '../../cam-database/database';
+import {
+    showComparisonPopup,
+    hideComparisonPopup,
+} from './create-comparison-popup';
 
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCams(text: string): string {
     for (const cam of database.cams) {
-        const { regex, color } = cam;
+        const { regex } = cam;
         text = text.replace(
             regex,
-            `<span data-cam='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+            `<span data-cam='highlight' style='background-color: rgb(255, 245, 245); border: 1px solid rgb(255, 153, 153); border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
         );
     }
     return text;
@@ -24,6 +28,21 @@ function searchForCams(element: Node): void {
         highlightedNode.innerHTML = highlightedHTML;
 
         (element as Text).replaceWith(highlightedNode);
+
+        // Add event listeners to highlighted nodes for hover events
+        highlightedNode
+            .querySelectorAll('[data-cam="highlight"]')
+            .forEach((node) => {
+                const element = node as HTMLElement;
+
+                element.addEventListener('mouseenter', () => {
+                    showComparisonPopup(element);
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    hideComparisonPopup();
+                });
+            });
     }
 }
 

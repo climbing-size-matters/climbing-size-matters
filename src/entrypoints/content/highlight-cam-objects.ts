@@ -10,7 +10,7 @@ function highlightCams(text: string): string {
         const { regex } = cam;
         text = text.replace(
             regex,
-            `<span data-cam='highlight' style='background-color: #fff5f5;border: 1px solid #ff9999; border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
+            `<span data-cam='highlight' style='background-color: rgb(255, 245, 245); border: 1px solid rgb(255, 153, 153); border-radius: 0.25rem; padding: 1px 2px;'>$&</span>`
         );
     }
     return text;

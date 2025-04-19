@@ -28,80 +28,70 @@ describe('higlightCams', () => {
         describe('finds', () => {
             it('colors', () => {
                 expect(highlightCams('blue bd')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('gray c4')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('purple cam')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('green cam')).toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('red camolot')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('yellow cams')).toBeHighlightedWith(
-                    'rgb(232, 199, 14)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('blue camolots')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+                    'rgb(255, 245, 245)'
                 );
             });
             it('numbers', () => {
                 expect(highlightCams('#0.3')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#0.5 c4')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('0.75 c4')).toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#1.0 cam')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('2.0 cam')).toBeHighlightedWith(
-                    'rgb(232, 199, 14)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#3.0 cams')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('4.0 cams')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#5.0 camolot')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('6.0 camolot')).toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#7.0 camolots')).toBeHighlightedWith(
-                    'rgb(203, 27, 49)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('8.0 camolots')).toBeHighlightedWith(
-                    'rgb(232, 199, 14)'
+                    'rgb(255, 245, 245)'
                 );
             });
         });
         describe('doesnt find', () => {
             it('invalid bd cams', () => {
                 const invalidSizes = ['#0.6', '#0.7', '#0.8', '#0.9'];
-                const validColors = [
-                    'rgb(0, 158, 58)',
-                    'rgb(203, 27, 49)',
-                    'rgb(201, 175, 25)',
-                    'rgb(17, 119, 204)',
-                    'rgb(155, 161, 183)',
-                    'rgb(97, 79, 200)',
-                ];
                 invalidSizes.forEach((size) => {
-                    validColors.forEach((color) => {
-                        expect(highlightCams(size)).not.toBeHighlightedWith(
-                            color
-                        );
-                    });
+                    expect(highlightCams(size)).not.toBeHighlightedWith(
+                        'rgb(255, 245, 245)'
+                    );
                 });
             });
         });
@@ -110,28 +100,28 @@ describe('higlightCams', () => {
         describe('finds', () => {
             it('colors', () => {
                 expect(highlightCams('gray c3')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
             });
             it('numbers', () => {
                 expect(highlightCams('000 c3')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('#00 c3')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
             });
         });
         describe('doesnt find', () => {
             it('numbers', () => {
                 expect(highlightCams('000')).not.toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('00')).not.toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('0')).not.toBeHighlightedWith(
-                    'rgb(0, 158, 58)'
+                    'rgb(255, 245, 245)'
                 );
             });
         });
@@ -140,37 +130,24 @@ describe('higlightCams', () => {
         describe('finds', () => {
             it('colors', () => {
                 expect(highlightCams('gray metolius')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('purple mc')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('blue mastercam')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
+                    'rgb(255, 245, 245)'
                 );
             });
             it('numbers', () => {
                 expect(highlightCams('00 metolius')).toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('0 mc')).toBeHighlightedWith(
-                    'rgb(117, 102, 201)'
+                    'rgb(255, 245, 245)'
                 );
                 expect(highlightCams('1 mastercam')).toBeHighlightedWith(
-                    'rgb(17, 119, 204)'
-                );
-            });
-        });
-        describe('doesnt find', () => {
-            it('numbers', () => {
-                expect(highlightCams('0 metolius')).not.toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
-                );
-                expect(highlightCams('0 mc')).not.toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
-                );
-                expect(highlightCams('0 mastercam')).not.toBeHighlightedWith(
-                    'rgb(155, 161, 183)'
+                    'rgb(255, 245, 245)'
                 );
             });
         });

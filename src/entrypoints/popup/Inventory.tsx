@@ -27,7 +27,7 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
 
         // Sort each group by the smaller end of their size range
         const sortedGroups = Object.values(groupedByModel).map((group) =>
-            group.sort((a, b) => a.size.inches[0] - b.size.inches[0])
+            group.sort((a, b) => a.size.inches.min - b.size.inches.min)
         );
 
         setOrganizedInventory(sortedGroups);

@@ -26,25 +26,27 @@ export default function ComparisonPopup({ id }: ComparisonPopupProps) {
 
             if (displayCam) {
                 for (const cam of currentInventory) {
+                    console.log(cam);
                     if (
                         cam.model_id !== displayCam.model_id &&
                         Math.abs(
-                            cam.size.inches[0] - displayCam.size.inches[0]
+                            cam.size.inches.min - displayCam.size.inches.min
                         ) <=
-                            displayCam.size.inches[0] * 0.25 &&
+                            displayCam.size.inches.min * 0.25 &&
                         Math.abs(
-                            cam.size.inches[1] - displayCam.size.inches[1]
+                            cam.size.inches.max - displayCam.size.inches.max
                         ) <=
-                            displayCam.size.inches[1] * 0.25 &&
+                            displayCam.size.inches.max * 0.25 &&
                         Math.abs(
-                            cam.size.inches[0] - displayCam.size.inches[0]
+                            cam.size.inches.min - displayCam.size.inches.min
                         ) <=
-                            cam.size.inches[0] * 0.25 &&
+                            cam.size.inches.min * 0.25 &&
                         Math.abs(
-                            cam.size.inches[1] - displayCam.size.inches[1]
+                            cam.size.inches.max - displayCam.size.inches.max
                         ) <=
-                            cam.size.inches[1] * 0.25
+                            cam.size.inches.max * 0.25
                     ) {
+                        console.log(cam);
                         setCamsInRange((prev) => [...prev, cam]);
                     }
                     if (cam.id === displayCam.id) {

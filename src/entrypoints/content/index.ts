@@ -1,7 +1,7 @@
 import {
     searchForCams,
     observeAdditionalContent,
-} from './highlight-cam-object';
+} from './highlight-cam-objects';
 
 export default defineContentScript({
     // Only matches paths where user will discuss climbing gear

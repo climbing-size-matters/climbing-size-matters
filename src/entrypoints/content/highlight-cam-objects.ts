@@ -27,7 +27,7 @@ function searchForCams(element: Node): void {
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
 
-        (element as ChildNode).replaceWith(highlightedNode);
+        (element as Text).replaceWith(highlightedNode);
 
         // Add event listeners to highlighted nodes for hover events
         highlightedNode

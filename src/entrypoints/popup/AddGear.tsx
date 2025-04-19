@@ -32,19 +32,26 @@ export default function AddGear() {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        chrome.storage.local.set(formState)
+        chrome.storage.local.set(formState);
         chrome.storage.local.get(['brand', 'model', 'cam']).then((result) => {
-            console.log('Value is ' + result.brand + ' ' + result.model + ' ' + result.cam);
+            console.log(
+                'Value is ' +
+                    result.brand +
+                    ' ' +
+                    result.model +
+                    ' ' +
+                    result.cam
+            );
         });
     };
 
-// chrome.storage.local.set({ name: 'Eric' }).then(() => {
-//     console.log('Value is set');
-// });
+    // chrome.storage.local.set({ name: 'Eric' }).then(() => {
+    //     console.log('Value is set');
+    // });
 
-// chrome.storage.local.get(['name']).then((result) => {
-//     console.log('Value is ' + result.name);
-// });
+    // chrome.storage.local.get(['name']).then((result) => {
+    //     console.log('Value is ' + result.name);
+    // });
 
     return (
         <div className="flex flex-col justify-center pt-2">

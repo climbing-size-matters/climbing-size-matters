@@ -22,6 +22,8 @@ type Brand = {
 };
 type Database = {
     brands: Brand[];
+    models: Model[];
+    cams: Cam[];
 };
 
 export { Cam, Model, Brand, Database };

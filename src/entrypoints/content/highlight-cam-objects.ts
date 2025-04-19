@@ -1,38 +1,29 @@
 import { database } from '../../cam-database/database';
 
 // Returns a string of text with HTML color spans around highlighted words
-function highlightCrackAndGearMentions(text: string): string {
-    let textWithHTMLHighlights = text;
-
-    for (const brand of database.brands) {
-        for (const model of brand.models) {
-            for (const cam of model.cams) {
-                const { regex, color } = cam;
-                textWithHTMLHighlights = textWithHTMLHighlights.replace(
-                    regex,
-                    `<span id='highlight' style='background-color:${color}; color:${color === '#000000' ? 'white' : 'inherit'}; border-radius: 10%; padding: 2px;'>$&</span>`
-                );
-            }
-        }
+function highlightCams(text: string): string {
+    for (const cam of database.cams) {
+        const { regex, color } = cam;
+        text = text.replace(
+            regex,
+            `<span data-cam='highlight' style='background-color:${color}; border-radius: 10%; padding: 2px;'>$&</span>`
+        );
     }
-
-    return textWithHTMLHighlights;
+    return text;
 }
 
 // Function to recursively search and highlight the cam instances
-function highlightCams(element: Node): void {
+function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
-        if ((element as HTMLElement).id === 'highlight') return;
-        element.childNodes.forEach(highlightCams);
+        if ((element as HTMLElement).dataset.cam === 'highlight') return;
+        element.childNodes.forEach(searchForCams);
     } else if (element.nodeType === Node.TEXT_NODE) {
-        const highlightedHTML = highlightCrackAndGearMentions(
-            element.textContent ?? ''
-        );
+        const highlightedHTML = highlightCams(element.textContent ?? '');
 
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
 
-        (element as ChildNode).replaceWith(highlightedNode);
+        (element as Text).replaceWith(highlightedNode);
     }
 }
 
@@ -48,7 +39,7 @@ function observeAdditionalContent(): void {
                     mutation.type === 'childList' &&
                     mutation.addedNodes.length > 0
                 ) {
-                    highlightCams(commentList);
+                    searchForCams(commentList);
                 }
             });
         });
@@ -57,8 +48,4 @@ function observeAdditionalContent(): void {
     }
 }
 
-export {
-    highlightCrackAndGearMentions,
-    highlightCams,
-    observeAdditionalContent,
-};
+export { highlightCams, searchForCams, observeAdditionalContent };

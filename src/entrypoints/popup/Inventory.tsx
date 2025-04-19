@@ -48,6 +48,7 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
 
     return (
         <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
+            {/* Title and Add Gear Button */}
             <div className="flex justify-between align-center mb-2">
                 <div className="text-lg">Inventory</div>
                 <button

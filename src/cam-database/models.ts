@@ -54,7 +54,7 @@ const c4: Model = {
 };
 const mc: Model = {
     id: 'mc',
-    name: 'Ultralight Master Cam',
+    name: 'UL Master Cam',
     cams: [
         double_zero_mc,
         zero_mc,

@@ -10,18 +10,17 @@ type PopupProps = {
 export default function Popup({ id }: PopupProps) {
     const [displayCam, setDisplayCam] = useState<Cam>();
     const [camsInRange, setCamsInRange] = useState<Cam[]>([]);
-    const [ownsCam, setOwnsCam] = useState<boolean>(false);
+    // const [ownsCam, setOwnsCam] = useState<boolean>(false);  // TODO: add an inventory check badge in Chart and uncomment ownsCam and userOwnsCam in this file
 
     const fetchData = async (id: string): Promise<void> => {
         const cam = database.cams.find((cam) => cam.id === id);
         if (cam) {
-            console.log('Cam found:', cam);
             setDisplayCam(cam);
         }
     };
 
     const fetchCamsOfSimilarSize = async (): Promise<void> => {
-        let userOwnsCam = false;
+        // let userOwnsCam = false;
 
         chrome.storage.local.get(['inventory'], (result) => {
             const currentInventory: Cam[] = result.inventory || {};
@@ -50,10 +49,10 @@ export default function Popup({ id }: PopupProps) {
                         console.log('Cams in range:', cam);
                         setCamsInRange((prev) => [...prev, cam]);
                     }
-                    if (cam.id === displayCam.id) {
-                        userOwnsCam = true;
-                    }
-                    setOwnsCam(userOwnsCam);
+                    // if (cam.id === displayCam.id) {
+                    //     userOwnsCam = true;
+                    // }
+                    // setOwnsCam(userOwnsCam);
                 }
             }
         });
@@ -104,90 +103,6 @@ export default function Popup({ id }: PopupProps) {
                     </div>
                     {/* Comparison Chart */}
                     <Chart displayCam={displayCam} camsInRange={camsInRange} />
-                    {/* Title */}
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                        }}
-                    >
-                        <div style={{ fontWeight: 'bold' }}>Displayed:</div>
-                        {ownsCam && '(Got it!)'}
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            alignItems: 'center',
-                            gap: '4px',
-                        }}
-                    >
-                        <div
-                            style={{
-                                height: '12px',
-                                width: '12px',
-                                borderRadius: '2px',
-                                border: '1px solid black',
-                                backgroundColor: displayCam.color,
-                            }}
-                        ></div>
-                        <div>{displayCam.name}</div>
-                        <div>
-                            {
-                                database.brands.find(
-                                    (brand) => brand.id === displayCam?.brand_id
-                                )?.name
-                            }
-                        </div>
-                        <div>
-                            {
-                                database.models.find(
-                                    (model) => model.id === displayCam?.model_id
-                                )?.name
-                            }
-                        </div>
-                    </div>
-                    {/* User Cam Info */}
-                    <div style={{ fontWeight: 'bold' }}>
-                        My comparable gear:
-                    </div>
-                    {camsInRange.map((cam) => (
-                        <div
-                            key={cam.id}
-                            style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                alignItems: 'center',
-                                gap: '4px',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    height: '12px',
-                                    width: '12px',
-                                    borderRadius: '2px',
-                                    border: '1px solid black',
-                                    backgroundColor: cam.color,
-                                }}
-                            ></div>
-                            <div>{cam.name}</div>
-                            <div>
-                                {
-                                    database.brands.find(
-                                        (brand) => brand.id === cam?.brand_id
-                                    )?.name
-                                }
-                            </div>
-                            <div>
-                                {
-                                    database.models.find(
-                                        (model) => model.id === cam?.model_id
-                                    )?.name
-                                }
-                            </div>
-                        </div>
-                    ))}
                 </div>
             )}
         </div>

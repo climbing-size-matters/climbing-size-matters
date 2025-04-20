@@ -1,4 +1,4 @@
-import ComparisonPopup from './comparison-popup-content';
+import Popup from './Popup';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { database } from '../../cam-database/database';
@@ -25,11 +25,11 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 
     // Render React popup component
     const root = createRoot(popupContainer);
-    root.render(React.createElement(ComparisonPopup, { id }));
+    root.render(React.createElement(Popup, { id }));
 
     // Calculate the position for the popup
     const popupWidth = 300; // Approximate width of the popup (adjust as needed)
-    const popupHeight = 200; // Approximate height of the popup (adjust as needed)
+    const popupHeight = 300; // Approximate height of the popup (adjust as needed)
 
     // Position the popup so its bottom center is just above the center of the highlightedNode
     const top = window.scrollY + rect.top - popupHeight - 10;

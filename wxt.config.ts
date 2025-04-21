@@ -1,4 +1,5 @@
 import { defineConfig } from 'wxt';
+import tailwindcss from 'tailwindcss';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -29,8 +30,8 @@ export default defineConfig({
         ],
         web_accessible_resources: [
             {
-                resources: ['styles.css'], // Path to the CSS file in the `dist` directory
-                matches: ['*://www.mountainproject.com/*'], // URLs where the CSS can be accessed
+                resources: ['styles.css'],
+                matches: ['*://www.mountainproject.com/*'],
             },
         ],
     },
@@ -39,4 +40,11 @@ export default defineConfig({
             enabled: 9,
         },
     },
+    vite: () => ({
+        css: {
+            postcss: {
+                plugins: [tailwindcss()],
+            },
+        },
+    }),
 });

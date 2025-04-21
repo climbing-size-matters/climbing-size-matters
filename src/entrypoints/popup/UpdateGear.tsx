@@ -18,10 +18,10 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
 
         setFormState((prevState) => ({
             ...prevState,
-            [id]: id === 'cam' ? value : value ? value.split('|') : [],
+            [id]: value ? value.split('|') : [],
         }));
 
-        // Reset dependent fields when a higher-level field changes
+        // Reset dependent dropdowns when a higher-level dropdown changes
         if (id === 'brand') {
             setFormState((prevState) => ({
                 ...prevState,
@@ -35,14 +35,14 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
 
         // Save the updated inventory back to Chrome storage
         chrome.storage.local.set({ inventory: currentInventory }, () => {
-            navigateToInventory(); // Navigate back to the inventory page
+            navigateToInventory();
         });
     };
 
     useEffect(() => {
         // Get inventory from Chrome storage
         chrome.storage.local.get(['inventory'], (result) => {
-            setCurrentInventory(result.inventory || []); // Initialize with an empty array if undefined
+            setCurrentInventory(result.inventory || []);
         });
     }, []);
 
@@ -85,7 +85,7 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
                     </label>
                     <select
                         id="model"
-                        value={formState.model.join('|')} // Convert the array to a string
+                        value={formState.model.join('|')}
                         onChange={handleFormChange}
                         className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     >
@@ -135,17 +135,15 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
 
                                         if (!selectedCam) return;
 
-                                        setCurrentInventory(
-                                            (prevInventory) =>
-                                                checked
-                                                    ? [
-                                                          ...prevInventory,
-                                                          selectedCam,
-                                                      ] // Add cam if checked
-                                                    : prevInventory.filter(
-                                                          (cam) =>
-                                                              cam.id !== value
-                                                      ) // Remove cam if unchecked
+                                        setCurrentInventory((prevInventory) =>
+                                            checked
+                                                ? [
+                                                      ...prevInventory,
+                                                      selectedCam,
+                                                  ]
+                                                : prevInventory.filter(
+                                                      (cam) => cam.id !== value
+                                                  )
                                         );
                                     }}
                                 />
@@ -172,7 +170,7 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
                     className="bg-white border border-cyan-900 text-cyan-900 px-2 py-1 rounded-lg"
                     onClick={navigateToInventory}
                 >
-                    Back to Inventory
+                    Cancel
                 </button>
             </div>
         </div>

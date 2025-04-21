@@ -1,0 +1,37 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+    - 'main'
+  pull_request:
+    branches:
+    - 'main'
+
+jobs:
+  build-and-upload:
+    name: Publish Chrome extension
+    runs-on: ubuntu-latest
+    steps:
+    # checkout repo
+    - uses: actions/checkout@v4
+    # picks up pnpm version from package.json
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+    # cache dependencies
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+    # the actual checks we care about
+    - name: Lint
+      run: pnpm lint
+    - name: Typecheck
+      run: pnpm compile
+    - name: Test
+      run: pnpm test
+    - name: Build
+      run: pnpm build

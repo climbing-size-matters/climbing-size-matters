@@ -46,7 +46,6 @@ export default function Popup({ id }: PopupProps) {
                         ) <=
                             cam.size.inches.max * 0.25
                     ) {
-                        console.log('Cams in range:', cam);
                         setCamsInRange((prev) => [...prev, cam]);
                     }
                     // if (cam.id === displayCam.id) {

@@ -20,6 +20,16 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
     const smallestSize = Math.min(...allSizes);
     const largestSize = Math.max(...allSizes);
 
+    // Round down smallest size and round up largest size to the nearest 0.1
+    const smallestRange = Math.floor(smallestSize * 10) / 10;
+    const largestRange = Math.ceil(largestSize * 10) / 10;
+
+    // Generate an array of values at 0.1-inch intervals
+    const sizeRange = [];
+    for (let size = smallestRange; size <= largestRange; size += 0.1) {
+        sizeRange.push(size.toFixed(1)); // Keep one decimal place
+    }
+
     const verticalLineHeight = 25 * (camsInRange.length + 1);
 
     // Helper function to get brand name
@@ -62,46 +72,78 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                     backgroundColor: 'black',
                 }}
             ></div>
-            {/* Left marker for smallest size */}
+            {/* Display the range */}
             <div
                 style={{
                     position: 'absolute',
-                    left: '0',
-                    top: `${verticalLineHeight + 5}px`,
-                    transform: 'translateX(-50%)',
+                    top: `${verticalLineHeight + 2}px`,
+                    width: 'calc(100% - 2px)',
+                    left: '3px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     fontSize: '0.8rem',
                 }}
             >
-                {smallestSize.toFixed(2)}"
-            </div>
-            {/* Right marker for largest size */}
-            <div
-                style={{
-                    position: 'absolute',
-                    right: '0',
-                    top: `${verticalLineHeight + 5}px`,
-                    transform: 'translateX(50%)',
-                    fontSize: '0.8rem',
-                }}
-            >
-                {largestSize.toFixed(2)}"
+                {sizeRange.map((size, index) => {
+                    // Calculate the translateX value dynamically
+                    const translateX =
+                        index === 0
+                            ? -50 + 2
+                            : index === sizeRange.length - 1
+                              ? 50 - 2
+                              : ((index - (sizeRange.length - 1) / 2) /
+                                    ((sizeRange.length - 1) / 2)) *
+                                50;
+
+                    return (
+                        <div
+                            key={index}
+                            style={{
+                                position: 'relative',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                transform: `translateX(calc(${translateX}% - 2px))`,
+                            }}
+                        >
+                            {/* Tick */}
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: '0px',
+                                    height: '4px',
+                                    width: '2px',
+                                    backgroundColor: 'black',
+                                }}
+                            ></div>
+                            {/* Label */}
+                            <span
+                                style={{
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {size}
+                            </span>
+                        </div>
+                    );
+                })}
             </div>
             {/* Displayed cam */}
             <div
                 style={{
                     position: 'absolute',
                     left: `calc(${
-                        ((displayCam.size.inches.min - smallestSize) /
-                            (largestSize - smallestSize)) *
+                        ((displayCam.size.inches.min - smallestRange) /
+                            (largestRange - smallestRange)) *
                         100
-                    }% + 2px)`, // Move 2px to the right
+                    }% + 2px)`,
                     top: 0,
                     width: `calc(${
                         ((displayCam.size.inches.max -
                             displayCam.size.inches.min) /
-                            (largestSize - smallestSize)) *
+                            (largestRange - smallestRange)) *
                         100
-                    }% - 2px)`, // Subtract 2px from the width
+                    }% - 2px)`,
                     height: '25px',
                     backgroundColor: displayCam.color,
                     borderRadius: '2px',
@@ -117,6 +159,7 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                     displayCam.brand_id
                 )} ${getModelName(displayCam.model_id)}`}
             </div>
+
             {/* Comparable cams */}
             {camsInRange.map((cam, index) => (
                 <div
@@ -124,16 +167,16 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                     style={{
                         position: 'absolute',
                         left: `calc(${
-                            ((cam.size.inches.min - smallestSize) /
-                                (largestSize - smallestSize)) *
+                            ((cam.size.inches.min - smallestRange) /
+                                (largestRange - smallestRange)) *
                             100
-                        }% + 2px)`, // Move 2px to the right
+                        }% + 2px)`,
                         top: `${(index + 1) * 25}px`,
                         width: `calc(${
                             ((cam.size.inches.max - cam.size.inches.min) /
-                                (largestSize - smallestSize)) *
+                                (largestRange - smallestRange)) *
                             100
-                        }% - 2px)`, // Subtract 2px from the width
+                        }% - 2px)`,
                         height: '25px',
                         backgroundColor: cam.color,
                         borderRadius: '2px',

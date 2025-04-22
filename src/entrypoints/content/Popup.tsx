@@ -8,9 +8,10 @@ type PopupProps = {
 };
 
 export default function Popup({ id }: PopupProps) {
+    console.log('Popup component rendered with ID:', id); // TODO: fix Popup so it doesn't render 3 times
     const [displayCam, setDisplayCam] = useState<Cam>();
     const [camsInRange, setCamsInRange] = useState<Cam[]>([]);
-    // const [ownsCam, setOwnsCam] = useState<boolean>(false);  // TODO: add an inventory check badge in Chart and uncomment ownsCam and userOwnsCam in this file
+    const [ownsCam, setOwnsCam] = useState<boolean>(false); // TODO: add an inventory check badge in Chart and uncomment ownsCam and userOwnsCam in this file
 
     const fetchData = async (id: string): Promise<void> => {
         const cam = database.cams.find((cam) => cam.id === id);
@@ -20,7 +21,7 @@ export default function Popup({ id }: PopupProps) {
     };
 
     const fetchCamsOfSimilarSize = async (): Promise<void> => {
-        // let userOwnsCam = false;
+        let userOwnsCam = false;
 
         chrome.storage.local.get(['inventory'], (result) => {
             const currentInventory: Cam[] = result.inventory || {};
@@ -48,10 +49,10 @@ export default function Popup({ id }: PopupProps) {
                     ) {
                         setCamsInRange((prev) => [...prev, cam]);
                     }
-                    // if (cam.id === displayCam.id) {
-                    //     userOwnsCam = true;
-                    // }
-                    // setOwnsCam(userOwnsCam);
+                    if (cam.id === displayCam.id) {
+                        userOwnsCam = true;
+                    }
+                    setOwnsCam(userOwnsCam);
                 }
             }
         });
@@ -76,8 +77,8 @@ export default function Popup({ id }: PopupProps) {
                 borderRadius: '0.5rem',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 zIndex: 50,
-                border: '1px solid #d1d5db',
-                height: '100%',
+                border: '1px solid rgb(209, 213, 219)',
+                height: 'auto',
                 width: '100%',
             }}
         >
@@ -101,7 +102,11 @@ export default function Popup({ id }: PopupProps) {
                         Cam Comparison
                     </div>
                     {/* Comparison Chart */}
-                    <Chart displayCam={displayCam} camsInRange={camsInRange} />
+                    <Chart
+                        displayCam={displayCam}
+                        camsInRange={camsInRange}
+                        ownsCam={ownsCam}
+                    />
                 </div>
             )}
         </div>

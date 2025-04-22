@@ -4,6 +4,7 @@ import { database } from '../../cam-database/database';
 type ChartProps = {
     displayCam: Cam;
     camsInRange: Cam[];
+    ownsCam: boolean;
 };
 
 export default function Chart({ displayCam, camsInRange }: ChartProps) {
@@ -20,7 +21,7 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
     const smallestSize = Math.min(...allSizes);
     const largestSize = Math.max(...allSizes);
 
-    const verticalLineHeight = 20 * (camsInRange.length + 1);
+    const verticalLineHeight = 25 * (camsInRange.length + 1);
 
     // Helper function to get brand name
     const getBrandName = (brandId: string) =>
@@ -102,13 +103,13 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                             (largestSize - smallestSize)) *
                         100
                     }% - 2px)`, // Subtract 2px from the width
-                    height: '20px',
+                    height: '25px',
                     backgroundColor: displayCam.color,
                     borderRadius: '2px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'left',
-                    fontSize: '0.7rem',
+                    fontSize: '0.8rem',
                     color: 'white',
                     paddingLeft: '2px',
                 }}
@@ -128,19 +129,19 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                                 (largestSize - smallestSize)) *
                             100
                         }% + 2px)`, // Move 2px to the right
-                        top: `${(index + 1) * 20}px`,
+                        top: `${(index + 1) * 25}px`,
                         width: `calc(${
                             ((cam.size.inches.max - cam.size.inches.min) /
                                 (largestSize - smallestSize)) *
                             100
                         }% - 2px)`, // Subtract 2px from the width
-                        height: '20px',
+                        height: '25px',
                         backgroundColor: cam.color,
                         borderRadius: '2px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'left',
-                        fontSize: '0.7rem',
+                        fontSize: '0.8rem',
                         color: 'white',
                         paddingLeft: '2px',
                     }}

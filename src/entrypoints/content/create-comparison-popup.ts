@@ -28,8 +28,8 @@ function showComparisonPopup(targetElement: HTMLElement): void {
     root.render(React.createElement(Popup, { id }));
 
     // Calculate the position for the popup
-    const popupWidth = 300; // Approximate width of the popup (adjust as needed)
-    const popupHeight = 150; // Approximate height of the popup (adjust as needed)
+    const popupWidth = 400;
+    const popupHeight = 150; // TODO: height should be dynamic based on content
 
     // Position the popup so its bottom center is just above the center of the highlightedNode
     const top = window.scrollY + rect.top - popupHeight - 10;

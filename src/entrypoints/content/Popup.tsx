@@ -11,7 +11,7 @@ export default function Popup({ id }: PopupProps) {
     console.log('Popup component rendered with ID:', id); // TODO: fix Popup so it doesn't render 3 times
     const [displayCam, setDisplayCam] = useState<Cam>();
     const [camsInRange, setCamsInRange] = useState<Cam[]>([]);
-    const [ownsCam, setOwnsCam] = useState<boolean>(false); // TODO: add an inventory check badge in Chart and uncomment ownsCam and userOwnsCam in this file
+    const [ownsCam, setOwnsCam] = useState<boolean>(false);
 
     const fetchData = async (id: string): Promise<void> => {
         const cam = database.cams.find((cam) => cam.id === id);
@@ -89,24 +89,78 @@ export default function Popup({ id }: PopupProps) {
                         flexDirection: 'column',
                     }}
                 >
-                    {/* Title */}
+                    {/* Title and Inventory Badge */}
                     <div
                         style={{
-                            fontWeight: 'bold',
-                            fontSize: '1.2rem',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             marginBottom: '0.5rem',
-                            textAlign: 'center',
                             padding: '0.2rem',
+                            position: 'relative',
                         }}
                     >
-                        Cam Comparison
+                        {/* Title */}
+                        <div
+                            style={{
+                                fontWeight: 'bold',
+                                fontSize: '1.2rem',
+                                textAlign: 'center',
+                            }}
+                        >
+                            Cam Comparison
+                        </div>
+
+                        {/* Inventory Badge */}
+                        <div
+                            style={{
+                                fontSize: '0.8rem',
+                                color: 'gray',
+                                position: 'absolute',
+                                right: '1rem',
+                                padding: '0 4px',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    verticalAlign: 'middle',
+                                }}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="white"
+                                    style={{
+                                        width: '16px',
+                                        height: '16px',
+                                        marginRight: '2px',
+                                        border: '1px solid white',
+                                        padding: '2px',
+                                        borderRadius: '50%',
+                                        backgroundColor: ownsCam
+                                            ? 'rgb(63, 224, 0)'
+                                            : 'rgb(224, 0, 0)',
+                                    }}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d={
+                                            ownsCam
+                                                ? 'M4.5 12.75L10.5 18.75L19.5 5.25'
+                                                : 'M6 18L18 6M6 6L18 18'
+                                        }
+                                    />
+                                </svg>
+                            </span>
+                            In your rack
+                        </div>
                     </div>
-                    {/* Comparison Chart */}
-                    <Chart
-                        displayCam={displayCam}
-                        camsInRange={camsInRange}
-                        ownsCam={ownsCam}
-                    />
+                    <Chart displayCam={displayCam} camsInRange={camsInRange} />
                 </div>
             )}
         </div>

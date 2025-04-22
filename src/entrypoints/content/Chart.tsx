@@ -4,7 +4,6 @@ import { database } from '../../cam-database/database';
 type ChartProps = {
     displayCam: Cam;
     camsInRange: Cam[];
-    ownsCam: boolean;
 };
 
 export default function Chart({ displayCam, camsInRange }: ChartProps) {

@@ -29,10 +29,10 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 
     // Calculate the position for the popup
     const popupWidth = 400;
-    const popupHeight = 150; // TODO: height should be dynamic based on content
+    const popupHeight = 150;
 
     // Position the popup so its bottom center is just above the center of the highlightedNode
-    const top = window.scrollY + rect.top - popupHeight - 10;
+    const top = window.scrollY + rect.top - popupHeight - 10; // TODO: The popup's position should be relative to the bottom of the popup so the popup is always the same number of pixels above the highlighted node.
     const left = window.scrollX + rect.left + rect.width / 2 - popupWidth / 2;
 
     // Apply the calculated position

@@ -19,13 +19,25 @@ function highlightCams(text: string): string {
 // Function to recursively search and highlight the cam instances
 function searchForCams(element: Node): void {
     if (element.hasChildNodes()) {
+        // Skip processing if the element is already highlighted
         if ((element as HTMLElement).dataset.cam === 'highlight') return;
+
         element.childNodes.forEach(searchForCams);
     } else if (element.nodeType === Node.TEXT_NODE) {
+        // Skip processing if the text node is empty or already processed
+        if (
+            !element.textContent?.trim() ||
+            (element as Text).parentElement?.dataset.cam === 'processed'
+        )
+            return;
+
         const highlightedHTML = highlightCams(element.textContent ?? '');
 
         const highlightedNode = document.createElement('span');
         highlightedNode.innerHTML = highlightedHTML;
+
+        // Mark the parent of this text node as processed
+        highlightedNode.dataset.cam = 'processed';
 
         (element as Text).replaceWith(highlightedNode);
 

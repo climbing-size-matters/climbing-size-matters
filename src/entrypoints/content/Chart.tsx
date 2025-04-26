@@ -128,6 +128,18 @@ export default function Chart({ displayCam, camsInRange }: ChartProps) {
                     );
                 })}
             </div>
+            {/* Unit label */}
+            <span
+                style={{
+                    position: 'absolute',
+                    top: `${verticalLineHeight + 20}px`,
+                    width: '100%',
+                    textAlign: 'center',
+                    fontSize: '0.8rem',
+                }}
+            >
+                inches
+            </span>
             {/* Displayed cam */}
             <div
                 style={{

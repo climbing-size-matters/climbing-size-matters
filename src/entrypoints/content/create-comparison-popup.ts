@@ -1,7 +1,7 @@
-import Popup from './Popup';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { database } from '../../cam-database/database';
+import Popup from './Popup';
 
 let popupContainer: HTMLElement | null = null;
 let id: string = '';
@@ -43,6 +43,7 @@ function showComparisonPopup(targetElement: HTMLElement): void {
 }
 
 function hideComparisonPopup(): void {
+    console.log('hiding comparison popup');
     if (popupContainer) {
         popupContainer.remove();
         popupContainer = null;

@@ -8,25 +8,28 @@ type PopupProps = {
 };
 
 export default function Popup({ id }: PopupProps) {
-    console.log('Popup component rendered with ID:', id); // TODO: fix Popup so it doesn't render 3 times
     const [displayCam, setDisplayCam] = useState<Cam>();
     const [camsInRange, setCamsInRange] = useState<Cam[]>([]);
     const [ownsCam, setOwnsCam] = useState<boolean>(false);
 
-    const fetchData = async (id: string): Promise<void> => {
-        const cam = database.cams.find((cam) => cam.id === id);
-        if (cam) {
-            setDisplayCam(cam);
-        }
+    // Fetch the display cam based on the ID
+    const fetchDisplayCam = async (id: string): Promise<Cam | undefined> => {
+        return database.cams.find((cam) => cam.id === id);
     };
 
-    const fetchCamsOfSimilarSize = async (): Promise<void> => {
-        let userOwnsCam = false;
+    // Fetch cams of similar size
+    const fetchCamsOfSimilarSize = async (
+        displayCam: Cam
+    ): Promise<{
+        camsInRange: Cam[];
+        ownsCam: boolean;
+    }> => {
+        return new Promise((resolve) => {
+            chrome.storage.local.get(['inventory'], (result) => {
+                const currentInventory: Cam[] = result.inventory || [];
+                const camsInRange: Cam[] = [];
+                let userOwnsCam = false;
 
-        chrome.storage.local.get(['inventory'], (result) => {
-            const currentInventory: Cam[] = result.inventory || {};
-
-            if (displayCam) {
                 for (const cam of currentInventory) {
                     if (
                         cam.model_id !== displayCam.model_id &&
@@ -47,26 +50,32 @@ export default function Popup({ id }: PopupProps) {
                         ) <=
                             cam.size.inches.max * 0.25
                     ) {
-                        setCamsInRange((prev) => [...prev, cam]);
+                        camsInRange.push(cam);
                     }
                     if (cam.id === displayCam.id) {
                         userOwnsCam = true;
                     }
-                    setOwnsCam(userOwnsCam);
                 }
-            }
+
+                resolve({ camsInRange, ownsCam: userOwnsCam });
+            });
         });
     };
 
-    useEffect(() => {
-        fetchData(id);
-    }, [id]);
+    const fetchData = async (id: string): Promise<void> => {
+        const cam = await fetchDisplayCam(id);
+        if (cam) {
+            const { camsInRange, ownsCam } = await fetchCamsOfSimilarSize(cam);
+            setDisplayCam(cam);
+            setCamsInRange(camsInRange);
+            setOwnsCam(ownsCam);
+        }
+    };
 
     useEffect(() => {
-        if (displayCam) {
-            fetchCamsOfSimilarSize();
-        }
-    }, [displayCam]);
+        console.log('fetching data:', id);
+        fetchData(id);
+    }, [id]);
 
     return (
         <div

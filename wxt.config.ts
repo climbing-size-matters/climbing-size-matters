@@ -7,7 +7,6 @@ export default defineConfig({
     outDir: 'dist',
     manifest: {
         name: 'Climbing Size Matters',
-        version: '0.1.0',
         manifest_version: 3,
         description: 'To help people display MP sizes',
         permissions: [],

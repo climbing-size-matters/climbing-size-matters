@@ -61,6 +61,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+We follow [Trunk-Based Development](https://trunkbaseddevelopment.com/).
+For cutting a release, see [docs/release-process.md](docs/release-process.md).
+
 If you develop with coding agents, agent setup and instructions are in [AGENTS.md](AGENTS.md).
 
 ## License

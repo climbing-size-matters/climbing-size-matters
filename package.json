@@ -60,7 +60,7 @@
             "eslint"
         ],
         "!(*.js|*.ts|*.jsx|*.tsx)": [
-            "prettier --check --ignore-unknown"
+            "prettier --check --ignore-unknown --no-error-on-unmatched-pattern"
         ]
     }
 }

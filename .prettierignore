@@ -12,3 +12,9 @@ pnpm-lock.yaml
 # non-code
 docs
 README.md
+
+# agent tooling (managed by npx skills / claude mcp)
+.agents
+.claude/skills
+skills-lock.json
+.mcp.json

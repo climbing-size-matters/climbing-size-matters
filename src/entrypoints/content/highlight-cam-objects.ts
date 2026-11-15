@@ -1,7 +1,15 @@
 import { database } from '../../cam-database/database';
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 // Returns a string of text with HTML color spans around highlighted words
 function highlightCams(text: string): string {
+  text = escapeHtml(text);
   for (const cam of database.cams) {
     const { regex, color } = cam;
     text = text.replace(

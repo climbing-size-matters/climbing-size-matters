@@ -50,7 +50,7 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   return (
     <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
       {/* Title and Add Gear Button */}
-      <div className="flex justify-between align-center mb-2">
+      <div className="flex justify-between items-center mb-2">
         <div className="text-lg">Inventory</div>
         <button
           className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
@@ -62,10 +62,10 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
       {/* Accordion */}
       <div>
         {organizedInventory.map((modelGroup, index) => (
-          <div className="flex flex-col w-full py-4 items-startr" key={index}>
+          <div className="flex flex-col w-full py-4" key={index}>
             {/* Accordion Header */}
             <div
-              className="flex justify-between align-items text-sm px-2 border rounded-sm border-red-700 cursor-pointer"
+              className="flex justify-between items-center text-sm px-2 border rounded-sm border-red-700 cursor-pointer"
               onClick={() => toggleAccordion(index)}
             >
               <div className="flex items-start">

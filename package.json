@@ -56,11 +56,11 @@
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx}": [
-            "prettier",
+            "prettier --check --ignore-unknown",
             "eslint"
         ],
         "!(*.js|*.ts|*.jsx|*.tsx)": [
-            "prettier"
+            "prettier --check --ignore-unknown"
         ]
     }
 }

@@ -18,3 +18,7 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
+
+# Agent: personal, not shared
+.claude/settings.local.json
+CLAUDE.local.md

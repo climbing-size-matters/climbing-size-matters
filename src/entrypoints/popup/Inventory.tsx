@@ -9,6 +9,7 @@ type InventoryProps = {
 
 export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   const [organizedInventory, setOrganizedInventory] = useState<Cam[][]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [accordionState, setAccordionState] = useState<Record<number, boolean>>(
     {}
   );
@@ -44,7 +45,10 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   };
 
   useEffect(() => {
-    inventoryItem.getValue().then(organizeInventoryByBrandAndModel);
+    inventoryItem.getValue().then((camIds) => {
+      organizeInventoryByBrandAndModel(camIds);
+      setLoaded(true);
+    });
   }, []);
 
   return (
@@ -59,6 +63,9 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
           Update Gear
         </button>
       </div>
+      {loaded && organizedInventory.length === 0 && (
+        <div className="text-sm text-gray-500">No gear saved yet</div>
+      )}
       {/* Accordion */}
       <div>
         {organizedInventory.map((modelGroup, index) => (

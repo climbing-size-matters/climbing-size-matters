@@ -17,9 +17,17 @@ Browser extension for Mountain Project, built with [WXT](https://wxt.dev/) (v0.1
 
 ## Skills
 
-Skills live in `.agents/skills/` and are managed with `npx skills` (tracked in `skills-lock.json`).
+Skills live in `.agents/skills/` and are managed with the [`skills`](https://github.com/vercel-labs/skills) CLI (tracked in `skills-lock.json`). The skill files are gitignored; run `npx skills install` once after cloning to install them.
 
-- `chrome-extensions` (from `GoogleChrome/modern-web-guidance`): Manifest V3 and Chrome Web Store guidance. It doesn't cover WXT, so follow the WXT conventions above when they differ.
+- `chrome-extensions` (from [`GoogleChrome/modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance)): Manifest V3 and Chrome Web Store guidance. It doesn't cover WXT, so follow the WXT conventions above when they differ.
+
+Maintaining skills (requires Node >= 22.20):
+
+- `npx skills install`: install skills from `skills-lock.json` (experimental)
+- `npx skills update -p`: update project skills
+- `npx skills add <owner>/<repo> --skill <name>`: add a skill, e.g. `npx skills add GoogleChrome/modern-web-guidance --skill chrome-extensions`
+- `npx skills remove <name>`: remove a skill
+- `npx skills list`: list installed skills
 
 ## Testing in the browser
 

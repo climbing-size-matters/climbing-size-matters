@@ -8,6 +8,7 @@ type UpdateGearProps = {
 
 export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
   const [currentInventory, setCurrentInventory] = useState<string[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState({
     brand: [],
     model: [],
@@ -37,8 +38,15 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
   };
 
   useEffect(() => {
-    inventoryItem.getValue().then(setCurrentInventory);
+    inventoryItem.getValue().then((camIds) => {
+      setCurrentInventory(camIds);
+      setLoaded(true);
+    });
   }, []);
+
+  // Don't show the form until the saved inventory has loaded, so edits and
+  // Save can't be overwritten by (or overwrite) the load
+  if (!loaded) return null;
 
   return (
     <div className="flex flex-col justify-center p-2">

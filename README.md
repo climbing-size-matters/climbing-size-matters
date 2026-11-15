@@ -15,6 +15,7 @@ to highlight gear and translate to your gear.
 ## Setup
 
 This repository uses:
+- [nvm](https://github.com/nvm-sh/nvm) for Node version
 - pnpm: [Installation](https://pnpm.io/installation)
 - wxt: [WXT](https://wxt.dev/)
 

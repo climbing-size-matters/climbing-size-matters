@@ -13,7 +13,9 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
     {}
   );
 
-  function organizeInventoryByBrandAndModel(inventory: Cam[]): void {
+  function organizeInventoryByBrandAndModel(camIds: string[]): void {
+    const inventory = database.cams.filter((cam) => camIds.includes(cam.id));
+
     // Group cams by model_id
     const groupedByModel: Record<string, Cam[]> = inventory.reduce(
       (acc, cam) => {

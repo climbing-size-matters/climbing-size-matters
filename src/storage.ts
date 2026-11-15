@@ -1,6 +1,6 @@
 import { storage } from 'wxt/storage';
-import { Cam } from '@/cam-database/types';
 
-export const inventoryItem = storage.defineItem<Cam[]>('local:inventory', {
+// Cam ids from database.cams
+export const inventoryItem = storage.defineItem<string[]>('local:inventory', {
   fallback: [],
 });

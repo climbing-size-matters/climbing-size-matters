@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Cam } from '@/cam-database/types';
 import { database } from '@/cam-database/database';
 import { inventoryItem } from '@/storage';
 
@@ -8,7 +7,7 @@ type UpdateGearProps = {
 };
 
 export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
-  const [currentInventory, setCurrentInventory] = useState<Cam[]>([]);
+  const [currentInventory, setCurrentInventory] = useState<string[]>([]);
   const [formState, setFormState] = useState({
     brand: [],
     model: [],
@@ -105,21 +104,13 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
                   type="checkbox"
                   id={cam.id}
                   value={cam.id}
-                  checked={currentInventory.some(
-                    (camInInventory) => camInInventory.id === cam.id
-                  )}
+                  checked={currentInventory.includes(cam.id)}
                   onChange={(e) => {
                     const { checked, value } = e.target;
-                    const selectedCam = database.cams.find(
-                      (cam) => cam.id === value
-                    );
-
-                    if (!selectedCam) return;
-
                     setCurrentInventory((prevInventory) =>
                       checked
-                        ? [...prevInventory, selectedCam]
-                        : prevInventory.filter((cam) => cam.id !== value)
+                        ? [...prevInventory, value]
+                        : prevInventory.filter((id) => id !== value)
                     );
                   }}
                 />

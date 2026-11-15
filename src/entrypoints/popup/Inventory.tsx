@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Cam } from '../../cam-database/types';
 import { database } from '../../cam-database/database';
+import { inventoryItem } from '@/storage';
 
 type InventoryProps = {
   navigateToUpdateGear: () => void;
@@ -41,9 +42,7 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   };
 
   useEffect(() => {
-    chrome.storage.local.get(['inventory'], (result) => {
-      organizeInventoryByBrandAndModel(result.inventory);
-    });
+    inventoryItem.getValue().then(organizeInventoryByBrandAndModel);
   }, []);
 
   return (

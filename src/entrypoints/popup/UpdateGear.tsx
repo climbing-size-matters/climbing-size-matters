@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Cam } from '@/cam-database/types';
 import { database } from '@/cam-database/database';
+import { inventoryItem } from '@/storage';
 
 type UpdateGearProps = {
   navigateToInventory: () => void;
@@ -33,17 +34,11 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    // Save the updated inventory back to Chrome storage
-    chrome.storage.local.set({ inventory: currentInventory }, () => {
-      navigateToInventory();
-    });
+    inventoryItem.setValue(currentInventory).then(navigateToInventory);
   };
 
   useEffect(() => {
-    // Get inventory from Chrome storage
-    chrome.storage.local.get(['inventory'], (result) => {
-      setCurrentInventory(result.inventory || []);
-    });
+    inventoryItem.getValue().then(setCurrentInventory);
   }, []);
 
   return (

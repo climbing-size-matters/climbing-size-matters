@@ -6,11 +6,11 @@ import './styles.css';
 
 const rootElement = document.getElementById('react-popup-root');
 if (rootElement) {
-    createRoot(rootElement).render(
-        <StrictMode>
-            <App />
-        </StrictMode>
-    );
+  createRoot(rootElement).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
 } else {
-    console.error('Root element not found');
+  console.error('Root element not found');
 }

@@ -24,6 +24,10 @@ declare module 'vitest' {
 }
 
 describe('higlightCams', () => {
+  it('escapes HTML in the text', () => {
+    expect(highlightCams('<img src=x onerror=alert(1)>')).not.toContain('<img');
+  });
+
   describe('bd c4', () => {
     describe('finds', () => {
       it('colors', () => {

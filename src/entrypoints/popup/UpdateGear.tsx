@@ -49,7 +49,7 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
   if (!loaded) return null;
 
   return (
-    <div className="flex flex-col justify-center p-2">
+    <div className="flex flex-col flex-1 min-h-0 overflow-y-auto p-2">
       <div className="text-lg">Update your rack!</div>
       {/* Brand Dropdown */}
       <div className="py-2">

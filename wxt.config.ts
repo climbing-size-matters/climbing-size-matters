@@ -28,12 +28,6 @@ export default defineConfig({
         js: ['content-scripts/esm-loader.js'],
       },
     ],
-    web_accessible_resources: [
-      {
-        resources: ['styles.css'],
-        matches: ['*://www.mountainproject.com/*'],
-      },
-    ],
   },
   imports: {
     eslintrc: {

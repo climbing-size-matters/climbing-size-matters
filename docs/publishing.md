@@ -9,6 +9,9 @@ Currently we are only planning on publishing as a Chrome* web extension.
 We have a script for this: `pnpm zip`. This uses `wxt` to generate a zip file in our
 output folder (`dist`).
 
+The extension version comes from `version` in `package.json`. See
+[release-process.md](release-process.md) for how to cut a release.
+
 ### Publishing the Extension
 
 #### Setup / Pre-requisites

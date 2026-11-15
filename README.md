@@ -15,6 +15,7 @@ to highlight gear and translate to your gear.
 ## Setup
 
 This repository uses:
+- [nvm](https://github.com/nvm-sh/nvm) for Node version
 - pnpm: [Installation](https://pnpm.io/installation)
 - wxt: [WXT](https://wxt.dev/)
 
@@ -60,6 +61,11 @@ Right now, it just highlights the mentions of gear and crack size different colo
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+We follow [Trunk-Based Development](https://trunkbaseddevelopment.com/).
+For cutting a release, see [docs/release-process.md](docs/release-process.md).
+
+If you develop with coding agents, agent setup and instructions are in [AGENTS.md](AGENTS.md).
 
 ## License
 

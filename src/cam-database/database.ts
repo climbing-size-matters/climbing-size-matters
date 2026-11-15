@@ -4,9 +4,9 @@ import { models } from './models';
 import { cams } from './cams';
 
 const database: Database = {
-    brands: brands,
-    models: models,
-    cams: cams,
+  brands: brands,
+  models: models,
+  cams: cams,
 };
 
 export { database };

@@ -33,7 +33,9 @@ export default defineConfig({
     },
   },
   vite: () => ({
-    // Vite's dependency scan globs every .html file; limit it to src so old builds in dist aren't scanned
+    // because we use `dist` instead of `.output` (the WXT default)
+    // ; (Vite by default ignores dot-prefixed directories) ;
+    // we narrow it's search to `src` to avoid detecting build artifacts in `dist`
     optimizeDeps: {
       entries: ['src/**/*.html'],
     },

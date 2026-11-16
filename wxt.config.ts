@@ -6,20 +6,18 @@ export default defineConfig({
   srcDir: 'src',
   publicDir: 'src/public',
   outDir: 'dist',
+  // originally adapted from a plain chrome mainfest json,
+  // this now has been adapted to the WXT framework, meaning
+  // the following are omitted here and automatically
+  // discovered based on filepath:
+  // - popup
+  // - content scripts
+  // - icons
   manifest: ({ browser }) => ({
     name: 'Climbing Size Matters',
     description: 'To help people display MP sizes',
     permissions: ['storage'],
     host_permissions: ['*://www.mountainproject.com/*'],
-    icons: {
-      16: '/icon/cams16.png',
-      32: '/icon/cams32.png',
-      48: '/icon/cams48.png',
-      128: '/icon/cams128.png',
-    },
-    action: {
-      default_popup: 'popup.html',
-    },
     ...(browser === 'firefox' && {
       browser_specific_settings: {
         gecko: {

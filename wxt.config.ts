@@ -21,13 +21,6 @@ export default defineConfig({
     action: {
       default_popup: 'popup.html',
     },
-    content_scripts: [
-      {
-        matches: ['*://www.mountainproject.com/*'],
-        // to enable HMR, we have a loader that dynamically imports our script
-        js: ['content-scripts/esm-loader.js'],
-      },
-    ],
     ...(browser === 'firefox' && {
       browser_specific_settings: {
         gecko: {

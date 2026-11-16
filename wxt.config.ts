@@ -33,6 +33,10 @@ export default defineConfig({
     },
   },
   vite: () => ({
+    // Vite's dependency scan globs every .html file; limit it to src so old builds in dist aren't scanned
+    optimizeDeps: {
+      entries: ['src/**/*.html'],
+    },
     css: {
       postcss: {
         plugins: [tailwindcss()],

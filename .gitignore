@@ -29,3 +29,7 @@ CLAUDE.local.md
 
 # Playwright CLI snapshots
 .playwright-cli/
+
+# Playwright test output
+test-results/
+playwright-report/

@@ -8,7 +8,6 @@ export default defineConfig({
   outDir: 'dist',
   manifest: ({ browser }) => ({
     name: 'Climbing Size Matters',
-    manifest_version: 3,
     description: 'To help people display MP sizes',
     permissions: ['storage'],
     host_permissions: ['*://www.mountainproject.com/*'],

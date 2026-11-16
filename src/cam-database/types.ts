@@ -26,4 +26,4 @@ type Database = {
   cams: Cam[];
 };
 
-export { Cam, Model, Brand, Database };
+export type { Cam, Model, Brand, Database };

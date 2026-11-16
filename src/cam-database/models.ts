@@ -1,4 +1,4 @@
-import { Model } from './types';
+import type { Model } from './types';
 import {
   zero_three_c4,
   zero_four_c4,

@@ -3,8 +3,8 @@ import tailwindcss from 'tailwindcss';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  extensionApi: 'chrome',
   srcDir: 'src',
+  publicDir: 'src/public',
   outDir: 'dist',
   manifest: {
     name: 'Climbing Size Matters',

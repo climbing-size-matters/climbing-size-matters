@@ -1,4 +1,4 @@
-import { Database } from './types';
+import type { Database } from './types';
 import { brands } from './brands';
 import { models } from './models';
 import { cams } from './cams';

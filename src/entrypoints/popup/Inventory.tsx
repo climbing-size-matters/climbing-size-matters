@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Cam } from '../../cam-database/types';
+import type { Cam } from '../../cam-database/types';
 import { database } from '../../cam-database/database';
 import { inventoryItem } from '@/storage';
 
@@ -20,10 +20,7 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
     // Group cams by model_id
     const groupedByModel: Record<string, Cam[]> = inventory.reduce(
       (acc, cam) => {
-        if (!acc[cam.model_id]) {
-          acc[cam.model_id] = [];
-        }
-        acc[cam.model_id].push(cam);
+        (acc[cam.model_id] ??= []).push(cam);
         return acc;
       },
       {} as Record<string, Cam[]>
@@ -79,14 +76,14 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
                 <span className="mr-1">
                   {
                     database.brands.find(
-                      (brand) => brand.id === modelGroup[0].brand_id
+                      (brand) => brand.id === modelGroup[0]?.brand_id
                     )?.name
                   }
                 </span>
                 <span>
                   {
                     database.models.find(
-                      (model) => model.id === modelGroup[0].model_id
+                      (model) => model.id === modelGroup[0]?.model_id
                     )?.name
                   }
                 </span>

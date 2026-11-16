@@ -34,7 +34,7 @@ export default defineConfig({
   },
   vite: () => ({
     // because we use `dist` instead of `.output` (the WXT default)
-    // ; (Vite by default ignores dot-prefixed directories) ;
+    // ; (Vite by default ignores dot-prefixed directories, so we wouldn't need it if we used `.output`) ;
     // we narrow it's search to `src` to avoid detecting build artifacts in `dist`
     optimizeDeps: {
       entries: ['src/**/*.html'],

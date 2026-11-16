@@ -6,28 +6,18 @@ export default defineConfig({
   srcDir: 'src',
   publicDir: 'src/public',
   outDir: 'dist',
+  // originally adapted from a plain chrome mainfest json,
+  // this now has been adapted to the WXT framework, meaning
+  // the following are omitted here and automatically
+  // discovered based on filepath:
+  // - popup
+  // - content scripts
+  // - icons
   manifest: ({ browser }) => ({
     name: 'Climbing Size Matters',
-    manifest_version: 3,
     description: 'To help people display MP sizes',
     permissions: ['storage'],
     host_permissions: ['*://www.mountainproject.com/*'],
-    icons: {
-      16: '/icon/cams16.png',
-      32: '/icon/cams32.png',
-      48: '/icon/cams48.png',
-      128: '/icon/cams128.png',
-    },
-    action: {
-      default_popup: 'popup.html',
-    },
-    content_scripts: [
-      {
-        matches: ['*://www.mountainproject.com/*'],
-        // to enable HMR, we have a loader that dynamically imports our script
-        js: ['content-scripts/esm-loader.js'],
-      },
-    ],
     ...(browser === 'firefox' && {
       browser_specific_settings: {
         gecko: {
@@ -43,6 +33,12 @@ export default defineConfig({
     },
   },
   vite: () => ({
+    // because we use `dist` instead of `.output` (the WXT default)
+    // ; (Vite by default ignores dot-prefixed directories, so we wouldn't need it if we used `.output`) ;
+    // we narrow it's search to `src` to avoid detecting build artifacts in `dist`
+    optimizeDeps: {
+      entries: ['src/**/*.html'],
+    },
     css: {
       postcss: {
         plugins: [tailwindcss()],

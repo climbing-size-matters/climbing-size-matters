@@ -6,7 +6,7 @@ export default defineConfig({
   srcDir: 'src',
   publicDir: 'src/public',
   outDir: 'dist',
-  manifest: {
+  manifest: ({ browser }) => ({
     name: 'Climbing Size Matters',
     manifest_version: 3,
     description: 'To help people display MP sizes',
@@ -28,7 +28,15 @@ export default defineConfig({
         js: ['content-scripts/esm-loader.js'],
       },
     ],
-  },
+    ...(browser === 'firefox' && {
+      browser_specific_settings: {
+        gecko: {
+          id: 'climbing-size-matters@googlegroups.com',
+          data_collection_permissions: { required: ['none'] },
+        },
+      },
+    }),
+  }),
   imports: {
     eslintrc: {
       enabled: 9,

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Browser extension for Mountain Project, built with [WXT](https://wxt.dev/) (v0.19). See `README.md` for what it does.
+Browser extension for Mountain Project, built with [WXT](https://wxt.dev/). See `README.md` for what it does.
 
 ## Commands
 

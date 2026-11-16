@@ -1,4 +1,5 @@
 import { defineConfig } from 'wxt';
+import tailwindcss from 'tailwindcss';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
     name: 'Climbing Size Matters',
     manifest_version: 3,
     description: 'To help people display MP sizes',
-    permissions: [],
+    permissions: ['storage'],
     host_permissions: ['*://www.mountainproject.com/*'],
     icons: {
       16: '/icon/cams16.png',
@@ -27,10 +28,23 @@ export default defineConfig({
         js: ['content-scripts/esm-loader.js'],
       },
     ],
+    web_accessible_resources: [
+      {
+        resources: ['styles.css'],
+        matches: ['*://www.mountainproject.com/*'],
+      },
+    ],
   },
   imports: {
     eslintrc: {
       enabled: 9,
     },
   },
+  vite: () => ({
+    css: {
+      postcss: {
+        plugins: [tailwindcss()],
+      },
+    },
+  }),
 });

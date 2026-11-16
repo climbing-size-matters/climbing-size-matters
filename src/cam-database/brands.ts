@@ -1,4 +1,4 @@
-import { Brand } from './types';
+import type { Brand } from './types';
 import { c3, c4, mc } from './models';
 
 const bd: Brand = {

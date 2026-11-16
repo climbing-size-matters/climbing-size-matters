@@ -1,4 +1,4 @@
-import { Cam } from './types';
+import type { Cam } from './types';
 
 const zero_three_c4: Cam = {
   id: 'zero_three_c4',

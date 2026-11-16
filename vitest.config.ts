@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitest/config';
-import { WxtVitest } from 'wxt/testing';
+import { WxtVitest } from 'wxt/testing/vitest-plugin';
 
 export default defineConfig({
   plugins: [WxtVitest()],
@@ -7,7 +7,7 @@ export default defineConfig({
     environment: 'happy-dom',
     include: ['test/**/*.spec.ts', 'test/**/*.spec.tsx', 'test/**/*.spec.js'],
     coverage: {
-      include: ['src'],
+      include: ['src/**/*.{ts,tsx}'],
     },
   },
 });

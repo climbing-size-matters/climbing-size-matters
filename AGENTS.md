@@ -32,6 +32,17 @@ Maintaining skills (requires Node >= 22.20):
 
 ## Testing in the browser
 
+### Playwright CLI (with hot reload)
+
+`pnpm dev` opens Chrome with remote debugging on port 9222 (`webExt.chromiumArgs` in `wxt.config.ts`). Attach to it with the `playwright-cli` skill:
+
+```sh
+playwright-cli attach --cdp=http://localhost:9222
+playwright-cli goto https://www.mountainproject.com/route/105732422/epinephrine
+```
+
+### chrome-devtools-mcp
+
 Use [`chrome-devtools-mcp`](https://developer.chrome.com/docs/devtools/agents/extensions) with `--categoryExtensions`. It can install, reload, and trigger the extension and read console messages.
 
 1. Enable remote debugging at `chrome://inspect/#remote-debugging` (once per browser session).

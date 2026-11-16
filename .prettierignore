@@ -18,3 +18,7 @@ README.md
 .claude/skills
 skills-lock.json
 .mcp.json
+
+# Playwright test output
+test-results
+playwright-report

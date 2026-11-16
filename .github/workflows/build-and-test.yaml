@@ -38,3 +38,31 @@ jobs:
         run: pnpm test
       - name: Build
         run: pnpm build
+
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      # bundled Chromium plus its Linux system libraries; --no-shell skips the
+      # headless-only build, which channel: 'chromium' doesn't use
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps --no-shell chromium
+      - name: E2E tests
+        run: pnpm e2e
+      # traces from failed tests; open with `pnpm exec playwright show-trace`
+      - name: Upload traces
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-test-results
+          path: test-results/

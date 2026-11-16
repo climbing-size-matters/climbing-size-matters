@@ -20,6 +20,7 @@ Browser extension for Mountain Project, built with [WXT](https://wxt.dev/). See 
 Skills live in `.agents/skills/` and are managed with the [`skills`](https://github.com/vercel-labs/skills) CLI (tracked in `skills-lock.json`). The skill files are gitignored; run `npx skills install` once after cloning to install them.
 
 - `chrome-extensions` (from [`GoogleChrome/modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance)): Manifest V3 and Chrome Web Store guidance. It doesn't cover WXT, so follow the WXT conventions above when they differ.
+- `playwright-cli` (from [`microsoft/playwright-cli`](https://github.com/microsoft/playwright-cli)): drive a browser from the command line. Needs the CLI: `npm install -g @playwright/cli@latest`.
 
 Maintaining skills (requires Node >= 22.20):
 
@@ -30,6 +31,17 @@ Maintaining skills (requires Node >= 22.20):
 - `npx skills list`: list installed skills
 
 ## Testing in the browser
+
+### Playwright CLI (with hot reload)
+
+`pnpm dev` opens Chrome with remote debugging on port 9222 (`webExt.chromiumArgs` in `wxt.config.ts`). Attach to it with the `playwright-cli` skill:
+
+```sh
+playwright-cli attach --cdp=http://localhost:9222
+playwright-cli goto https://www.mountainproject.com/route/105732422/epinephrine
+```
+
+### chrome-devtools-mcp
 
 Use [`chrome-devtools-mcp`](https://developer.chrome.com/docs/devtools/agents/extensions) with `--categoryExtensions`. It can install, reload, and trigger the extension and read console messages.
 

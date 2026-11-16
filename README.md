@@ -61,6 +61,10 @@ Right now, it just highlights the mentions of gear and crack size different colo
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+- unit tests: Vitest
+- e2e tests (see [testing-e2e.md](./docs/testing-e2e.md))
+  - chromium: Playwright
+  - firefox: none, TBD
 
 We follow [Trunk-Based Development](https://trunkbaseddevelopment.com/).
 For cutting a release, see [docs/release-process.md](docs/release-process.md).

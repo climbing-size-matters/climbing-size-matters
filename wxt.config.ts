@@ -27,6 +27,11 @@ export default defineConfig({
       },
     }),
   }),
+  // fixed debugging port so `playwright-cli attach --cdp=http://localhost:9222`
+  // can drive the browser that `pnpm dev` opens
+  webExt: {
+    chromiumArgs: ['--remote-debugging-port=9222'],
+  },
   imports: {
     eslintrc: {
       enabled: 9,

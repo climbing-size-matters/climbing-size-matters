@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Cam } from '../../cam-database/types';
 import { database } from '../../cam-database/database';
+import { inventoryItem } from '@/storage';
 
 type InventoryProps = {
   navigateToUpdateGear: () => void;
@@ -8,11 +9,14 @@ type InventoryProps = {
 
 export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   const [organizedInventory, setOrganizedInventory] = useState<Cam[][]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [accordionState, setAccordionState] = useState<Record<number, boolean>>(
     {}
   );
 
-  function organizeInventoryByBrandAndModel(inventory: Cam[]): void {
+  function organizeInventoryByBrandAndModel(camIds: string[]): void {
+    const inventory = database.cams.filter((cam) => camIds.includes(cam.id));
+
     // Group cams by model_id
     const groupedByModel: Record<string, Cam[]> = inventory.reduce(
       (acc, cam) => {
@@ -41,15 +45,16 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
   };
 
   useEffect(() => {
-    chrome.storage.local.get(['inventory'], (result) => {
-      organizeInventoryByBrandAndModel(result.inventory);
+    inventoryItem.getValue().then((camIds) => {
+      organizeInventoryByBrandAndModel(camIds);
+      setLoaded(true);
     });
   }, []);
 
   return (
     <div className="justify-center h-96 pt-2 overflow-y-auto scrollbar-hidden">
       {/* Title and Add Gear Button */}
-      <div className="flex justify-between align-center mb-2">
+      <div className="flex justify-between items-center mb-2">
         <div className="text-lg">Inventory</div>
         <button
           className="bg-cyan-900 hover:bg-cyan-700 active:bg-cyan-500 text-white px-2 py-1 rounded-lg transition duration-200"
@@ -58,13 +63,16 @@ export default function Inventory({ navigateToUpdateGear }: InventoryProps) {
           Update Gear
         </button>
       </div>
+      {loaded && organizedInventory.length === 0 && (
+        <div className="text-sm text-gray-500">No gear saved yet</div>
+      )}
       {/* Accordion */}
       <div>
         {organizedInventory.map((modelGroup, index) => (
-          <div className="flex flex-col w-full py-4 items-startr" key={index}>
+          <div className="flex flex-col w-full py-4" key={index}>
             {/* Accordion Header */}
             <div
-              className="flex justify-between align-items text-sm px-2 border rounded-sm border-red-700 cursor-pointer"
+              className="flex justify-between items-center text-sm px-2 border rounded-sm border-red-700 cursor-pointer"
               onClick={() => toggleAccordion(index)}
             >
               <div className="flex items-start">

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Cam } from '@/cam-database/types';
 import { database } from '@/cam-database/database';
+import { inventoryItem } from '@/storage';
 
 type UpdateGearProps = {
   navigateToInventory: () => void;
 };
 
 export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
-  const [currentInventory, setCurrentInventory] = useState<Cam[]>([]);
+  const [currentInventory, setCurrentInventory] = useState<string[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState({
-    brand: [],
-    model: [],
+    brand: '',
+    model: '',
   });
 
   const handleFormChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,14 +19,14 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
 
     setFormState((prevState) => ({
       ...prevState,
-      [id]: value ? value.split('|') : [],
+      [id]: value,
     }));
 
     // Reset dependent dropdowns when a higher-level dropdown changes
     if (id === 'brand') {
       setFormState((prevState) => ({
         ...prevState,
-        model: [],
+        model: '',
       }));
     }
   };
@@ -33,18 +34,19 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    // Save the updated inventory back to Chrome storage
-    chrome.storage.local.set({ inventory: currentInventory }, () => {
-      navigateToInventory();
-    });
+    inventoryItem.setValue(currentInventory).then(navigateToInventory);
   };
 
   useEffect(() => {
-    // Get inventory from Chrome storage
-    chrome.storage.local.get(['inventory'], (result) => {
-      setCurrentInventory(result.inventory || []);
+    inventoryItem.getValue().then((camIds) => {
+      setCurrentInventory(camIds);
+      setLoaded(true);
     });
   }, []);
+
+  // Don't show the form until the saved inventory has loaded, so edits and
+  // Save can't be overwritten by (or overwrite) the load
+  if (!loaded) return null;
 
   return (
     <div className="flex flex-col justify-center p-2">
@@ -56,20 +58,20 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
         </label>
         <select
           id="brand"
-          value={formState.brand.join('|')}
+          value={formState.brand}
           onChange={handleFormChange}
           className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
         >
           <option value="">--</option>
           {database.brands.map((brand) => (
-            <option key={brand.id} value={`${brand.id}|${brand.name}`}>
+            <option key={brand.id} value={brand.id}>
               {brand.name}
             </option>
           ))}
         </select>
       </div>
       {/* Model Dropdown */}
-      {formState.brand[0] && (
+      {formState.brand && (
         <div className="py-2">
           <label
             htmlFor="model"
@@ -79,16 +81,16 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
           </label>
           <select
             id="model"
-            value={formState.model.join('|')}
+            value={formState.model}
             onChange={handleFormChange}
             className="mt-1 p-1 w-full rounded-sm border border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
           >
             <option value="">--</option>
             {(
-              database.brands.find((brand) => brand.id === formState.brand[0])
+              database.brands.find((brand) => brand.id === formState.brand)
                 ?.models ?? []
             ).map((model) => (
-              <option key={model.id} value={`${model.id}|${model.name}`}>
+              <option key={model.id} value={model.id}>
                 {model.name}
               </option>
             ))}
@@ -96,13 +98,13 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
         </div>
       )}
       {/* Cam Checkboxes */}
-      {formState.model[0] && (
+      {formState.model && (
         <div className="py-2">
           <label htmlFor="cam" className="block text-sm font-medium text-black">
             Cams
           </label>
           {database.cams
-            .filter((cam) => cam.model_id === formState.model[0])
+            .filter((cam) => cam.model_id === formState.model)
             .map((cam) => (
               <div className="flex items-center" key={cam.id}>
                 <input
@@ -110,21 +112,13 @@ export default function UpdateGear({ navigateToInventory }: UpdateGearProps) {
                   type="checkbox"
                   id={cam.id}
                   value={cam.id}
-                  checked={currentInventory.some(
-                    (camInInventory) => camInInventory.id === cam.id
-                  )}
+                  checked={currentInventory.includes(cam.id)}
                   onChange={(e) => {
                     const { checked, value } = e.target;
-                    const selectedCam = database.cams.find(
-                      (cam) => cam.id === value
-                    );
-
-                    if (!selectedCam) return;
-
                     setCurrentInventory((prevInventory) =>
                       checked
-                        ? [...prevInventory, selectedCam]
-                        : prevInventory.filter((cam) => cam.id !== value)
+                        ? [...prevInventory, value]
+                        : prevInventory.filter((id) => id !== value)
                     );
                   }}
                 />

@@ -26,3 +26,10 @@ CLAUDE.local.md
 # Agent skills: install with `npx skills install` (see AGENTS.md)
 .agents/
 .claude/skills/
+
+# Playwright CLI snapshots
+.playwright-cli/
+
+# Playwright test output
+test-results/
+playwright-report/
